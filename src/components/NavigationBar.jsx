@@ -11,10 +11,11 @@ import { Menu, Xmark } from "iconoir-react";
 
 const NavList = () => {
   const LINKS = [
-    { title: "Pages", href: "#" },
-    { title: "Account", href: "#" },
-    { title: "Blocks", href: "#" },
-    { title: "Docs", href: "#" },
+    { title: "Home", href: "#home" },
+    { title: "Service", href: "#service" },
+    { title: "Advertisement", href: "#advertisement" },
+    { title: "About Us", href: "#about" },
+    { title: "Contact", href: "#contact" },
   ];
   return (
     <ul className="mt-4 flex flex-col gap-x-3 gap-y-1.5 lg:mt-0 lg:flex-row lg:items-center">
@@ -65,17 +66,16 @@ const NavigationBar = () => {
                 </Button>
               </div>
             </div>
-            <IconButton
+            <Dialog.Trigger
+              as={Button}
               size="sm"
               variant="ghost"
               color="secondary"
               onClick={() => setOpenNav(!openNav)}
               className="ml-auto grid lg:hidden"
             >
-              <Dialog.Trigger>
-                <Menu className="h-6 w-6" />
-              </Dialog.Trigger>
-            </IconButton>
+              <Menu className="h-6 w-6" />
+            </Dialog.Trigger>
           </div>
           <Dialog.Overlay className="lg:hidden">
             <Dialog.Content className="!w-72 sm:!w-96 top-52 sm:left-2/3">
@@ -96,7 +96,7 @@ const NavigationBar = () => {
               <Button size="sm" variant="outline" className="mt-4 w-full">
                 Sign In
               </Button>
-              <Button size="sm" className="mt-2 lg:mt-4 w-full bg-orange-500">
+              <Button size="sm" className="mt-2 lg:mt-4 w-full">
                 Sign Up
               </Button>
             </Dialog.Content>

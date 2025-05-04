@@ -5,7 +5,7 @@ import contactBg from "../../../assets/images/contactBg.jpeg";
 
 const Contact = () => {
   return (
-    <div className="py-28 relative">
+    <div className="py-20 md:py-28 relative">
       <div className="absolute inset-0">
         <img
           src={contactBg}
@@ -19,83 +19,93 @@ const Contact = () => {
           Get in touch
         </h2>
         <hr className="bg-orange-400 h-1 border-none w-32 mx-auto mb-14" />
-        <div className="px-4 max-w-[1350px] mx-auto flex gap-20 justify-center items-center">
+        <div className="px-4 flex flex-col md:flex-row gap-10 md:gap-20 justify-center items-center">
           <img
-            className="max-w-[28rem] rounded-xl"
+            className="sm:w-[20rem] lg:w-[28rem] rounded-xl"
             src={contactImg}
             alt="Contact Image"
           />
-          <div className="sm:min-w-2xl mb-2">
-            <div className="flex gap-10">
-              {/* first name  */}
-              <div className="mb-4 space-y-1.5">
+          <div className="xl:min-w-[35rem] mb-2">
+            <form>
+              <div className="flex gap-10">
+                {/* first name  */}
+                <div className="mb-2 md:mb-4 space-y-1.5 w-full">
+                  <Typography
+                    as="label"
+                    htmlFor="first_name"
+                    type="small"
+                    className="font-semibold text-white"
+                  >
+                    First Name
+                  </Typography>
+                  <Input
+                    required
+                    className="w-full !placeholder-white text-white"
+                    id="first_name"
+                    color="success"
+                    placeholder="first name"
+                  />
+                </div>
+                {/* last name  */}
+                <div className="mb-2 md:mb-4 space-y-1.5 w-full">
+                  <Typography
+                    as="label"
+                    htmlFor="last_name"
+                    type="small"
+                    className="font-semibold text-white"
+                  >
+                    Last Name
+                  </Typography>
+                  <Input
+                    required
+                    className="w-full !placeholder-white text-white"
+                    id="last_name"
+                    color="success"
+                    placeholder="last name"
+                  />
+                </div>
+              </div>
+              {/* email  */}
+              <div className="mb-2 md:mb-4 space-y-1.5">
                 <Typography
                   as="label"
-                  htmlFor="first_name"
+                  htmlFor="email"
                   type="small"
-                  color="default"
-                  className="font-semibold"
+                  className="font-semibold text-white"
                 >
-                  First Name
+                  Email
                 </Typography>
                 <Input
-                  className="w-full"
-                  id="first_name"
-                  placeholder="first name"
+                  required
+                  className="w-full !placeholder-white text-white"
+                  id="email"
+                  type="email"
+                  color="success"
+                  placeholder="someone@example.com"
                 />
               </div>
-              {/* last name  */}
-              <div className="mb-4 space-y-1.5">
+              {/* Message  */}
+              <div className="mb-2 md:mb-4 space-y-1.5">
                 <Typography
                   as="label"
-                  htmlFor="last_name"
+                  htmlFor="message"
                   type="small"
-                  color="default"
-                  className="font-semibold"
+                  className="font-semibold text-white"
                 >
-                  Last Name
+                  Email
                 </Typography>
-                <Input
-                  className="w-full"
-                  id="last_name"
-                  placeholder="last name"
+                <Textarea
+                  required
+                  className="!placeholder-white text-white"
+                  id="message"
+                  color="success"
+                  placeholder="Message here..."
                 />
               </div>
-            </div>
-            {/* email  */}
-            <div className="mb-4 space-y-1.5">
-              <Typography
-                as="label"
-                htmlFor="email"
-                type="small"
-                color="default"
-                className="font-semibold"
-              >
-                Email
-              </Typography>
-              <Input
-                className="w-full"
-                id="email"
-                type="email"
-                placeholder="someone@example.com"
-              />
-            </div>
-            {/* Message  */}
-            <div className="mb-4 space-y-1.5">
-              <Typography
-                as="label"
-                htmlFor="message"
-                type="small"
-                color="default"
-                className="font-semibold"
-              >
-                Email
-              </Typography>
-              <Textarea id="message" placeholder="Message here..." />
-            </div>
-            <Button className="w-full" variant="outline">
-              Send Message
-            </Button>
+              <Button className="w-full bg-green-600 px-8 py-3 font-bold hover:bg-green-700 border-none">
+                Send Message
+              </Button>
+            </form>
           </div>
         </div>
       </div>

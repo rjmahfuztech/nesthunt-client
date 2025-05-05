@@ -42,3 +42,42 @@
     transform: rotate(0.5turn);
   }
 }
+
+/* Swiper Slide Thumb active */
+.mySwiper .swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+/* Swiper button custom style  */
+.swiper-button-prev,
+.swiper-button-next {
+  width: 40px !important;
+  height: 40px !important;
+  color: black !important;
+  background-color: white;
+  border-radius: 100%;
+}
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background-color: rgb(192, 205, 191);
+  transition: 0.2s;
+}
+
+/* Increase arrows size */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 20px !important;
+  font-weight: 700;
+}
+
+@media screen and (max-width: 620px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    font-size: 16px !important;
+  }
+}

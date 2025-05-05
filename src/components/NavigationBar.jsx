@@ -57,16 +57,20 @@ const NavigationBar = () => {
             <div className="hidden lg:ml-auto lg:block">
               <div className="flex gap-4">
                 <NavList />
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="hidden lg:inline-block"
-                >
-                  Sign In
-                </Button>
-                <Button size="sm" className="hidden lg:inline-block ">
-                  Sign Up
-                </Button>
+                <Link to="/login">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="hidden lg:inline-block"
+                  >
+                    Login
+                  </Button>
+                </Link>
+                <Link to="/sign-up">
+                  <Button size="sm" className="hidden lg:inline-block ">
+                    Sign Up
+                  </Button>
+                </Link>
               </div>
             </div>
             <Dialog.Trigger
@@ -96,12 +100,17 @@ const NavigationBar = () => {
                 />
               </Dialog.DismissTrigger>
               <NavList />
-              <Button size="sm" variant="outline" className="mt-4 w-full">
-                Sign In
-              </Button>
-              <Button size="sm" className="mt-2 lg:mt-4 w-full">
-                Sign Up
-              </Button>
+
+              <Link to="/login">
+                <Button size="sm" variant="outline" className="mt-4 w-full">
+                  Login
+                </Button>
+              </Link>
+              <Link to="/sign-up">
+                <Button size="sm" className="mt-2 lg:mt-4 w-full">
+                  Sign Up
+                </Button>
+              </Link>
             </Dialog.Content>
           </Dialog.Overlay>
         </Dialog>

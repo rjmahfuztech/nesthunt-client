@@ -3,31 +3,34 @@ import {
   Button,
   IconButton,
   Typography,
-  Collapse,
   Navbar,
   Dialog,
 } from "@material-tailwind/react";
 import { Menu, Xmark } from "iconoir-react";
+import { Link } from "react-router";
 
 const NavList = () => {
-  const LINKS = [
-    { title: "Home", href: "#home" },
+  const navLinks = [
+    { title: "Home", to: "/" },
     { title: "Service", href: "#service" },
-    { title: "Advertisement", href: "#advertisement" },
+    { title: "Rent Catalog", to: "/rent-catalog" },
+    { title: "Submit Advertise", to: "/submit-advertise" },
+    { title: "Dashboard", to: "/dashboard" },
     { title: "About Us", href: "#about" },
     { title: "Contact", href: "#contact" },
   ];
   return (
     <ul className="mt-4 flex flex-col gap-x-3 gap-y-1.5 lg:mt-0 lg:flex-row lg:items-center">
-      {LINKS.map(({ title, href }) => (
-        <li key={title}>
+      {navLinks.map((nav, index) => (
+        <li key={index}>
           <Typography
-            as="a"
-            href={href}
+            as={nav?.to ? Link : "a"}
+            to={nav?.to}
+            href={nav?.href}
             type="small"
             className="flex items-center gap-x-2 p-1 hover:text-primary"
           >
-            {title}
+            {nav.title}
           </Typography>
         </li>
       ))}
@@ -44,8 +47,8 @@ const NavigationBar = () => {
         <Dialog size="xs">
           <div className="flex items-center text-gray-500">
             <Typography
-              as="a"
-              href="#"
+              as={Link}
+              to="/"
               type="small"
               className="ml-2 mr-2 block py-1 text-lg font-semibold"
             >

@@ -11,7 +11,7 @@ const AdvertisementDetails = ({ advertisement, category, details }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
           <h3 className="flex gap-2 items-center text-lg md:text-xl">
             <LotOfCash strokeWidth={1.5} />{" "}
-            <span>${advertisement.rental_amount}</span>
+            <span>${advertisement.rental_amount}/Month</span>
           </h3>
           {advertisement.is_rented ? (
             <h3 className="flex gap-2 items-center text-lg md:text-xl">

@@ -9,6 +9,7 @@ import {
   Square3dThreePoints,
 } from "iconoir-react";
 import AdvertisementDetails from "../components/AdvertisementDetails/AdvertisementDetails";
+import Review from "../components/Review/Review";
 
 const Advertisements = () => {
   const { advertiseId } = useParams();
@@ -65,7 +66,7 @@ const Advertisements = () => {
   return (
     <div className="max-w-[1350px] mx-auto px-4">
       <AdvertisementImageGallery images={advertisement.images} />
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8 my-10">
+      <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-8 my-10">
         {/* Advertisement Details  */}
         <AdvertisementDetails
           advertisement={advertisement}
@@ -73,7 +74,9 @@ const Advertisements = () => {
           details={details}
         />
         {/* Advertisement Reviews  */}
-        <div className="text-center">Review</div>
+        <div className="mt-10 lg:mt-0">
+          <Review />
+        </div>
       </div>
     </div>
   );

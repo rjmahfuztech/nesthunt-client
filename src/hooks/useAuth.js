@@ -4,6 +4,7 @@ import apiClient from "../services/apiClient";
 const useAuth = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const [authTokens, setAuthTokens] = useState(() => {
     const token = localStorage.getItem("authTokens");
@@ -13,6 +14,7 @@ const useAuth = () => {
   // Fetch User Profile
   useEffect(() => {
     const userProfile = async () => {
+      setLoading(true);
       try {
         const res = await apiClient.get("/auth/users/me/", {
           headers: { Authorization: `JWT ${authTokens?.access}` },
@@ -20,12 +22,15 @@ const useAuth = () => {
         setUser(res.data);
       } catch (error) {
         console.log("user fetch error: ", error.response.data?.detail);
+      } finally {
+        setLoading(false);
       }
     };
     // getting user profile after successfully login
     if (authTokens) userProfile();
     else {
       setUser(null);
+      setLoading(false);
     }
   }, [authTokens]);
 
@@ -45,7 +50,7 @@ const useAuth = () => {
     }
   };
 
-  return { loginUser, errorMessage, setErrorMessage, user };
+  return { loginUser, errorMessage, setErrorMessage, user, loading };
 };
 
 export default useAuth;

@@ -29,7 +29,7 @@ const Login = () => {
     try {
       const res = await loginUser(data);
       if (res.success) {
-        console.log(res);
+        navigate("/dashboard");
       }
     } catch (error) {
       console.log(error);

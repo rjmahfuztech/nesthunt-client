@@ -1,4 +1,5 @@
 import { Button, Input, Typography, Card } from "@material-tailwind/react";
+import { XmarkCircle } from "iconoir-react";
 import { Link } from "react-router";
 
 const LoginForm = ({
@@ -14,15 +15,18 @@ const LoginForm = ({
       <Card.Header
         as={Card}
         color="primary"
-        className="grid h-24 place-items-center shadow-none"
+        className="grid min-h-24 max-h-36 place-items-center shadow-none"
       >
         <Typography as="span" type="h4" className="text-primary-foreground">
           Login
         </Typography>
         {/* Show error if login not success  */}
         {errorMessage && (
-          <p className="my-2 text-sm font-semibold text-red-500 bg-red-200 rounded-lg p-3">
-            Error! {errorMessage}
+          <p className="my-2 text-sm font-semibold text-red-500 bg-red-200 rounded-lg p-3 flex gap-2 items-center">
+            <span className="flex gap-2 items-center">
+              <XmarkCircle /> Failed!
+            </span>
+            <span>{errorMessage}</span>
           </p>
         )}
       </Card.Header>
@@ -78,9 +82,15 @@ const LoginForm = ({
               </p>
             )}
           </div>
-          <Typography className="text-foreground mb-4 ml-2 hover:text-black transition-colors cursor-pointer">
-            Forgot Password?
-          </Typography>
+          <div className="mb-4">
+            <Typography
+              as={Link}
+              to="/reset-password"
+              className="text-foreground ml-2 hover:text-black transition-colors cursor-pointer underline"
+            >
+              Forgot Password?
+            </Typography>
+          </div>
           <Button disabled={loading} isFullWidth>
             {loading ? "Logging In..." : "Login"}
           </Button>
@@ -97,7 +107,7 @@ const LoginForm = ({
             as={Link}
             to="/sign-up"
             color="primary"
-            className="font-bold hover:text-gray-600 transition-colors"
+            className="font-bold hover:text-gray-600 transition-colors underline"
           >
             Sign up
           </Typography>

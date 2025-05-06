@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
+import { handleApiError } from "../components/Messages/Alert";
 
 const useAuth = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -68,6 +69,42 @@ const useAuth = () => {
     }
   };
 
+  // Reset Password
+  const resetPassword = async (email) => {
+    try {
+      const response = await apiClient.post(
+        "/auth/users/reset_password/",
+        email
+      );
+      if (response.status == 204) {
+        return {
+          success: true,
+          message: "We have sent you a password recovery link to your email",
+        };
+      }
+    } catch (error) {
+      handleApiError(error);
+    }
+  };
+
+  // Reset Password Confirm
+  const resetPasswordConfirm = async (uid, token, new_password) => {
+    try {
+      const response = await apiClient.post(
+        "/auth/users/reset_password_confirm/",
+        { uid, token, new_password }
+      );
+      if (response.status == 204) {
+        return {
+          success: true,
+          message: "Your password has been successfully reseated.",
+        };
+      }
+    } catch (error) {
+      handleApiError(error);
+    }
+  };
+
   return {
     user,
     loading,
@@ -75,6 +112,8 @@ const useAuth = () => {
     setErrorMessage,
     loginUser,
     registerUser,
+    resetPassword,
+    resetPasswordConfirm,
   };
 };
 

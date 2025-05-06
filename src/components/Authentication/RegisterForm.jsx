@@ -203,7 +203,7 @@ const RegisterForm = ({
             as={Link}
             to="/login"
             color="primary"
-            className="font-bold hover:text-gray-600 transition-colors"
+            className="font-bold hover:text-gray-600 transition-colors underline"
           >
             Login
           </Typography>

@@ -82,7 +82,7 @@ const LoginForm = ({
             Forgot Password?
           </Typography>
           <Button disabled={loading} isFullWidth>
-            {loading ? "Logging In" : "Login"}
+            {loading ? "Logging In..." : "Login"}
           </Button>
         </form>
       </Card.Body>

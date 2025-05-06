@@ -2,7 +2,6 @@ import {
   Dialog,
   Button,
   Input,
-  Checkbox,
   Typography,
   IconButton,
   Card,
@@ -72,15 +71,15 @@ const RegisterForm = () => {
                   <div className="mb-2 mt-2 space-y-1.5 w-full">
                     <Typography
                       as="label"
-                      htmlFor="first_name"
+                      htmlFor="last_name"
                       type="small"
                       color="default"
                       className="font-semibold"
                     >
-                      First Name
+                      Last Name
                     </Typography>
                     <Input
-                      id="first_name"
+                      id="last_name"
                       type="text"
                       placeholder="First name"
                     />

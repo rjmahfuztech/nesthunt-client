@@ -49,8 +49,33 @@ const useAuth = () => {
       setErrorMessage(error.response.data?.detail);
     }
   };
+  // Register A User
+  const registerUser = async (userData) => {
+    setErrorMessage("");
+    try {
+      const response = await apiClient.post("/auth/users/", userData);
+      if (response.status == 201)
+        return {
+          success: true,
+          message:
+            "Registration successful. A confirmation mail has been sent! Please check your E-mail.",
+        };
+    } catch (error) {
+      if (error.response && error.response.data) {
+        const errorMsg = Object.values(error.response.data).flat().join("\n");
+        setErrorMessage(errorMsg);
+      } else setErrorMessage("Registration Failed! Try again.");
+    }
+  };
 
-  return { loginUser, errorMessage, setErrorMessage, user, loading };
+  return {
+    user,
+    loading,
+    errorMessage,
+    setErrorMessage,
+    loginUser,
+    registerUser,
+  };
 };
 
 export default useAuth;

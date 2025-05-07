@@ -11,6 +11,9 @@ const RegisterForm = ({
   errorMessage,
   successMsg,
   loading,
+  resendEmail,
+  handleResendEmail,
+  sending,
 }) => {
   return (
     <Card className="border-none mt-10">
@@ -193,6 +196,27 @@ const RegisterForm = ({
         </form>
       </Card.Body>
       <Card.Footer className="text-center">
+        {resendEmail && (
+          <Typography
+            type="small"
+            className="my-1 flex items-center justify-center gap-1 text-foreground mb-3"
+          >
+            Didn't get mail?
+            <button
+              onClick={handleResendEmail}
+              disabled={loading}
+              // type="small"
+              color="primary"
+              className={`font-bold hover:text-gray-600 transition-colors ${
+                sending
+                  ? "cursor-not-allowed text-gray-500"
+                  : "cursor-pointer underline"
+              }`}
+            >
+              {loading ? "Resending..." : "Resend email"}
+            </button>
+          </Typography>
+        )}
         <Typography
           type="small"
           className="my-1 flex items-center justify-center gap-1 text-foreground"

@@ -69,6 +69,23 @@ const useAuth = () => {
     }
   };
 
+  // Resend account activation email
+  const resendActivationEmail = async (email) => {
+    try {
+      const response = await apiClient.post("/auth/users/resend_activation/", {
+        email,
+      });
+      if (response.status == 204) {
+        return {
+          success: true,
+          message: "Activation E-mail resent. Please check your mail again.",
+        };
+      }
+    } catch (error) {
+      setErrorMessage(error.response.data?.detail);
+    }
+  };
+
   // Reset Password
   const resetPassword = async (email) => {
     try {
@@ -114,6 +131,7 @@ const useAuth = () => {
     registerUser,
     resetPassword,
     resetPasswordConfirm,
+    resendActivationEmail,
   };
 };
 

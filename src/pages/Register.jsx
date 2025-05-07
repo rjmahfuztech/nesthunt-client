@@ -8,10 +8,13 @@ import useAuthContext from "../hooks/useAuthContext";
 
 const Register = () => {
   const [open, setOpen] = useState(true);
-  const { registerUser, errorMessage, setErrorMessage } = useAuthContext();
+  const { registerUser, resendActivationEmail, errorMessage, setErrorMessage } =
+    useAuthContext();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
+  const [resendEmail, setResendEmail] = useState("");
+  const [sending, setSending] = useState(false);
 
   // Handle close modal
   const handleClose = () => {
@@ -35,6 +38,8 @@ const Register = () => {
       const res = await registerUser(data);
       if (res.success) {
         setSuccessMsg(res.message);
+        // store email to resend mail
+        if (data.email) setResendEmail(data.email);
       }
     } catch (error) {
       console.log(error);
@@ -49,6 +54,23 @@ const Register = () => {
       setErrorMessage("");
     }, 8000);
   }
+
+  // Resend account activation email
+  const handleResendEmail = async () => {
+    setSuccessMsg("");
+    setSending(true);
+    try {
+      const res = await resendActivationEmail(resendEmail);
+      if (res.success) {
+        setSuccessMsg(res.message);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSending(false);
+    }
+  };
+
   return (
     <Dialog open={open} handler={handleClose} size="sm">
       <Dialog.Overlay className="bg-neutral-400">
@@ -73,6 +95,9 @@ const Register = () => {
             errorMessage={errorMessage}
             successMsg={successMsg}
             loading={loading}
+            resendEmail={resendEmail}
+            handleResendEmail={handleResendEmail}
+            sending={sending}
           />
         </Dialog.Content>
       </Dialog.Overlay>

@@ -27,6 +27,11 @@ const ResetPassword = () => {
           icon: "success",
           allowOutsideClick: false,
           confirmButtonText: "Back to home",
+          customClass: {
+            confirmButton:
+              "bg-black text-white hover:bg-gray-800 transition-colors px-4 py-2 rounded-md",
+          },
+          buttonsStyling: false,
         }).then((result) => {
           if (result.isConfirmed) navigate("/");
         });

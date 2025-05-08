@@ -28,7 +28,7 @@ const DashboardLayout = () => {
     }
   };
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-slate-100">
       {!isMobile && (
         <div className="w-64 xl:w-72">
           <DashboardSidebar />

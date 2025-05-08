@@ -5,7 +5,7 @@ import { handleApiError } from "../components/Messages/Alert";
 const useAuth = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [authTokens, setAuthTokens] = useState(() => {
     const token = localStorage.getItem("authTokens");

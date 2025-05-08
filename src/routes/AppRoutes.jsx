@@ -10,6 +10,7 @@ import Dashboard from "../pages/Dashboard";
 import ResetPassword from "../components/Authentication/ResetPassword";
 import ResetPasswordConfirm from "../components/Authentication/ResetPasswordConfirm";
 import AccountActivate from "../components/Authentication/AccountActivate";
+import DashboardLayout from "../layouts/DashboardLayout";
 
 const AppRoutes = () => {
   return (
@@ -36,10 +37,12 @@ const AppRoutes = () => {
           path="dashboard"
           element={
             <PrivateRoutes>
-              <Dashboard />
+              <DashboardLayout />
             </PrivateRoutes>
           }
-        ></Route>
+        >
+          <Route index element={<Dashboard />} />
+        </Route>
       </Routes>
     </>
   );

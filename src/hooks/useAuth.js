@@ -50,6 +50,13 @@ const useAuth = () => {
       setErrorMessage(error.response.data?.detail);
     }
   };
+
+  // Logout User
+  const handleLogOut = () => {
+    localStorage.removeItem("authTokens");
+    setAuthTokens(null);
+    setUser(null);
+  };
   // Register A User
   const registerUser = async (userData) => {
     setErrorMessage("");
@@ -128,6 +135,7 @@ const useAuth = () => {
     errorMessage,
     setErrorMessage,
     loginUser,
+    handleLogOut,
     registerUser,
     resetPassword,
     resetPasswordConfirm,

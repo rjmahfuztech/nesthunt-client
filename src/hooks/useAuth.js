@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
 import { handleApiError } from "../components/Messages/Alert";
+import authApiClient from "../services/authApiClient";
 
 const useAuth = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -34,6 +35,16 @@ const useAuth = () => {
       setLoading(false);
     }
   }, [authTokens]);
+
+  // Update User Profile
+  const updateProfile = async (userData) => {
+    try {
+      const response = await authApiClient.put("/auth/users/me/", userData);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Login User
   const loginUser = async (userData) => {
@@ -135,6 +146,7 @@ const useAuth = () => {
     errorMessage,
     setErrorMessage,
     loginUser,
+    updateProfile,
     handleLogOut,
     registerUser,
     resetPassword,

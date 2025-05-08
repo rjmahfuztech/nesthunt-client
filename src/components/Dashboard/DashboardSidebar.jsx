@@ -1,15 +1,8 @@
 import { useState } from "react";
-import {
-  Card,
-  List,
-  Typography,
-  Chip,
-  Collapse,
-} from "@material-tailwind/react";
+import { Card, List, Typography, Collapse } from "@material-tailwind/react";
 import {
   LogOut,
   NavArrowRight,
-  SendDiagonal,
   Settings,
   UserCircle,
   Dashboard,
@@ -20,17 +13,16 @@ import {
   Heart,
   Cube,
   SelectEdge3d,
+  RedoCircle,
 } from "iconoir-react";
 import { Link } from "react-router";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const DashboardSidebar = () => {
-  const Links = [
-    {
-      icon: SendDiagonal,
-      title: "Sent",
-      href: "#",
-    },
-  ];
+  const { handleLogOut, user } = useAuthContext();
+  const [isOpen, setIsOpen] = useState(false);
+
+  // admin menu
   const adminMenus = [
     { icon: Dashboard, title: "Dashboard", to: "/dashboard" },
     { icon: GridPlus, title: "Categories", to: "/dashboard/categories" },
@@ -61,7 +53,27 @@ const DashboardSidebar = () => {
     },
     { icon: Heart, title: "Favorites", to: "/dashboard/favorites" },
   ];
-  const [isOpen, setIsOpen] = useState(false);
+  // user menu
+  const userMenus = [
+    {
+      icon: Cube,
+      title: "My Advertisements",
+      to: "/dashboard/my-advertisements",
+    },
+    {
+      icon: PlusCircle,
+      title: "Add Advertisement",
+      to: "/dashboard/advertisement/add",
+    },
+    {
+      icon: SelectEdge3d,
+      title: "Rent Requests",
+      to: "/dashboard/rent-requests",
+    },
+    { icon: Heart, title: "Favorites", to: "/dashboard/favorites" },
+  ];
+
+  const navMenus = user.is_staff ? adminMenus : userMenus;
 
   return (
     <>
@@ -99,13 +111,19 @@ const DashboardSidebar = () => {
                     <List.ItemStart>
                       <Settings className="h-[18px] w-[18px]" />
                     </List.ItemStart>
-                    Edit Profile
+                    Update Profile
+                  </List.Item>
+                  <List.Item as={Link} to="/dashboard/change-password">
+                    <List.ItemStart>
+                      <Settings className="h-[18px] w-[18px]" />
+                    </List.ItemStart>
+                    Change Password
                   </List.Item>
                 </List>
               </Collapse>
               <hr className="-mx-3 my-3 border-secondary" />
               {/* eslint-disable-next-line no-unused-vars */}
-              {adminMenus.map(({ icon: Icon, title, to }) => (
+              {navMenus.map(({ icon: Icon, title, to }) => (
                 <List.Item as={Link} key={title} to={to}>
                   <List.ItemStart>
                     <Icon className="h-[18px] w-[18px]" />
@@ -114,11 +132,24 @@ const DashboardSidebar = () => {
                 </List.Item>
               ))}
               <hr className="-mx-3 my-3 border-secondary" />
-              <List.Item className="text-error hover:bg-error/10 hover:text-error focus:bg-error/10 focus:text-error">
+              <List.Item
+                onClick={handleLogOut}
+                className="text-error hover:bg-error/10 hover:text-error focus:bg-error/10 focus:text-error"
+              >
                 <List.ItemStart>
                   <LogOut className="h-[18px] w-[18px]" />
                 </List.ItemStart>
                 Logout
+              </List.Item>
+              <List.Item
+                as={Link}
+                to="/"
+                className="text-error hover:bg-error/10 hover:text-error focus:bg-error/10 focus:text-error"
+              >
+                <List.ItemStart>
+                  <RedoCircle className="h-[18px] w-[18px]" />
+                </List.ItemStart>
+                Back Home
               </List.Item>
             </List>
           </Card.Body>

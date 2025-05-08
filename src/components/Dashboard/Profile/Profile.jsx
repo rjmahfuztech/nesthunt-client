@@ -1,0 +1,41 @@
+import { Card, Typography } from "@material-tailwind/react";
+import useAuthContext from "../../../hooks/useAuthContext";
+import { NavArrowRightSolid } from "iconoir-react";
+
+const Profile = () => {
+  const { user } = useAuthContext();
+  return (
+    <Card className="max-w-md mx-auto">
+      <Card.Header className="mx-3 mt-3 text-center">
+        <img
+          className="w-28 h-28 rounded-full mx-auto object-cover"
+          src={user?.profile_image}
+          alt="Profile Picture"
+        />
+        <Typography type="h5" className="mt-2">
+          {user?.first_name} {user?.last_name}
+        </Typography>
+      </Card.Header>
+
+      <Card.Body className="ml-2">
+        <Typography className="my-1 text-xl font-semibold">
+          Profile Information:
+        </Typography>
+        <Typography className="font-semibold mt-2">Email:</Typography>
+        <Typography className="flex gap-1 items-center">
+          <NavArrowRightSolid /> {user?.email}
+        </Typography>
+        <Typography className="font-semibold mt-2">Address:</Typography>
+        <Typography className="flex gap-1 items-center">
+          <NavArrowRightSolid /> {user?.address}
+        </Typography>
+        <Typography className="font-semibold mt-2">Phone Number:</Typography>
+        <Typography className="flex gap-1 items-center">
+          <NavArrowRightSolid /> {user?.phone_number}
+        </Typography>
+      </Card.Body>
+    </Card>
+  );
+};
+
+export default Profile;

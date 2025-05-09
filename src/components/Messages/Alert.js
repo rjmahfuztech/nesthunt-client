@@ -3,7 +3,7 @@ import "./Alert.css";
 // Toast alert
 export const Toast = Swal.mixin({
   toast: true,
-  position: "center",
+  position: "top",
   iconColor: "white",
   customClass: {
     popup: "colored-toast",

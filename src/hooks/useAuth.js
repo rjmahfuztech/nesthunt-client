@@ -65,6 +65,19 @@ const useAuth = () => {
     }
   };
 
+  // Change User password
+  const changePassword = async (userPassword) => {
+    try {
+      const response = await authApiClient.post(
+        "/auth/users/set_password/",
+        userPassword
+      );
+      if (response.status == 204) return { success: true };
+    } catch (error) {
+      handleApiError(error);
+    }
+  };
+
   // Login User
   const loginUser = async (userData) => {
     setErrorMessage("");
@@ -167,6 +180,7 @@ const useAuth = () => {
     loginUser,
     updateProfile,
     updateProfilePicture,
+    changePassword,
     handleLogOut,
     registerUser,
     resetPassword,

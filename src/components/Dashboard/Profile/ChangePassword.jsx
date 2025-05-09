@@ -6,8 +6,11 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
+import useAuthContext from "../../../hooks/useAuthContext";
+import { Toast } from "../../Messages/Alert";
 
 const ChangePassword = () => {
+  const { changePassword } = useAuthContext();
   const {
     handleSubmit,
     register,
@@ -15,8 +18,19 @@ const ChangePassword = () => {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const handleChangePassword = (data) => {
-    console.log(data);
+  const handleChangePassword = async (data) => {
+    delete data.confirm_password;
+    try {
+      const res = await changePassword(data);
+      if (res.success) {
+        await Toast.fire({
+          icon: "success",
+          title: "Your password has been successfully changed",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Card className="max-w-[45rem] mx-auto">
@@ -108,7 +122,7 @@ const ChangePassword = () => {
               {...register("confirm_password", {
                 required: "Password confirmation is required",
                 validate: (value) =>
-                  value === watch("password") || "Password do not match",
+                  value === watch("new_password") || "Password do not match",
               })}
               color={`${errors.confirm_password ? "error" : "primary"}`}
               className={`${errors.confirm_password ? "border-red-500" : ""}`}
@@ -119,6 +133,7 @@ const ChangePassword = () => {
               </p>
             )}
           </div>
+          {/* Profile button  */}
           <Button isFullWidth disabled={isSubmitting}>
             {isSubmitting ? (
               <span className="flex items-center gap-3">
@@ -129,7 +144,6 @@ const ChangePassword = () => {
               "Change Password"
             )}
           </Button>
-          {/* Profile button  */}
         </form>
       </Card.Body>
     </Card>

@@ -36,7 +36,7 @@ const DashboardNavbar = ({ isDrawerOpen, setIsDrawerOpen }) => {
                 as={Avatar}
                 alt="profile-picture"
                 src={user?.profile_image}
-                className="cursor-pointer"
+                className="cursor-pointer object-contain bg-blue-950 p-1"
               />
               <Menu.Content>
                 <Menu.Item as={Link} to="/dashboard/profile">

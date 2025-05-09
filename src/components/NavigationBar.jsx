@@ -67,7 +67,7 @@ const NavigationBar = () => {
                       as={Avatar}
                       alt="profile-picture"
                       src={user?.profile_image}
-                      className="cursor-pointer"
+                      className="cursor-pointer object-contain bg-blue-950 p-1"
                     />
                     <Menu.Content className="z-[9999]">
                       <Menu.Item as={Link} to="/dashboard/profile">

@@ -8,7 +8,7 @@ const Profile = () => {
     <Card className="max-w-md mx-auto">
       <Card.Header className="mx-3 mt-3 text-center">
         <img
-          className="w-28 h-28 rounded-full mx-auto object-cover"
+          className="w-28 h-28 rounded-full mx-auto object-contain bg-blue-950 p-1"
           src={user?.profile_image}
           alt="Profile Picture"
         />

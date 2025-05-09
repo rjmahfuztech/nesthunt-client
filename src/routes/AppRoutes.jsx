@@ -14,6 +14,8 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import Profile from "../components/Dashboard/Profile/Profile";
 import UpdateProfile from "../components/Dashboard/Profile/UpdateProfile";
 import ChangePassword from "../components/Dashboard/Profile/ChangePassword";
+import Categories from "../pages/Categories";
+import AddCategory from "../components/Category/AddCategory";
 
 const AppRoutes = () => {
   return (
@@ -48,6 +50,8 @@ const AppRoutes = () => {
           <Route path="profile" element={<Profile />} />
           <Route path="update-profile" element={<UpdateProfile />} />
           <Route path="change-password" element={<ChangePassword />} />
+          <Route path="categories" element={<Categories />} />
+          <Route path="category/add" element={<AddCategory />} />
         </Route>
       </Routes>
     </>

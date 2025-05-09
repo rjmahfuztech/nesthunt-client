@@ -13,6 +13,7 @@ import AccountActivate from "../components/Authentication/AccountActivate";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Profile from "../components/Dashboard/Profile/Profile";
 import UpdateProfile from "../components/Dashboard/Profile/UpdateProfile";
+import ChangePassword from "../components/Dashboard/Profile/ChangePassword";
 
 const AppRoutes = () => {
   return (
@@ -46,6 +47,7 @@ const AppRoutes = () => {
           <Route index element={<Dashboard />} />
           <Route path="profile" element={<Profile />} />
           <Route path="update-profile" element={<UpdateProfile />} />
+          <Route path="change-password" element={<ChangePassword />} />
         </Route>
       </Routes>
     </>

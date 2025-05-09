@@ -40,9 +40,28 @@ const useAuth = () => {
   const updateProfile = async (userData) => {
     try {
       const response = await authApiClient.put("/auth/users/me/", userData);
-      console.log(response);
+      if (response.status == 200) return { success: true };
     } catch (error) {
-      console.log(error);
+      handleApiError(error);
+    }
+  };
+
+  // Update User Profile Picture
+  const updateProfilePicture = async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append("profile_image", file);
+      const response = await authApiClient.patch("/auth/users/me/", formData);
+      if (response.status == 200) {
+        // refresh the user
+        setUser((prevUser) => ({
+          ...prevUser,
+          profile_image: response.data.profile_image,
+        }));
+        return { success: true };
+      }
+    } catch (error) {
+      handleApiError(error);
     }
   };
 
@@ -147,6 +166,7 @@ const useAuth = () => {
     setErrorMessage,
     loginUser,
     updateProfile,
+    updateProfilePicture,
     handleLogOut,
     registerUser,
     resetPassword,

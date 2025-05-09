@@ -5,9 +5,12 @@ import {
   Typography,
   Navbar,
   Dialog,
+  Avatar,
+  Menu,
 } from "@material-tailwind/react";
-import { Menu, Xmark } from "iconoir-react";
+import { LogOut, MenuScale, UserCircle, Xmark } from "iconoir-react";
 import { Link } from "react-router";
+import useAuthContext from "../hooks/useAuthContext";
 
 const NavList = () => {
   const navLinks = [
@@ -40,6 +43,7 @@ const NavList = () => {
 
 const NavigationBar = () => {
   const [openNav, setOpenNav] = React.useState(false);
+  const { user, handleLogOut } = useAuthContext();
 
   return (
     <Navbar className="py-4 rounded-none w-full ">
@@ -50,27 +54,54 @@ const NavigationBar = () => {
               as={Link}
               to="/"
               type="small"
-              className="ml-2 mr-2 block py-1 text-lg font-semibold"
+              className="ml-2 mr-2 block py-1 text-lg md:text-xl text-black font-semibold"
             >
               NestHunt
             </Typography>
             <div className="hidden lg:ml-auto lg:block">
               <div className="flex gap-4">
                 <NavList />
-                <Link to="/login">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="hidden lg:inline-block"
-                  >
-                    Login
-                  </Button>
-                </Link>
-                <Link to="/sign-up">
-                  <Button size="sm" className="hidden lg:inline-block ">
-                    Sign Up
-                  </Button>
-                </Link>
+                {user ? (
+                  <Menu>
+                    <Menu.Trigger
+                      as={Avatar}
+                      alt="profile-picture"
+                      src={user?.profile_image}
+                      className="cursor-pointer"
+                    />
+                    <Menu.Content className="z-[9999]">
+                      <Menu.Item as={Link} to="/dashboard/profile">
+                        <UserCircle className="mr-2 h-[18px] w-[18px]" /> My
+                        Profile
+                      </Menu.Item>
+                      <hr className="!my-1 -mx-1 border-surface" />
+                      <Menu.Item
+                        onClick={handleLogOut}
+                        className="text-error hover:bg-error/10 hover:text-error focus:bg-error/10 focus:text-error dark:hover:text-error dark:focus:text-error"
+                      >
+                        <LogOut className="mr-2 h-[18px] w-[18px]" />
+                        Logout
+                      </Menu.Item>
+                    </Menu.Content>
+                  </Menu>
+                ) : (
+                  <>
+                    <Link to="/login">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="hidden lg:inline-block"
+                      >
+                        Login
+                      </Button>
+                    </Link>
+                    <Link to="/sign-up">
+                      <Button size="sm" className="hidden lg:inline-block ">
+                        Sign Up
+                      </Button>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
             <Dialog.Trigger
@@ -81,7 +112,7 @@ const NavigationBar = () => {
               onClick={() => setOpenNav(!openNav)}
               className="ml-auto grid lg:hidden"
             >
-              <Menu className="h-6 w-6" />
+              <MenuScale className="h-6 w-6" />
             </Dialog.Trigger>
           </div>
           <Dialog.Overlay className="lg:hidden">
@@ -99,18 +130,48 @@ const NavigationBar = () => {
                   className="h-5 w-5"
                 />
               </Dialog.DismissTrigger>
+              {user && (
+                <Menu>
+                  <div className="flex justify-center">
+                    <Menu.Trigger
+                      as={Avatar}
+                      alt="profile-picture"
+                      src={user?.profile_image}
+                      className="cursor-pointer"
+                    />
+                  </div>
+                  <Menu.Content className="z-[9999]">
+                    <Menu.Item as={Link} to="/dashboard/profile">
+                      <UserCircle className="mr-2 h-[18px] w-[18px]" /> My
+                      Profile
+                    </Menu.Item>
+                    <hr className="!my-1 -mx-1 border-surface" />
+                    <Menu.Item
+                      onClick={handleLogOut}
+                      className="text-error hover:bg-error/10 hover:text-error focus:bg-error/10 focus:text-error dark:hover:text-error dark:focus:text-error"
+                    >
+                      <LogOut className="mr-2 h-[18px] w-[18px]" />
+                      Logout
+                    </Menu.Item>
+                  </Menu.Content>
+                </Menu>
+              )}
+              <hr className="!my-1 -mx-1 border-surface" />
               <NavList />
-
-              <Link to="/login">
-                <Button size="sm" variant="outline" className="mt-4 w-full">
-                  Login
-                </Button>
-              </Link>
-              <Link to="/sign-up">
-                <Button size="sm" className="mt-2 lg:mt-4 w-full">
-                  Sign Up
-                </Button>
-              </Link>
+              {!user && (
+                <>
+                  <Link to="/login">
+                    <Button size="sm" variant="outline" className="mt-4 w-full">
+                      Login
+                    </Button>
+                  </Link>
+                  <Link to="/sign-up">
+                    <Button size="sm" className="mt-2 lg:mt-4 w-full">
+                      Sign Up
+                    </Button>
+                  </Link>
+                </>
+              )}
             </Dialog.Content>
           </Dialog.Overlay>
         </Dialog>

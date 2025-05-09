@@ -11,6 +11,7 @@ import {
 import { LogOut, MenuScale, UserCircle, Xmark } from "iconoir-react";
 import { Link } from "react-router";
 import useAuthContext from "../hooks/useAuthContext";
+import defaultProfile from "../assets/images/profile/profileDefault.jpeg";
 
 const NavList = () => {
   const navLinks = [
@@ -66,8 +67,12 @@ const NavigationBar = () => {
                     <Menu.Trigger
                       as={Avatar}
                       alt="profile-picture"
-                      src={user?.profile_image}
-                      className="cursor-pointer object-contain bg-blue-950 p-1"
+                      src={user?.profile_image || defaultProfile}
+                      className={`${
+                        user.profile_image
+                          ? "object-contain p-1"
+                          : "object-cover"
+                      } bg-blue-950 object-center cursor-pointer`}
                     />
                     <Menu.Content className="z-[9999]">
                       <Menu.Item as={Link} to="/dashboard/profile">
@@ -136,8 +141,12 @@ const NavigationBar = () => {
                     <Menu.Trigger
                       as={Avatar}
                       alt="profile-picture"
-                      src={user?.profile_image}
-                      className="cursor-pointer"
+                      src={user?.profile_image || defaultProfile}
+                      className={`${
+                        user.profile_image
+                          ? "object-contain p-1"
+                          : "object-cover"
+                      } bg-blue-950 object-center cursor-pointer`}
                     />
                   </div>
                   <Menu.Content className="z-[9999]">

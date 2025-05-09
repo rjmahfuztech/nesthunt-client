@@ -3,6 +3,7 @@ import { Typography, Navbar, Avatar, Menu } from "@material-tailwind/react";
 import { UserCircle, Settings, LogOut, Xmark, MenuScale } from "iconoir-react";
 import { Link } from "react-router";
 import useAuthContext from "../../hooks/useAuthContext";
+import defaultProfile from "../../assets/images/profile/profileDefault.jpeg";
 
 const DashboardNavbar = ({ isDrawerOpen, setIsDrawerOpen }) => {
   const { handleLogOut, user } = useAuthContext();
@@ -35,8 +36,10 @@ const DashboardNavbar = ({ isDrawerOpen, setIsDrawerOpen }) => {
               <Menu.Trigger
                 as={Avatar}
                 alt="profile-picture"
-                src={user?.profile_image}
-                className="cursor-pointer object-contain bg-blue-950 p-1"
+                src={user?.profile_image || defaultProfile}
+                className={`${
+                  user.profile_image ? "object-contain p-1" : "object-cover"
+                } bg-blue-950 object-center cursor-pointer`}
               />
               <Menu.Content>
                 <Menu.Item as={Link} to="/dashboard/profile">

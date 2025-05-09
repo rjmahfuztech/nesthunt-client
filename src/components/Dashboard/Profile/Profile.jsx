@@ -1,6 +1,7 @@
 import { Card, Typography } from "@material-tailwind/react";
 import useAuthContext from "../../../hooks/useAuthContext";
 import { NavArrowRightSolid } from "iconoir-react";
+import defaultProfile from "../../../assets/images/profile/profileDefault.jpeg";
 
 const Profile = () => {
   const { user } = useAuthContext();
@@ -8,8 +9,10 @@ const Profile = () => {
     <Card className="max-w-md mx-auto">
       <Card.Header className="mx-3 mt-3 text-center">
         <img
-          className="w-28 h-28 rounded-full mx-auto object-contain bg-blue-950 p-1"
-          src={user?.profile_image}
+          className={`w-28 h-28 rounded-full mx-auto ${
+            user.profile_image ? "object-contain p-1" : "object-cover"
+          } bg-blue-950 object-center`}
+          src={user?.profile_image || defaultProfile}
           alt="Profile Picture"
         />
         <Typography type="h5" className="mt-2">

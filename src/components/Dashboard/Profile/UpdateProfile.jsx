@@ -5,6 +5,7 @@ import useAuthContext from "../../../hooks/useAuthContext";
 import UpdateProfileButton from "./UpdateProfileButton";
 import { Toast } from "../../Messages/Alert";
 import UpdateProfileForm from "./UpdateProfileForm";
+import defaultProfile from "../../../assets/images/profile/profileDefault.jpeg";
 
 const UpdateProfile = () => {
   const { user, updateProfile, updateProfilePicture } = useAuthContext();
@@ -87,8 +88,10 @@ const UpdateProfile = () => {
           onChange={handleChangeProfilePic}
         />
         <img
-          className="w-24 bg-blue-950 md:w-32 h-24 md:h-32 rounded-full mx-auto object-contain object-center cursor-pointer my-2 border p-1 md:p-2"
-          src={user.profile_image}
+          className={`w-24 bg-blue-950 md:w-32 h-24 md:h-32 rounded-full mx-auto ${
+            user.profile_image ? "object-contain p-1 md:p-2" : "object-cover"
+          } object-center cursor-pointer my-2 border`}
+          src={user?.profile_image || defaultProfile}
           alt="Profile Picture"
           onClick={handleImageClick}
         />

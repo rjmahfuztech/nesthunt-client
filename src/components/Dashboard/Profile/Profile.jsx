@@ -30,11 +30,14 @@ const Profile = () => {
         </Typography>
         <Typography className="font-semibold mt-2">Address:</Typography>
         <Typography className="flex gap-1 items-center">
-          <NavArrowRightSolid /> {user?.address}
+          <NavArrowRightSolid />{" "}
+          {user?.address || "Set your address from update profile."}
         </Typography>
         <Typography className="font-semibold mt-2">Phone Number:</Typography>
         <Typography className="flex gap-1 items-center">
-          <NavArrowRightSolid /> {user?.phone_number}
+          <NavArrowRightSolid />{" "}
+          {user?.phone_number ||
+            " 01****** Set phone number from update profile."}
         </Typography>
       </Card.Body>
     </Card>

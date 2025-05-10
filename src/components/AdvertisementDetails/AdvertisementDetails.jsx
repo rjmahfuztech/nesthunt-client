@@ -1,7 +1,32 @@
 import { CheckCircle, LockSquare, LotOfCash } from "iconoir-react";
-import { Button } from "@material-tailwind/react";
+import { Button, Spinner } from "@material-tailwind/react";
+import authApiClient from "../../services/authApiClient";
+import { handleApiError, handleSuccessMessage } from "../Messages/Alert";
+import { useState } from "react";
 
 const AdvertisementDetails = ({ advertisement, category, details }) => {
+  const [loading, setLoading] = useState(false);
+
+  // Send rent request
+  const handleRentRequest = async () => {
+    setLoading(true);
+    try {
+      const res = await authApiClient.post(`/my_rent_requests/`, {
+        advertisement_id: advertisement.id,
+      });
+      // success alert
+      if (res.status == 201) {
+        handleSuccessMessage(
+          "Request Sent",
+          "Your rent request for this advertisement has been successfully sent."
+        );
+      }
+    } catch (error) {
+      handleApiError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="col-span-2">
       <div className="bg-[#F0F2F4] p-4 rounded-lg">
@@ -49,10 +74,24 @@ const AdvertisementDetails = ({ advertisement, category, details }) => {
         <p className="text gray-500 mt-2">{category?.description}</p>
       </div>
       <Button
-        disabled={advertisement.is_rented}
+        onClick={handleRentRequest}
+        disabled={advertisement.is_rented || loading}
         className="w-full bg-green-600 px-8 mt-2 py-3 font-bold hover:bg-green-700 border-none"
       >
-        {advertisement.is_rented ? "Not Available" : "Send Rent Request"}
+        {advertisement.is_rented ? (
+          "Not Available"
+        ) : (
+          <>
+            {loading ? (
+              <span className="flex items-center gap-3">
+                <Spinner size="sm" color="success" />
+                Sending request...
+              </span>
+            ) : (
+              "Send Rent Request"
+            )}
+          </>
+        )}
       </Button>
     </div>
   );

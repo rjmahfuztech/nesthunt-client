@@ -17,8 +17,8 @@ const NavList = () => {
   const navLinks = [
     { title: "Home", to: "/" },
     { title: "Service", href: "#service" },
-    { title: "Rent Catalog", to: "/rent-catalog" },
-    { title: "Submit Advertise", to: "/submit-advertise" },
+    { title: "Rentals", to: "/rentals" },
+    { title: "Add Advertise", to: "/add-advertise" },
     { title: "Dashboard", to: "/dashboard" },
     { title: "About Us", href: "#about" },
     { title: "Contact", href: "#contact" },

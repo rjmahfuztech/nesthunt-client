@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
-import Advertisements from "../pages/Advertisements";
+import AdvertisementDetail from "../pages/AdvertisementDetail";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import PrivateRoutes from "./PrivateRoutes";
@@ -17,6 +17,8 @@ import ChangePassword from "../components/Dashboard/Profile/ChangePassword";
 import Categories from "../pages/Categories";
 import AddCategory from "../components/Category/AddCategory";
 import RentRequests from "../pages/RentRequests";
+import Favorites from "../pages/Favorites";
+import Rentals from "../pages/Rentals";
 
 const AppRoutes = () => {
   return (
@@ -25,9 +27,10 @@ const AppRoutes = () => {
       <Routes>
         <Route element={<MainLayout />}>
           <Route index element={<Home />} />
+          <Route path="rentals" element={<Rentals />} />
           <Route
-            path="advertisement/:advertiseId"
-            element={<Advertisements />}
+            path="rentals/:advertiseId"
+            element={<AdvertisementDetail />}
           />
         </Route>
         <Route path="login" element={<Login />} />
@@ -54,6 +57,7 @@ const AppRoutes = () => {
           <Route path="categories" element={<Categories />} />
           <Route path="category/add" element={<AddCategory />} />
           <Route path="rent-requests" element={<RentRequests />} />
+          <Route path="favorites" element={<Favorites />} />
         </Route>
       </Routes>
     </>

@@ -58,7 +58,7 @@ const AdvertisementInfo = ({ advertisement }) => {
           </div>
         </Card.Body>
         <Card.Footer className="pt-3">
-          <Link to={`/advertisement/${advertisement.id}`}>
+          <Link to={`/rentals/${advertisement.id}`}>
             <Button className="w-full bg-green-600 px-8 py-3 font-bold hover:bg-green-700 border-none">
               See Details
             </Button>

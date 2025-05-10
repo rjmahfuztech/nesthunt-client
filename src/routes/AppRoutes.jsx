@@ -16,6 +16,7 @@ import UpdateProfile from "../components/Dashboard/Profile/UpdateProfile";
 import ChangePassword from "../components/Dashboard/Profile/ChangePassword";
 import Categories from "../pages/Categories";
 import AddCategory from "../components/Category/AddCategory";
+import RentRequests from "../pages/RentRequests";
 
 const AppRoutes = () => {
   return (
@@ -52,6 +53,7 @@ const AppRoutes = () => {
           <Route path="change-password" element={<ChangePassword />} />
           <Route path="categories" element={<Categories />} />
           <Route path="category/add" element={<AddCategory />} />
+          <Route path="rent-requests" element={<RentRequests />} />
         </Route>
       </Routes>
     </>

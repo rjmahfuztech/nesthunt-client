@@ -5,7 +5,7 @@ import {
   Select,
   Typography,
 } from "@material-tailwind/react";
-import React, { useState } from "react";
+import { useState } from "react";
 import CatlogPriceFilter from "./CatLogPriceFilter";
 
 const FilterSection = () => {
@@ -20,7 +20,7 @@ const FilterSection = () => {
 
   return (
     <div>
-      <Card className="sm:min-w-[20rem] max-w-[24rem] p-4 overflow-hidden">
+      <Card className="max-w-[26rem] mx-auto p-4 overflow-hidden shadow-lg">
         {/* Location  */}
         <div className="mb-4 mt-2 space-y-1.5">
           <Typography

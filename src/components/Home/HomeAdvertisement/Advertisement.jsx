@@ -20,7 +20,7 @@ const Advertisement = () => {
   useEffect(() => {
     apiClient
       .get("/advertisements")
-      .then((res) => (setAdvertisements(res.data), console.log(res.data)))
+      .then((res) => setAdvertisements(res.data))
       .catch((err) => console.log(err));
   }, []);
 

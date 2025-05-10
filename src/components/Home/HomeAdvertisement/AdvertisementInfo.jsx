@@ -1,7 +1,7 @@
-import React from "react";
-import { Card, Typography, Button, IconButton } from "@material-tailwind/react";
+import { Card, Typography, Button } from "@material-tailwind/react";
+import defaultImage from "../../../assets/images/defaultImage.jpeg";
+
 import {
-  HeartSolid,
   StarSolid,
   Bathroom,
   HouseRooms,
@@ -10,23 +10,21 @@ import {
 import { Link } from "react-router";
 
 const AdvertisementInfo = ({ advertisement }) => {
+  const advertiseImage =
+    advertisement.images.length > 0
+      ? advertisement.images[0].image
+      : defaultImage;
+
   return (
     <div>
       <Card className="w-full max-w-[26rem] mx-auto shadow-lg">
         <Card.Header className="relative overflow-hidden p-0">
           <img
-            src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-            alt="ui/ux review check"
+            className="h-[12rem] md:h-[16rem] object-cover object-center w-full"
+            src={advertiseImage}
+            alt="Advertisement Image"
           />
           <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60 " />
-          <IconButton
-            size="sm"
-            color="error"
-            variant="ghost"
-            className="!absolute right-2 top-2 rounded-full"
-          >
-            <HeartSolid className="h-5 w-5" />
-          </IconButton>
           <Typography className="!absolute left-2 bottom-2 font-semibold bg-slate-200 px-4 py-2 rounded-full">
             {advertisement.rental_amount}/Mo
           </Typography>

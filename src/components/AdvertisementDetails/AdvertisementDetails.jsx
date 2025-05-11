@@ -1,14 +1,25 @@
 import { CheckCircle, LockSquare, LotOfCash } from "iconoir-react";
 import { Button, Spinner } from "@material-tailwind/react";
 import authApiClient from "../../services/authApiClient";
-import { handleApiError, handleSuccessMessage } from "../Messages/Alert";
+import {
+  handleApiError,
+  handleSuccessMessage,
+  handleWarningMessage,
+} from "../Messages/Alert";
 import { useState } from "react";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const AdvertisementDetails = ({ advertisement, category, details }) => {
   const [loading, setLoading] = useState(false);
+  const { user } = useAuthContext();
 
   // Send rent request
   const handleRentRequest = async () => {
+    if (!user)
+      return handleWarningMessage(
+        "Login Required",
+        "To send request, you must need to login/register first."
+      );
     setLoading(true);
     try {
       const res = await authApiClient.post(`/my_rent_requests/`, {

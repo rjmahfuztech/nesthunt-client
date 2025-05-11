@@ -42,3 +42,12 @@ export const handleSuccessMessage = (title, message) => {
     text: message,
   });
 };
+
+// Show success message
+export const handleWarningMessage = (title, message) => {
+  Swal.fire({
+    icon: "warning",
+    title: title,
+    text: message,
+  });
+};

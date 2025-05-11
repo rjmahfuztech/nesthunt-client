@@ -17,13 +17,16 @@ import authApiClient from "../services/authApiClient";
 import {
   handleApiError,
   handleSuccessMessage,
+  handleWarningMessage,
 } from "../components/Messages/Alert";
+import useAuthContext from "../hooks/useAuthContext";
 
 const AdvertisementDetail = () => {
   const { advertiseId } = useParams();
   const [advertisement, setAdvertisement] = useState(null);
   const [category, setCategory] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { user } = useAuthContext();
 
   // Fetch Advertisement Details
   useEffect(() => {
@@ -47,6 +50,11 @@ const AdvertisementDetail = () => {
 
   // Save to favorite list
   const handleAddToFavorite = async () => {
+    if (!user)
+      return handleWarningMessage(
+        "Login Required",
+        "To add favorite, you must need to login/register first."
+      );
     try {
       const res = await authApiClient.post(`/favourites/`, {
         advertisement_id: advertiseId,

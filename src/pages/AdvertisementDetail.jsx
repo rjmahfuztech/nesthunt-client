@@ -126,7 +126,7 @@ const AdvertisementDetail = () => {
         />
         {/* Advertisement Reviews  */}
         <div className="mt-10 lg:mt-0">
-          <Review />
+          <Review advertiseId={advertiseId} />
         </div>
       </div>
     </div>

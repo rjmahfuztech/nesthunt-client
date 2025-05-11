@@ -1,12 +1,95 @@
-import React from "react";
-import ReviewCard from "./ReviewCard";
+import { useEffect, useState } from "react";
 import ReviewForm from "./ReviewForm";
+import apiClient from "../../services/apiClient";
+import reviewImg from "../../assets/images/rating.jpeg";
+import ReviewList from "./ReviewList";
+import authApiClient from "../../services/authApiClient";
+import { handleApiError, handleSuccessMessage } from "../Messages/Alert";
 
-const Review = () => {
+const Review = ({ advertiseId }) => {
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const advertisementReviews = async () => {
+    setLoading(true);
+    try {
+      const res = await apiClient.get(
+        `/advertisements/${advertiseId}/reviews/`
+      );
+      setReviews(res.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    advertisementReviews();
+  }, []);
+
+  // Post review
+  const onSubmit = async (data) => {
+    try {
+      const res = await authApiClient.post(
+        `/advertisements/${advertiseId}/reviews/`,
+        data
+      );
+      if (res.status == 201) {
+        handleSuccessMessage(
+          "Review Submitted",
+          "Your review has been successfully added for this house."
+        );
+        // reload reviews
+        advertisementReviews();
+      }
+    } catch (error) {
+      handleApiError(error);
+    }
+  };
+
+  // Update review
+  const handleUpdateReview = async (id) => {
+    try {
+      const res = await authApiClient.post(
+        `/advertisements/${advertiseId}/reviews/${id}/`
+      );
+      console.log(res);
+    } catch (error) {
+      handleApiError(error);
+    }
+  };
+
   return (
     <div>
-      <ReviewForm />
-      <ReviewCard />
+      <div className="flex gap-2 justify-between">
+        <h3 className="text-lg fon-semibold">Customer review</h3>
+        <h3 className="text-lg fon-semibold">
+          {reviews.length === 0 ? "" : reviews.length}{" "}
+          {reviews.length === 0
+            ? "No Review"
+            : `${reviews.length == 1 ? "Review" : "Reviews"}`}
+        </h3>
+      </div>
+      <hr className="-mx-3 my-2 border-secondary" />
+      <ReviewForm onSubmit={onSubmit} />
+      {reviews.length === 0 ? (
+        <div className="my-6 text-center">
+          <div className="flex justify-center">
+            <img src={reviewImg} className="w-40" alt="Rating Image" />
+          </div>
+          <h2 className="font-bold text-2xl my-3">No Reviews Yet</h2>
+          <p className="text-gray-500 font-semibold text-md text-lg">
+            Be the first to review this house!
+          </p>
+        </div>
+      ) : loading ? (
+        <div className="flex justify-center my-14 items-center">
+          <div className="loader"></div>
+        </div>
+      ) : (
+        <ReviewList reviews={reviews} />
+      )}
     </div>
   );
 };

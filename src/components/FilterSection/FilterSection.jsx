@@ -6,9 +6,14 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useState } from "react";
-import CatlogPriceFilter from "./CatLogPriceFilter";
+import CataLogPriceFilter from "./CataLogPriceFilter";
+import useFetchCategory from "../../hooks/useFetchCategory";
+import { Controller } from "react-hook-form";
 
-const FilterSection = () => {
+const FilterSection = ({ register, handleSubmit, onSubmit, control }) => {
+  const { categories } = useFetchCategory();
+
+  // price filter
   const initialMinPrice = 3000;
   const initialMaxPrice = 50000;
 
@@ -19,7 +24,7 @@ const FilterSection = () => {
   const [maxVal, setMaxVal] = useState(initialMaxPrice);
 
   return (
-    <div>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Card className="max-w-[26rem] mx-auto p-4 overflow-hidden shadow-lg">
         {/* Location  */}
         <div className="mb-4 mt-2 space-y-1.5">
@@ -32,7 +37,11 @@ const FilterSection = () => {
           >
             Location
           </Typography>
-          <Input id="location" placeholder="Location..." />
+          <Input
+            {...register("location")}
+            id="location"
+            placeholder="Location..."
+          />
         </div>
         {/* Category  */}
         <div className="mb-4 mt-2 space-y-1.5">
@@ -45,15 +54,36 @@ const FilterSection = () => {
           >
             Category
           </Typography>
-          <Select id="category">
-            <Select.Trigger className="w-full" placeholder="Choose Category" />
-            <Select.List className="bg-orange-50">
-              <Select.Option>Material Tailwind React</Select.Option>
-              <Select.Option>Material Tailwind HTML</Select.Option>
-              <Select.Option>Material Tailwind Vue</Select.Option>
-              <Select.Option>Material Tailwind Svelte</Select.Option>
-            </Select.List>
-          </Select>
+          {/* used controller  */}
+          <Controller
+            name="category"
+            control={control}
+            render={({ field }) => (
+              <Select
+                onValueChange={(val) => field.onChange(val)}
+                id="category"
+              >
+                <Select.Trigger
+                  className="w-full"
+                  placeholder="Choose Category"
+                />
+                <Select.List>
+                  <Select.Option className="border-b" value="">
+                    Default
+                  </Select.Option>
+                  {categories.map((category) => (
+                    <Select.Option
+                      className="border-b"
+                      key={category.id}
+                      value={category.id}
+                    >
+                      {category.name}
+                    </Select.Option>
+                  ))}
+                </Select.List>
+              </Select>
+            )}
+          />
         </div>
         <div className="flex gap-2">
           {/* Bedroom  */}
@@ -72,6 +102,7 @@ const FilterSection = () => {
               type="number"
               id="bedroom"
               placeholder="bedroom"
+              {...register("bedroom")}
             />
           </div>
           {/* Bathroom  */}
@@ -90,6 +121,7 @@ const FilterSection = () => {
               type="number"
               id="bathroom"
               placeholder="bathroom"
+              {...register("bathroom")}
             />
           </div>
         </div>
@@ -107,7 +139,7 @@ const FilterSection = () => {
               ${minVal} - ${maxVal}
             </span>
           </Typography>
-          <CatlogPriceFilter
+          <CataLogPriceFilter
             sliderMinValue={sliderMinValue}
             sliderMaxValue={sliderMaxValue}
             minVal={minVal}
@@ -120,7 +152,7 @@ const FilterSection = () => {
           Find House
         </Button>
       </Card>
-    </div>
+    </form>
   );
 };
 

@@ -9,6 +9,7 @@ import { handleApiError, handleSuccessMessage } from "../Messages/Alert";
 const Review = ({ advertiseId }) => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [editingId, setEditingId] = useState(null);
 
   const advertisementReviews = async () => {
     setLoading(true);
@@ -49,12 +50,22 @@ const Review = ({ advertiseId }) => {
   };
 
   // Update review
-  const handleUpdateReview = async (id) => {
+  const handleUpdateReview = async (id, updateData) => {
     try {
-      const res = await authApiClient.post(
-        `/advertisements/${advertiseId}/reviews/${id}/`
+      const res = await authApiClient.put(
+        `/advertisements/${advertiseId}/reviews/${id}/`,
+        updateData
       );
-      console.log(res);
+      if (res.status == 200) {
+        handleSuccessMessage(
+          "Review Updated",
+          "Your review has been successfully updated."
+        );
+        // reset editingId
+        setEditingId(null);
+        // reload reviews
+        advertisementReviews();
+      }
     } catch (error) {
       handleApiError(error);
     }
@@ -88,7 +99,12 @@ const Review = ({ advertiseId }) => {
           <div className="loader"></div>
         </div>
       ) : (
-        <ReviewList reviews={reviews} />
+        <ReviewList
+          reviews={reviews}
+          handleUpdateReview={handleUpdateReview}
+          editingId={editingId}
+          setEditingId={setEditingId}
+        />
       )}
     </div>
   );

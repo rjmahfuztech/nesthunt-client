@@ -5,11 +5,18 @@ import {
   Avatar,
   Rating,
   Tooltip,
+  IconButton,
 } from "@material-tailwind/react";
 import defaultProfile from "../../assets/images/profile/profileDefault.jpeg";
 import { EditPencil, Trash } from "iconoir-react";
+import UpdateReviewForm from "./UpdateReviewForm";
 
-const ReviewCard = ({ review }) => {
+const ReviewCard = ({
+  review,
+  handleUpdateReview,
+  isEditing,
+  setEditingId,
+}) => {
   return (
     <div>
       <Card className="w-full border-none shadow-none bg-[#F0F2F4] p-3 md:p-4 mt-6">
@@ -18,7 +25,7 @@ const ReviewCard = ({ review }) => {
             size="lg"
             shape="rounded"
             alt="Profile Pic"
-            src={review.user.profile_image || defaultProfile}
+            src={defaultProfile}
           />
           <div className="ml-2 flex w-full flex-col gap-0.5">
             <div className="flex items-center justify-between">
@@ -28,13 +35,20 @@ const ReviewCard = ({ review }) => {
           </div>
         </Card.Header>
         <CardBody className="p-0 grid grid-cols-4 gap-2">
-          <Typography className="text-foreground col-span-3">
-            &quot;{review.comment}&quot;
-          </Typography>
+          <div className="col-span-3">
+            <Typography className="text-foreground">
+              &quot;{review.comment}&quot;
+            </Typography>
+          </div>
           <div className="flex gap-2 md:gap-4 justify-end items-center">
             {/* edit  */}
             <Tooltip>
-              <Tooltip.Trigger variant="ghost" color="secondary">
+              <Tooltip.Trigger
+                as={IconButton}
+                variant="ghost"
+                color="secondary"
+                onClick={() => setEditingId(review.id)}
+              >
                 <EditPencil className="h-5 w-5 text-green-500 dark:text-white" />
               </Tooltip.Trigger>
               <Tooltip.Content>
@@ -54,6 +68,16 @@ const ReviewCard = ({ review }) => {
             </Tooltip>
           </div>
         </CardBody>
+        {isEditing && (
+          <>
+            {/* Update Review  */}
+            <UpdateReviewForm
+              review={review}
+              setEditingId={setEditingId}
+              handleUpdateReview={handleUpdateReview}
+            />
+          </>
+        )}
       </Card>
     </div>
   );

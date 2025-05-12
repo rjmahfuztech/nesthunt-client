@@ -51,3 +51,17 @@ export const handleWarningMessage = (title, message) => {
     text: message,
   });
 };
+
+// Delete Confirmation warning
+export const handleDeleteWarning = () => {
+  return Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    cancelButtonText: "No",
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  });
+};

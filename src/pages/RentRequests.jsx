@@ -14,8 +14,11 @@ import {
   Square3dThreePoints,
   Trash,
 } from "iconoir-react";
-import { handleApiError, Toast } from "../components/Messages/Alert";
-import Swal from "sweetalert2";
+import {
+  handleApiError,
+  handleDeleteWarning,
+  handleSuccessMessage,
+} from "../components/Messages/Alert";
 
 const RentRequests = () => {
   const [rentRequests, setRentRequests] = useState([]);
@@ -33,16 +36,7 @@ const RentRequests = () => {
   // Delete requested rent
   const handleDeleteRequest = async (id) => {
     // success alert
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      cancelButtonText: "No",
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete request!",
-    }).then(async (result) => {
+    handleDeleteWarning().then(async (result) => {
       if (result.isConfirmed) {
         try {
           const res = await authApiClient.delete(`/my_rent_requests/${id}/`);
@@ -51,11 +45,10 @@ const RentRequests = () => {
             setRentRequests((prevRequests) =>
               prevRequests.filter((request) => request.id !== id)
             );
-            Swal.fire({
-              title: "Request Deleted!",
-              text: "Your rent request has been successfully deleted.",
-              icon: "success",
-            });
+            handleSuccessMessage(
+              "Request Deleted!",
+              "Your rent request has been successfully deleted."
+            );
           }
         } catch (error) {
           handleApiError(error);

@@ -17,7 +17,7 @@ import {
 import React, { useState } from "react";
 import { Link } from "react-router";
 
-const AdvertisementTable = ({ myAdvertisements }) => {
+const AdvertisementTable = ({ myAdvertisements, updateAdvertisement }) => {
   const [openRow, setOpenRow] = useState(null);
 
   // Table head
@@ -99,7 +99,7 @@ const AdvertisementTable = ({ myAdvertisements }) => {
                     <Tooltip>
                       <Tooltip.Trigger
                         as={IconButton}
-                        //   onClick={() => updateCategory(id)}
+                        onClick={() => updateAdvertisement(advertisement.id)}
                         variant="ghost"
                         color="secondary"
                       >

@@ -78,7 +78,7 @@ const AddCategory = () => {
           <div className="mb-2 mt-2 space-y-1.5 w-full">
             <Typography
               as="label"
-              htmlFor="name"
+              htmlFor="description"
               type="small"
               color="default"
               className="font-semibold"

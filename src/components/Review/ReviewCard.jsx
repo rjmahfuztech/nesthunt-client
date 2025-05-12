@@ -10,13 +10,16 @@ import {
 import defaultProfile from "../../assets/images/profile/profileDefault.jpeg";
 import { EditPencil, Trash } from "iconoir-react";
 import UpdateReviewForm from "./UpdateReviewForm";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const ReviewCard = ({
   review,
   handleUpdateReview,
   isEditing,
   setEditingId,
+  handleDeleteReview,
 }) => {
+  const { user } = useAuthContext();
   return (
     <div>
       <Card className="w-full border-none shadow-none bg-[#F0F2F4] p-3 md:p-4 mt-6">
@@ -40,33 +43,40 @@ const ReviewCard = ({
               &quot;{review.comment}&quot;
             </Typography>
           </div>
-          <div className="flex gap-2 md:gap-4 justify-end items-center">
-            {/* edit  */}
-            <Tooltip>
-              <Tooltip.Trigger
-                as={IconButton}
-                variant="ghost"
-                color="secondary"
-                onClick={() => setEditingId(review.id)}
-              >
-                <EditPencil className="h-5 w-5 text-green-500 dark:text-white" />
-              </Tooltip.Trigger>
-              <Tooltip.Content>
-                Edit Review
-                <Tooltip.Arrow />
-              </Tooltip.Content>
-            </Tooltip>
-            {/* delete  */}
-            <Tooltip>
-              <Tooltip.Trigger variant="ghost" color="secondary">
-                <Trash className="h-5 w-5 text-red-500 dark:text-white" />
-              </Tooltip.Trigger>
-              <Tooltip.Content>
-                Delete Review
-                <Tooltip.Arrow />
-              </Tooltip.Content>
-            </Tooltip>
-          </div>
+          {user && user.id === review.user.id && (
+            <div className="flex gap-2 md:gap-4 justify-end items-center">
+              {/* edit  */}
+              <Tooltip>
+                <Tooltip.Trigger
+                  as={IconButton}
+                  variant="ghost"
+                  color="secondary"
+                  onClick={() => setEditingId(review.id)}
+                >
+                  <EditPencil className="h-5 w-5 text-green-500 dark:text-white" />
+                </Tooltip.Trigger>
+                <Tooltip.Content>
+                  Edit Review
+                  <Tooltip.Arrow />
+                </Tooltip.Content>
+              </Tooltip>
+              {/* delete  */}
+              <Tooltip>
+                <Tooltip.Trigger
+                  as={IconButton}
+                  onClick={() => handleDeleteReview(review.id)}
+                  variant="ghost"
+                  color="secondary"
+                >
+                  <Trash className="h-5 w-5 text-red-500 dark:text-white" />
+                </Tooltip.Trigger>
+                <Tooltip.Content>
+                  Delete Review
+                  <Tooltip.Arrow />
+                </Tooltip.Content>
+              </Tooltip>
+            </div>
+          )}
         </CardBody>
         {isEditing && (
           <>

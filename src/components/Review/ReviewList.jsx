@@ -5,6 +5,7 @@ const ReviewList = ({
   handleUpdateReview,
   editingId,
   setEditingId,
+  handleDeleteReview,
 }) => {
   return (
     <>
@@ -15,6 +16,7 @@ const ReviewList = ({
           isEditing={review.id == editingId}
           setEditingId={setEditingId}
           handleUpdateReview={handleUpdateReview}
+          handleDeleteReview={handleDeleteReview}
         />
       ))}
     </>

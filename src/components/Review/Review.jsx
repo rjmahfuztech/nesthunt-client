@@ -4,13 +4,18 @@ import apiClient from "../../services/apiClient";
 import reviewImg from "../../assets/images/rating.jpeg";
 import ReviewList from "./ReviewList";
 import authApiClient from "../../services/authApiClient";
-import { handleApiError, handleSuccessMessage } from "../Messages/Alert";
+import {
+  handleApiError,
+  handleSuccessMessage,
+  handleDeleteWarning,
+} from "../Messages/Alert";
 
 const Review = ({ advertiseId }) => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
   const [editingId, setEditingId] = useState(null);
 
+  // Get all reviews
   const advertisementReviews = async () => {
     setLoading(true);
     try {
@@ -29,7 +34,7 @@ const Review = ({ advertiseId }) => {
     advertisementReviews();
   }, []);
 
-  // Post review
+  // Add review
   const onSubmit = async (data) => {
     try {
       const res = await authApiClient.post(
@@ -71,6 +76,32 @@ const Review = ({ advertiseId }) => {
     }
   };
 
+  // Delete review
+  const handleDeleteReview = async (id) => {
+    // delete success alert
+    handleDeleteWarning().then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const res = await authApiClient.delete(
+            `/advertisements/${advertiseId}/reviews/${id}/`
+          );
+          if (res.status == 204) {
+            // Update the local state
+            setReviews((prevReviews) =>
+              prevReviews.filter((review) => review.id !== id)
+            );
+            handleSuccessMessage(
+              "Review Deleted",
+              "Your review for this house advertisement has been deleted."
+            );
+          }
+        } catch (error) {
+          handleApiError(error);
+        }
+      }
+    });
+  };
+
   return (
     <div>
       <div className="flex gap-2 justify-between">
@@ -101,9 +132,10 @@ const Review = ({ advertiseId }) => {
       ) : (
         <ReviewList
           reviews={reviews}
-          handleUpdateReview={handleUpdateReview}
           editingId={editingId}
           setEditingId={setEditingId}
+          handleUpdateReview={handleUpdateReview}
+          handleDeleteReview={handleDeleteReview}
         />
       )}
     </div>

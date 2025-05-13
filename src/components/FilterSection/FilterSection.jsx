@@ -5,16 +5,18 @@ import {
   Select,
   Typography,
 } from "@material-tailwind/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CataLogPriceFilter from "./CataLogPriceFilter";
 import useFetchCategory from "../../hooks/useFetchCategory";
 import { Controller } from "react-hook-form";
+import useAppContext from "../../hooks/useAppContext";
 
 const FilterSection = ({ register, handleSubmit, onSubmit, control }) => {
   const { categories } = useFetchCategory();
+  const { setRentPrice } = useAppContext();
 
   // price filter
-  const initialMinPrice = 3000;
+  const initialMinPrice = 0;
   const initialMaxPrice = 50000;
 
   const [sliderMinValue] = useState(initialMinPrice);
@@ -23,24 +25,29 @@ const FilterSection = ({ register, handleSubmit, onSubmit, control }) => {
   const [minVal, setMinVal] = useState(initialMinPrice);
   const [maxVal, setMaxVal] = useState(initialMaxPrice);
 
+  // set minimum and maximum rent amount
+  useEffect(() => {
+    if (minVal || maxVal) setRentPrice([minVal, maxVal]);
+  }, [minVal, maxVal]);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Card className="max-w-[26rem] mx-auto p-4 overflow-hidden shadow-lg">
-        {/* Location  */}
+        {/* searchQuery  */}
         <div className="mb-4 mt-2 space-y-1.5">
           <Typography
             as="label"
-            htmlFor="location"
+            htmlFor="searchQuery"
             type="small"
             color="default"
             className="font-semibold"
           >
-            Location
+            Title or Location
           </Typography>
           <Input
-            {...register("location")}
-            id="location"
-            placeholder="Location..."
+            {...register("searchQuery")}
+            id="searchQuery"
+            placeholder="search by title or location..."
           />
         </div>
         {/* Category  */}

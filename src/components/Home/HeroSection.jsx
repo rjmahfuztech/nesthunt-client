@@ -3,15 +3,18 @@ import FilterSection from "../FilterSection/FilterSection";
 import useAppContext from "../../hooks/useAppContext";
 import useFetchAdvertisement from "../../hooks/useFetchAdvertisement";
 import heroHouseImage from "../../assets/images/heroHouse.jpeg";
+import { Link } from "react-router";
 
 const HeroSection = () => {
   // Filter advertisement from Home page
   const { filter, register, handleSubmit, onSubmit, control } = useAppContext();
   useFetchAdvertisement({
     category: filter?.category || "",
-    location: filter?.location || "",
+    searchQuery: filter?.searchQuery || "",
     bedroom: filter?.bedroom || "",
     bathroom: filter?.bathroom || "",
+    minAmount: filter?.minAmount || "",
+    maxAmount: filter?.maxAmount || "",
   });
 
   return (
@@ -35,7 +38,11 @@ const HeroSection = () => {
             <br />
             property market, allowing you to fully understand.
           </p>
-          <Button className="bg-green-600 px-8 py-3 font-bold hover:bg-green-700 border-none">
+          <Button
+            as={Link}
+            to="/rentals"
+            className="bg-green-600 px-8 py-3 font-bold hover:bg-green-700 border-none"
+          >
             Find House
           </Button>
         </div>

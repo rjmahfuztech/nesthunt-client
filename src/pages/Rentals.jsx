@@ -9,9 +9,11 @@ const Rentals = () => {
 
   const { advertisements, loading } = useFetchAdvertisement({
     category: filter?.category || "",
-    location: filter?.location || "",
+    searchQuery: filter?.searchQuery || "",
     bedroom: filter?.bedroom || "",
     bathroom: filter?.bathroom || "",
+    minAmount: filter?.minAmount || "",
+    maxAmount: filter?.maxAmount || "",
   });
 
   return (
@@ -26,6 +28,10 @@ const Rentals = () => {
             <div className="flex justify-center my-20 md:my-32">
               <div className="loader"></div>
             </div>
+          ) : advertisements.length === 0 ? (
+            <h2 className="text-gray-500 text-lg font-semibold text-center my-14 md:my-20">
+              No advertisement available
+            </h2>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-10 md:mb-20">
               {advertisements.map((advertisement) => (

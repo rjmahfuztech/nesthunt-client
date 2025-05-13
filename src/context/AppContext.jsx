@@ -7,11 +7,24 @@ const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [filter, setFilter] = useState(null);
   const { register, handleSubmit, control } = useForm();
+  const [rentPrice, setRentPrice] = useState([null, null]);
 
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    setFilter(data);
+    const dataWithRentAmount = {
+      ...data,
+      minAmount: rentPrice[0] == 0 ? null : rentPrice[0],
+      maxAmount: rentPrice[1] == 50000 ? null : rentPrice[1],
+    };
+
+    const hasValue = Object.values(dataWithRentAmount).some(
+      (val) => val !== "" && val !== null && val !== undefined
+    );
+    // if nothing search then return
+    if (!hasValue) return;
+
+    setFilter(dataWithRentAmount);
     // navigate to rentals page
     navigate("/rentals");
   };
@@ -22,6 +35,7 @@ export const AppProvider = ({ children }) => {
     handleSubmit,
     onSubmit,
     control,
+    setRentPrice,
   };
 
   return (

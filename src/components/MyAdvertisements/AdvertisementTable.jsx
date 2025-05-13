@@ -16,6 +16,7 @@ import {
 } from "@material-tailwind/react";
 import React, { useState } from "react";
 import { Link } from "react-router";
+import UserRentRequests from "./UserRentRequests";
 
 const AdvertisementTable = ({
   myAdvertisements,
@@ -23,6 +24,7 @@ const AdvertisementTable = ({
   deleteAdvertisement,
 }) => {
   const [openRow, setOpenRow] = useState(null);
+  const [showRequests, setShowRequests] = useState(null);
 
   // Table head
   const TABLE_HEAD = [
@@ -57,7 +59,7 @@ const AdvertisementTable = ({
                   </td>
                   <td className="p-3 min-w-80">
                     <Typography type="small">
-                      {advertisement.description}
+                      {advertisement.description.slice(0, 50)}...
                     </Typography>
                   </td>
                   <td className="p-3 min-w-24">
@@ -137,10 +139,32 @@ const AdvertisementTable = ({
                 {openRow === index && (
                   <tr>
                     <td colSpan={7} className="p-3 bg-gray-50">
-                      <h2 className="text-xl font-semibold">Title:</h2>
-                      <h3 className="text-black text-lg ml-2">
-                        {advertisement.title}
-                      </h3>
+                      <div className="flex gap-4 md:gap-32 items-center">
+                        <div>
+                          <h2 className="text-xl font-semibold">Title:</h2>
+                          <h3 className="text-black text-lg ml-2">
+                            {advertisement.title}
+                          </h3>
+                        </div>
+                        <div>
+                          {advertisement.status == "Approved" &&
+                            (showRequests === index ? (
+                              <Button
+                                onClick={() => setShowRequests(null)}
+                                className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-700 transition-colors"
+                              >
+                                Hide Requests
+                              </Button>
+                            ) : (
+                              <Button
+                                onClick={() => setShowRequests(index)}
+                                className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-700 transition-colors"
+                              >
+                                Show Requests
+                              </Button>
+                            ))}
+                        </div>
+                      </div>
                       <h2 className="text-lg font-semibold mt-2">
                         Description:
                       </h2>
@@ -170,6 +194,15 @@ const AdvertisementTable = ({
                           >
                             See more...
                           </Link>
+                        )}
+                      </div>
+                      <div>
+                        {showRequests === index && (
+                          <div>
+                            <hr className="-mx-3 my-3 border-secondary" />
+                            {/* user details  */}
+                            <UserRentRequests advertiseId={advertisement.id} />
+                          </div>
                         )}
                       </div>
                     </td>

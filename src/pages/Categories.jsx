@@ -9,7 +9,12 @@ import { useEffect, useState } from "react";
 import authApiClient from "../services/authApiClient";
 import { Link } from "react-router";
 import UpdateCategory from "../components/Category/UpdateCategory";
-import { handleApiError, Toast } from "../components/Messages/Alert";
+import {
+  handleApiError,
+  handleDeleteWarning,
+  handleSuccessMessage,
+  Toast,
+} from "../components/Messages/Alert";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -35,23 +40,28 @@ const Categories = () => {
   };
 
   // Delete a category
-  const deleteCategory = async (id) => {
-    try {
-      const res = await authApiClient.delete(`/categories/${id}/`);
-      if (res.status == 204) {
-        // update the local state
-        setCategories((prevCategories) =>
-          prevCategories.filter((item) => item.id !== id)
-        );
-        // success alert
-        await Toast.fire({
-          icon: "success",
-          title: "Category successfully deleted",
-        });
+  const deleteCategory = (id) => {
+    // delete warning
+    handleDeleteWarning().then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const res = await authApiClient.delete(`/categories/${id}/`);
+          if (res.status == 204) {
+            // update the local state
+            setCategories((prevCategories) =>
+              prevCategories.filter((item) => item.id !== id)
+            );
+            // success alert
+            handleSuccessMessage(
+              "Category Deleted",
+              "Your category has been successfully deleted."
+            );
+          }
+        } catch (error) {
+          handleApiError(error);
+        }
       }
-    } catch (error) {
-      handleApiError(error);
-    }
+    });
   };
 
   if (loading)

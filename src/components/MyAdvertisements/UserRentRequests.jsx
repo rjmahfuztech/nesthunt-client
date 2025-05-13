@@ -1,12 +1,14 @@
-import { Typography, Chip, Avatar } from "@material-tailwind/react";
+import { Typography, Avatar, Select } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import authApiClient from "../../services/authApiClient";
 import defaultProfile from "../../assets/images/profile/profileDefault.jpeg";
 import { format } from "date-fns";
+import { handleApiError, Toast } from "../Messages/Alert";
 
 const UserRentRequests = ({ advertiseId }) => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [value, setValue] = useState();
 
   useEffect(() => {
     setLoading(true);
@@ -15,7 +17,38 @@ const UserRentRequests = ({ advertiseId }) => {
       .then((res) => setRequests(res.data))
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
-  }, []);
+  }, [advertiseId]);
+
+  // update status
+  const updateStatus = async (id, status) => {
+    try {
+      const res = await authApiClient.patch(
+        `/my_advertisements/${advertiseId}/rent_requests/${id}/`,
+        { status: status }
+      );
+      if (res.status == 200) {
+        setValue(status);
+        // success alert
+        await Toast.fire({
+          icon: "success",
+          html: `status <span class="text-black font-bold">${status}</span> successfully updated`,
+        });
+        // update local state status
+        setRequests((prevRequests) =>
+          prevRequests.map((req) =>
+            req.id === id
+              ? { ...req, status: status }
+              : status == "Approved"
+              ? { ...req, status: "Rejected" }
+              : req
+          )
+        );
+      }
+    } catch (error) {
+      handleApiError(error);
+    }
+  };
+  console.log(value);
 
   const TABLE_HEAD = ["User", "Address", "Status", "Request Date"];
 
@@ -64,6 +97,7 @@ const UserRentRequests = ({ advertiseId }) => {
                           src={request.user.profile_image || defaultProfile}
                           alt="Profile Image"
                           size="sm"
+                          className="bg-blue-900 object-contain"
                         />
                         <div className="flex flex-col">
                           <Typography type="small">
@@ -81,16 +115,37 @@ const UserRentRequests = ({ advertiseId }) => {
                       </Typography>
                     </td>
                     <td className="p-3">
-                      <div className="w-max">
-                        <Chip size="sm" color="success">
-                          <Chip.Label>{request.status}</Chip.Label>
-                        </Chip>
-                      </div>
-                    </td>
-                    <td className="p-3">
                       <Typography type="small">
                         {format(new Date(request.created_at), "yyyy/MM/dd")}
                       </Typography>
+                    </td>
+                    <td className="p-3">
+                      <Select
+                        // disabled={request.status == "Rejected" || "Approved"}
+                        value={value}
+                        onValueChange={(val) => updateStatus(request.id, val)}
+                        size="sm"
+                      >
+                        <Select.Trigger
+                          placeholder={request.status}
+                          className={`${
+                            request.status == "Pending"
+                              ? "bg-warning hover:border-warning"
+                              : request.status == "Approved"
+                              ? "bg-success hover:border-success"
+                              : "bg-error hover:border-error"
+                          } w-28 text-white`}
+                        />
+                        <Select.List>
+                          <Select.Option value="Pending">Pending</Select.Option>
+                          <Select.Option value="Approved">
+                            Approved
+                          </Select.Option>
+                          <Select.Option value="Rejected">
+                            Rejected
+                          </Select.Option>
+                        </Select.List>
+                      </Select>
                     </td>
                   </tr>
                 );

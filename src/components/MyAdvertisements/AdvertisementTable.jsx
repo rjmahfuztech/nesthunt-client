@@ -13,6 +13,7 @@ import {
   Button,
   IconButton,
   Tooltip,
+  Chip,
 } from "@material-tailwind/react";
 import React, { useState } from "react";
 import { Link } from "react-router";
@@ -68,18 +69,20 @@ const AdvertisementTable = ({
                     </Typography>
                   </td>
                   <td className="p-3 min-w-24">
-                    <Typography
-                      className={`${
-                        advertisement.status == "Pending"
-                          ? "bg-warning"
-                          : advertisement.status == "Approved"
-                          ? "bg-success"
-                          : "bg-error"
-                      } px-3 py-2 rounded-full text-white font-semibold`}
-                      type="small"
-                    >
-                      {advertisement.status}
-                    </Typography>
+                    <div className="w-max">
+                      <Chip
+                        size="sm"
+                        className={`${
+                          advertisement.status == "Pending"
+                            ? "bg-warning"
+                            : advertisement.status == "Approved"
+                            ? "bg-success"
+                            : "bg-error"
+                        } px-2 py-1 rounded-full text-white font-semibold border-none`}
+                      >
+                        <Chip.Label>{advertisement.status}</Chip.Label>
+                      </Chip>
+                    </div>
                   </td>
                   <td className="p-3">
                     {openRow === index ? (

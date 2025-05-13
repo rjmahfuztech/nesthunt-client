@@ -1,4 +1,3 @@
-import React from "react";
 import ServiceCard from "./ServiceCard";
 import { HelpCircle, HomeAlt, HomeSimple } from "iconoir-react";
 import sectionImg from "../../../assets/images/sectionImage.png";
@@ -10,20 +9,24 @@ const Service = () => {
       icon: HomeSimple,
       title: "Advertise a House",
       description: "Advertisement your beautiful house for rent.",
+      to: "/dashboard/advertisement/add",
     },
     {
       icon: HomeAlt,
       title: "Rent a House",
-      description: "Advertisement your beautiful house for rent.",
+      description: "Rent your favorite house from out website.",
+      to: "/rentals",
     },
     {
       icon: HelpCircle,
       title: "Need Help?",
-      description: "Advertisement your beautiful house for rent.",
+      description: "If you need any help, Just click here.",
+      to: "#contact",
     },
   ];
   return (
     <div
+      id="service"
       className="bg-no-repeat bg-bottom py-20 bg-[#F9F9F9]"
       style={{ backgroundImage: `url(${serviceBackgroundImg})` }}
     >

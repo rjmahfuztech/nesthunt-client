@@ -5,7 +5,7 @@ import contactBg from "../../../assets/images/contactBg.jpeg";
 
 const Contact = () => {
   return (
-    <div className="py-20 md:py-28 relative">
+    <div id="contact" className="py-20 md:py-28 relative">
       <div className="absolute inset-0">
         <img
           src={contactBg}

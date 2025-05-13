@@ -12,7 +12,7 @@ const About = () => {
   ];
   return (
     <>
-      <div className="bg-[#F0F2F4] py-10 md:py-20 px-4">
+      <div id="about" className="bg-[#F0F2F4] py-10 md:py-20 px-4">
         <div className="max-w-[1350px] mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4 uppercase">
             About Us

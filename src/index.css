@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
 /* swiper custom style  */
 .swiper-pagination {
   padding-bottom: 20px;

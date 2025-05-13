@@ -5,6 +5,11 @@ import authApiClient from "../services/authApiClient";
 import { Link } from "react-router";
 import AdvertisementTable from "../components/MyAdvertisements/AdvertisementTable";
 import UpdateAdvertisement from "../components/MyAdvertisements/UpdateAdvertisement";
+import {
+  handleApiError,
+  handleDeleteWarning,
+  handleSuccessMessage,
+} from "../components/Messages/Alert";
 
 const MyAdvertisements = () => {
   const [myAdvertisements, setMyAdvertisements] = useState([]);
@@ -24,6 +29,31 @@ const MyAdvertisements = () => {
   const updateAdvertisement = (id) => {
     const getAdvertisement = myAdvertisements.find((item) => item.id === id);
     setAdvertisement(getAdvertisement);
+  };
+
+  // delete advertisement
+  const deleteAdvertisement = (id) => {
+    // delete warning
+    handleDeleteWarning().then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const res = await authApiClient.delete(`/my_advertisements/${id}/`);
+          if (res.status == 204) {
+            // update the local state
+            setMyAdvertisements((prevAdvertisements) =>
+              prevAdvertisements.filter((item) => item.id !== id)
+            );
+            // success alert
+            handleSuccessMessage(
+              "Advertisement Deleted",
+              "Your advertisement has been successfully deleted."
+            );
+          }
+        } catch (error) {
+          handleApiError(error);
+        }
+      }
+    });
   };
 
   if (loading)
@@ -69,6 +99,7 @@ const MyAdvertisements = () => {
             <AdvertisementTable
               myAdvertisements={myAdvertisements}
               updateAdvertisement={updateAdvertisement}
+              deleteAdvertisement={deleteAdvertisement}
             />
           )}
         </div>

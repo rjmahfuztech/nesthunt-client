@@ -18,6 +18,7 @@ import {
 import React, { useState } from "react";
 import { Link } from "react-router";
 import UserRentRequests from "./UserRentRequests";
+import AdvertisementImages from "./AdvertisementImages";
 
 const AdvertisementTable = ({
   myAdvertisements,
@@ -26,6 +27,7 @@ const AdvertisementTable = ({
 }) => {
   const [openRow, setOpenRow] = useState(null);
   const [showRequests, setShowRequests] = useState(null);
+  const [showImages, setShowImages] = useState(null);
 
   // Table head
   const TABLE_HEAD = [
@@ -149,7 +151,26 @@ const AdvertisementTable = ({
                             {advertisement.title}
                           </h3>
                         </div>
-                        <div>
+                        <div className="flex gap-2 md:gap-3 items-center">
+                          {/* images show button  */}
+                          {showImages === index ? (
+                            <Button
+                              onClick={() => setShowImages(null)}
+                              className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-700 transition-colors"
+                            >
+                              Hide Images
+                            </Button>
+                          ) : (
+                            <Button
+                              onClick={() => (
+                                setShowImages(index), setShowRequests(null)
+                              )}
+                              className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-700 transition-colors"
+                            >
+                              Show Images
+                            </Button>
+                          )}
+                          {/* requests show button  */}
                           {advertisement.status == "Approved" &&
                             (showRequests === index ? (
                               <Button
@@ -160,7 +181,9 @@ const AdvertisementTable = ({
                               </Button>
                             ) : (
                               <Button
-                                onClick={() => setShowRequests(index)}
+                                onClick={() => (
+                                  setShowRequests(index), setShowImages(null)
+                                )}
                                 className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-700 transition-colors"
                               >
                                 Show Requests
@@ -200,11 +223,22 @@ const AdvertisementTable = ({
                         )}
                       </div>
                       <div>
+                        {/* requests  */}
                         {showRequests === index && (
                           <div>
                             <hr className="-mx-3 my-3 border-secondary" />
                             {/* user details  */}
                             <UserRentRequests advertiseId={advertisement.id} />
+                          </div>
+                        )}
+                        {/* images  */}
+                        {showImages === index && (
+                          <div>
+                            <hr className="-mx-3 my-3 border-secondary" />
+                            {/* user details  */}
+                            <AdvertisementImages
+                              advertiseId={advertisement.id}
+                            />
                           </div>
                         )}
                       </div>

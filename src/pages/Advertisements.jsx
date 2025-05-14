@@ -9,6 +9,11 @@ import React, { useEffect, useState } from "react";
 import authApiClient from "../services/authApiClient";
 import AdvertisementOwnerInfo from "../Advertisements/AdvertisementOwnerInfo";
 import AdvertisementUpdateStatus from "../Advertisements/AdvertisementUpdateStatus";
+import {
+  handleApiError,
+  handleDeleteWarning,
+  handleSuccessMessage,
+} from "../components/Messages/Alert";
 
 const Advertisements = () => {
   const [advertisements, setAdvertisements] = useState([]);
@@ -34,6 +39,33 @@ const Advertisements = () => {
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
   }, []);
+
+  // Delete advertisement
+  const deleteAdvertisement = (id) => {
+    // delete warning
+    handleDeleteWarning().then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const res = await authApiClient.delete(`/advertisements/${id}/`);
+          if (res.status == 204) {
+            if (res.status == 204) {
+              // update the local state
+              setAdvertisements((prevAdvertisements) =>
+                prevAdvertisements.filter((item) => item.id !== id)
+              );
+              // success alert
+              handleSuccessMessage(
+                "Advertisement Deleted",
+                "Your advertisement has been successfully deleted."
+              );
+            }
+          }
+        } catch (error) {
+          handleApiError(error);
+        }
+      }
+    });
+  };
 
   if (loading)
     return (
@@ -117,7 +149,7 @@ const Advertisements = () => {
                           <Tooltip>
                             <Tooltip.Trigger
                               as={IconButton}
-                              //   onClick={() => deleteCategory(id)}
+                              onClick={() => deleteAdvertisement(id)}
                               variant="ghost"
                               color="secondary"
                             >

@@ -31,7 +31,7 @@ const AdvertisementDetail = () => {
   // Fetch Advertisement Details
   useEffect(() => {
     setLoading(true);
-    apiClient
+    authApiClient
       .get(`/advertisements/${advertiseId}/`)
       .then((res) => setAdvertisement(res.data))
       .catch((err) => console.log("Advertisement details error:", err))

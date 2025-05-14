@@ -21,6 +21,7 @@ import Favorites from "../pages/Favorites";
 import Rentals from "../pages/Rentals";
 import MyAdvertisements from "../pages/MyAdvertisements";
 import AddAdvertisement from "../components/MyAdvertisements/AddAdvertisement";
+import Advertisements from "../pages/Advertisements";
 
 const AppRoutes = () => {
   return (
@@ -60,6 +61,7 @@ const AppRoutes = () => {
           <Route path="category/add" element={<AddCategory />} />
           <Route path="rent-requests" element={<RentRequests />} />
           <Route path="favorites" element={<Favorites />} />
+          <Route path="advertisements" element={<Advertisements />} />
           <Route path="my-advertisements" element={<MyAdvertisements />} />
           <Route path="advertisement/add" element={<AddAdvertisement />} />
         </Route>

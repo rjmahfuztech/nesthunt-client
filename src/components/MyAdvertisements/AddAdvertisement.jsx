@@ -3,6 +3,8 @@ import authApiClient from "../../services/authApiClient";
 import { handleApiError, Toast } from "../Messages/Alert";
 import useFetchCategory from "../../hooks/useFetchCategory";
 import AdvertisementForm from "./AdvertisementForm";
+import { useState } from "react";
+import AddAdvertisementImages from "./AddAdvertisementImages";
 
 const AddAdvertisement = () => {
   const {
@@ -14,6 +16,7 @@ const AddAdvertisement = () => {
   } = useForm();
 
   const { categories } = useFetchCategory();
+  const [advertiseId, setAdvertiseId] = useState(null);
 
   const handleAddAdvertisement = async (data) => {
     try {
@@ -24,6 +27,10 @@ const AddAdvertisement = () => {
           html: `<span class="text-black font-bold">${data.title}</span> - advertisement successfully added`,
         });
       }
+      // save new advertisement id
+      setTimeout(() => {
+        setAdvertiseId(res.data.id);
+      }, 1000);
     } catch (error) {
       handleApiError(error);
     }
@@ -33,16 +40,22 @@ const AddAdvertisement = () => {
   };
 
   return (
-    <AdvertisementForm
-      categories={categories}
-      register={register}
-      handleSubmit={handleSubmit}
-      control={control}
-      errors={errors}
-      isSubmitting={isSubmitting}
-      onSubmit={handleAddAdvertisement}
-      isUpdating={false}
-    />
+    <>
+      {advertiseId ? (
+        <AddAdvertisementImages advertiseId={advertiseId} />
+      ) : (
+        <AdvertisementForm
+          categories={categories}
+          register={register}
+          handleSubmit={handleSubmit}
+          control={control}
+          errors={errors}
+          isSubmitting={isSubmitting}
+          onSubmit={handleAddAdvertisement}
+          isUpdating={false}
+        />
+      )}
+    </>
   );
 };
 

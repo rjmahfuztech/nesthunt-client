@@ -48,7 +48,6 @@ const UserRentRequests = ({ advertiseId }) => {
       handleApiError(error);
     }
   };
-  console.log(value);
 
   const TABLE_HEAD = ["User", "Address", "Status", "Request Date"];
 

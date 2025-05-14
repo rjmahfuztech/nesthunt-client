@@ -22,6 +22,8 @@ import Rentals from "../pages/Rentals";
 import MyAdvertisements from "../pages/MyAdvertisements";
 import AddAdvertisement from "../components/MyAdvertisements/AddAdvertisement";
 import Advertisements from "../pages/Advertisements";
+import Users from "../pages/Users";
+import AdminRoute from "./AdminRoute";
 
 const AppRoutes = () => {
   return (
@@ -53,17 +55,53 @@ const AppRoutes = () => {
             </PrivateRoutes>
           }
         >
-          <Route index element={<Dashboard />} />
+          <Route
+            index
+            element={
+              <AdminRoute>
+                <Dashboard />
+              </AdminRoute>
+            }
+          />
           <Route path="profile" element={<Profile />} />
           <Route path="update-profile" element={<UpdateProfile />} />
           <Route path="change-password" element={<ChangePassword />} />
-          <Route path="categories" element={<Categories />} />
-          <Route path="category/add" element={<AddCategory />} />
-          <Route path="rent-requests" element={<RentRequests />} />
-          <Route path="favorites" element={<Favorites />} />
-          <Route path="advertisements" element={<Advertisements />} />
+          <Route
+            path="categories"
+            element={
+              <AdminRoute>
+                <Categories />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="category/add"
+            element={
+              <AdminRoute>
+                <AddCategory />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="advertisements"
+            element={
+              <AdminRoute>
+                <Advertisements />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="users"
+            element={
+              <AdminRoute>
+                <Users />
+              </AdminRoute>
+            }
+          />
           <Route path="my-advertisements" element={<MyAdvertisements />} />
           <Route path="advertisement/add" element={<AddAdvertisement />} />
+          <Route path="rent-requests" element={<RentRequests />} />
+          <Route path="favorites" element={<Favorites />} />
         </Route>
       </Routes>
     </>

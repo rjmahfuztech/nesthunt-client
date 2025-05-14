@@ -14,6 +14,7 @@ import {
   Cube,
   SelectEdge3d,
   RedoCircle,
+  Group,
 } from "iconoir-react";
 import { Link } from "react-router";
 import useAuthContext from "../../hooks/useAuthContext";
@@ -52,6 +53,7 @@ const DashboardSidebar = () => {
       to: "/dashboard/rent-requests",
     },
     { icon: Heart, title: "Favorites", to: "/dashboard/favorites" },
+    { icon: Group, title: "Users", to: "/dashboard/users" },
   ];
   // user menu
   const userMenus = [

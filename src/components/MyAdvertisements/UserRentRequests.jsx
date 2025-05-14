@@ -69,7 +69,7 @@ const UserRentRequests = ({ advertiseId }) => {
       {/* Table start  */}
       {requests.length === 0 ? (
         <h2 className="text-gray-500 text-lg font-semibold text-center my-14 md:my-20">
-          No Category available
+          No Request available
         </h2>
       ) : (
         <div className="mt-4 w-full overflow-hidden rounded-lg border border-surface mb-10">

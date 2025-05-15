@@ -18,12 +18,6 @@ export const AppProvider = ({ children }) => {
       maxAmount: rentPrice[1] == 50000 ? null : rentPrice[1],
     };
 
-    const hasValue = Object.values(dataWithRentAmount).some(
-      (val) => val !== "" && val !== null && val !== undefined
-    );
-    // if nothing search then return
-    if (!hasValue) return;
-
     setFilter(dataWithRentAmount);
     // navigate to rentals page
     navigate("/rentals");

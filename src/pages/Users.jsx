@@ -9,6 +9,11 @@ import defaultProfile from "../assets/images/profile/profileDefault.jpeg";
 import { format } from "date-fns";
 import { Trash } from "iconoir-react";
 import authApiClient from "../services/authApiClient";
+import {
+  handleApiError,
+  handleDeleteWarning,
+  handleSuccessMessage,
+} from "../components/Messages/Alert";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -22,8 +27,38 @@ const Users = () => {
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
   }, []);
+
+  // Delete user
+  const deleteUser = (id) => {
+    // delete warning
+    handleDeleteWarning().then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const res = await authApiClient.delete(`/auth/users/${id}/`);
+          if (res.status == 204) {
+            // update local state
+            setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+            // success message
+            handleSuccessMessage(
+              "User Deleted",
+              "User has been successfully deleted"
+            );
+          }
+        } catch (error) {
+          handleApiError(error);
+        }
+      }
+    });
+  };
   // user table header
-  const TABLE_HEAD = ["User", "Address", "Phone", "Join Date", "Delete"];
+  const TABLE_HEAD = [
+    "User",
+    "Address",
+    "Phone",
+    "Join Date",
+    "Last Login",
+    "Delete",
+  ];
 
   if (loading)
     return (
@@ -98,10 +133,20 @@ const Users = () => {
                       </Typography>
                     </td>
                     <td className="p-3">
+                      <Typography type="small">
+                        {user.last_login
+                          ? format(
+                              new Date(user.last_login),
+                              "MMMM d, yyyy, h:mm a"
+                            )
+                          : "Never"}
+                      </Typography>
+                    </td>
+                    <td className="p-3">
                       <Tooltip>
                         <Tooltip.Trigger
                           as={IconButton}
-                          // onClick={() => deleteAdvertisement(advertisement.id)}
+                          onClick={() => deleteUser(user.id)}
                           variant="ghost"
                           color="secondary"
                         >

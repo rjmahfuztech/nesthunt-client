@@ -15,6 +15,7 @@ import {
   SelectEdge3d,
   RedoCircle,
   Group,
+  List as IList,
 } from "iconoir-react";
 import { Link } from "react-router";
 import useAuthContext from "../../hooks/useAuthContext";
@@ -54,6 +55,7 @@ const DashboardSidebar = () => {
     },
     { icon: Heart, title: "Favorites", to: "/dashboard/favorites" },
     { icon: Group, title: "Users", to: "/dashboard/users" },
+    { icon: IList, title: "Orders", to: "/dashboard/orders" },
   ];
   // user menu
   const userMenus = [
@@ -73,6 +75,7 @@ const DashboardSidebar = () => {
       to: "/dashboard/rent-requests",
     },
     { icon: Heart, title: "Favorites", to: "/dashboard/favorites" },
+    { icon: IList, title: "Orders", to: "/dashboard/orders" },
   ];
 
   const navMenus = user.is_staff ? adminMenus : userMenus;

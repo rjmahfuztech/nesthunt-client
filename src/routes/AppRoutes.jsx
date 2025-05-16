@@ -24,6 +24,7 @@ import AddAdvertisement from "../components/MyAdvertisements/AddAdvertisement";
 import Advertisements from "../pages/Advertisements";
 import Users from "../pages/Users";
 import AdminRoute from "./AdminRoute";
+import Orders from "../pages/Orders";
 
 const AppRoutes = () => {
   return (
@@ -102,6 +103,7 @@ const AppRoutes = () => {
           <Route path="advertisement/add" element={<AddAdvertisement />} />
           <Route path="rent-requests" element={<RentRequests />} />
           <Route path="favorites" element={<Favorites />} />
+          <Route path="orders" element={<Orders />} />
         </Route>
       </Routes>
     </>

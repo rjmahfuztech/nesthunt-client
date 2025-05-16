@@ -5,7 +5,7 @@ import { Link } from "react-router";
 import { TrashSolid } from "iconoir-react";
 import {
   handleApiError,
-  handleDeleteWarning,
+  handleConfirmationWarning,
   handleSuccessMessage,
 } from "../components/Messages/Alert";
 
@@ -25,7 +25,7 @@ const Favorites = () => {
   // Delete favorite
   const deleteFavorite = (id) => {
     // delete warning
-    handleDeleteWarning().then(async (result) => {
+    handleConfirmationWarning("delete").then(async (result) => {
       if (result.isConfirmed) {
         try {
           const res = await authApiClient.delete(`/favourites/${id}/`);

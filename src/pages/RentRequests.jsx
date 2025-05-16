@@ -16,7 +16,7 @@ import {
 } from "iconoir-react";
 import {
   handleApiError,
-  handleDeleteWarning,
+  handleConfirmationWarning,
   handleSuccessMessage,
 } from "../components/Messages/Alert";
 
@@ -36,7 +36,7 @@ const RentRequests = () => {
   // Delete requested rent
   const handleDeleteRequest = async (id) => {
     // success alert
-    handleDeleteWarning().then(async (result) => {
+    handleConfirmationWarning("delete").then(async (result) => {
       if (result.isConfirmed) {
         try {
           const res = await authApiClient.delete(`/my_rent_requests/${id}/`);

@@ -2,7 +2,7 @@ import { Button } from "@material-tailwind/react";
 import { format } from "date-fns";
 import {
   handleApiError,
-  handleDeleteWarning,
+  handleConfirmationWarning,
   handleSuccessMessage,
 } from "../Messages/Alert";
 import authApiClient from "../../services/authApiClient";
@@ -10,7 +10,7 @@ import authApiClient from "../../services/authApiClient";
 const OrderDetail = ({ order, setOrders }) => {
   const handleCancelOrder = (id) => {
     // cancel warning
-    handleDeleteWarning().then(async (result) => {
+    handleConfirmationWarning("cancel").then(async (result) => {
       if (result.isConfirmed) {
         try {
           const res = await authApiClient.post(`/orders/${id}/cancel_order/`);

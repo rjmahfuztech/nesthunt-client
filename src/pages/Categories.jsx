@@ -11,7 +11,7 @@ import { Link } from "react-router";
 import UpdateCategory from "../components/Category/UpdateCategory";
 import {
   handleApiError,
-  handleDeleteWarning,
+  handleConfirmationWarning,
   handleSuccessMessage,
   Toast,
 } from "../components/Messages/Alert";
@@ -42,7 +42,7 @@ const Categories = () => {
   // Delete a category
   const deleteCategory = (id) => {
     // delete warning
-    handleDeleteWarning().then(async (result) => {
+    handleConfirmationWarning("delete").then(async (result) => {
       if (result.isConfirmed) {
         try {
           const res = await authApiClient.delete(`/categories/${id}/`);

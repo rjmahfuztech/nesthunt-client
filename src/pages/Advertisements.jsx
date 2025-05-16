@@ -11,7 +11,7 @@ import AdvertisementOwnerInfo from "../Advertisements/AdvertisementOwnerInfo";
 import AdvertisementUpdateStatus from "../Advertisements/AdvertisementUpdateStatus";
 import {
   handleApiError,
-  handleDeleteWarning,
+  handleConfirmationWarning,
   handleSuccessMessage,
 } from "../components/Messages/Alert";
 
@@ -43,7 +43,7 @@ const Advertisements = () => {
   // Delete advertisement
   const deleteAdvertisement = (id) => {
     // delete warning
-    handleDeleteWarning().then(async (result) => {
+    handleConfirmationWarning("delete").then(async (result) => {
       if (result.isConfirmed) {
         try {
           const res = await authApiClient.delete(`/advertisements/${id}/`);

@@ -11,7 +11,7 @@ import { Trash } from "iconoir-react";
 import authApiClient from "../services/authApiClient";
 import {
   handleApiError,
-  handleDeleteWarning,
+  handleConfirmationWarning,
   handleSuccessMessage,
 } from "../components/Messages/Alert";
 
@@ -31,7 +31,7 @@ const Users = () => {
   // Delete user
   const deleteUser = (id) => {
     // delete warning
-    handleDeleteWarning().then(async (result) => {
+    handleConfirmationWarning("delete").then(async (result) => {
       if (result.isConfirmed) {
         try {
           const res = await authApiClient.delete(`/auth/users/${id}/`);

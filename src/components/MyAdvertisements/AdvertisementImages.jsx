@@ -4,7 +4,7 @@ import { IconButton, Tooltip, Typography } from "@material-tailwind/react";
 import { Trash } from "iconoir-react";
 import {
   handleApiError,
-  handleDeleteWarning,
+  handleConfirmationWarning,
   handleSuccessMessage,
 } from "../Messages/Alert";
 
@@ -24,7 +24,7 @@ const AdvertisementImages = ({ advertiseId }) => {
   // delete image
   const deleteImage = (id) => {
     // delete warning
-    handleDeleteWarning().then(async (result) => {
+    handleConfirmationWarning("delete").then(async (result) => {
       if (result.isConfirmed) {
         try {
           const res = await authApiClient.delete(

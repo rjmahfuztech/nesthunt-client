@@ -7,7 +7,7 @@ import authApiClient from "../../services/authApiClient";
 import {
   handleApiError,
   handleSuccessMessage,
-  handleDeleteWarning,
+  handleConfirmationWarning,
 } from "../Messages/Alert";
 
 const Review = ({ advertiseId }) => {
@@ -79,7 +79,7 @@ const Review = ({ advertiseId }) => {
   // Delete review
   const handleDeleteReview = async (id) => {
     // delete success alert
-    handleDeleteWarning().then(async (result) => {
+    handleConfirmationWarning("delete").then(async (result) => {
       if (result.isConfirmed) {
         try {
           const res = await authApiClient.delete(

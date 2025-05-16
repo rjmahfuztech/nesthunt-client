@@ -7,7 +7,7 @@ import AdvertisementTable from "../components/MyAdvertisements/AdvertisementTabl
 import UpdateAdvertisement from "../components/MyAdvertisements/UpdateAdvertisement";
 import {
   handleApiError,
-  handleDeleteWarning,
+  handleConfirmationWarning,
   handleSuccessMessage,
 } from "../components/Messages/Alert";
 
@@ -34,7 +34,7 @@ const MyAdvertisements = () => {
   // delete advertisement
   const deleteAdvertisement = (id) => {
     // delete warning
-    handleDeleteWarning().then(async (result) => {
+    handleConfirmationWarning("delete").then(async (result) => {
       if (result.isConfirmed) {
         try {
           const res = await authApiClient.delete(`/my_advertisements/${id}/`);

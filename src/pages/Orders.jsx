@@ -24,7 +24,6 @@ const Orders = () => {
       </div>
     );
 
-  console.log(orders);
   return (
     <>
       {orders.length === 0 ? (

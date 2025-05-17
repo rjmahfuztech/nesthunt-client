@@ -1,18 +1,41 @@
 import { Button, Dialog, Input, Typography } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
+import authApiClient from "../../services/authApiClient";
+import { handleApiError, handleSuccessMessage } from "../Messages/Alert";
+import { useNavigate } from "react-router";
 
-const ModalForm = ({ advertiseId }) => {
+const ModalForm = ({ advertiseId, setOpen, title }) => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const updatedData = {
+      ...data,
+      advertisement_id: advertiseId,
+    };
+    // close the modal
+    setOpen(false);
+    try {
+      const res = await authApiClient.post(`/orders/`, updatedData);
+      if (res.status == 201) {
+        handleSuccessMessage(
+          "Order Placed.",
+          `Your '${title}' rent request successfully added to order. Check now in order!`
+        );
+        // redirecting to order page
+        setTimeout(() => {
+          navigate("/dashboard/orders");
+        }, [5000]);
+      }
+    } catch (error) {
+      handleApiError(error);
+    }
   };
 
-  console.log(advertiseId);
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mt-6">
       {/* Full Name  */}
@@ -98,13 +121,16 @@ const ModalForm = ({ advertiseId }) => {
       </div>
       <div className="mt-4 flex flex-wrap justify-end gap-2">
         <Dialog.DismissTrigger
+          disabled={isSubmitting}
           className="w-full md:w-36"
           as={Button}
           color="secondary"
         >
           Cancel
         </Dialog.DismissTrigger>
-        <Button className="w-full md:w-36">Submit</Button>
+        <Button disabled={isSubmitting} className="w-full md:w-36">
+          Submit
+        </Button>
       </div>
     </form>
   );

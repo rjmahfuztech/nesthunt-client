@@ -25,6 +25,7 @@ import Advertisements from "../pages/Advertisements";
 import Users from "../pages/Users";
 import AdminRoute from "./AdminRoute";
 import Orders from "../pages/Orders";
+import PaymentMessage from "../components/PaymentMessage";
 
 const AppRoutes = () => {
   return (
@@ -105,6 +106,15 @@ const AppRoutes = () => {
           <Route path="favorites" element={<Favorites />} />
           <Route path="orders" element={<Orders />} />
         </Route>
+        {/* payment message route  */}
+        <Route
+          path="payment/:status"
+          element={
+            <PrivateRoutes>
+              <PaymentMessage />
+            </PrivateRoutes>
+          }
+        />
       </Routes>
     </>
   );

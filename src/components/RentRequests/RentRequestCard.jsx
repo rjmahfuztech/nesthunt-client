@@ -135,7 +135,11 @@ const RentRequestCard = ({
                   </Typography>
                 </div>
                 {/* form  */}
-                <ModalForm advertiseId={advertiseId} />
+                <ModalForm
+                  advertiseId={advertiseId}
+                  setOpen={setOpen}
+                  title={data.advertisement.title}
+                />
               </Dialog.Content>
             </Dialog.Overlay>
           </Dialog>

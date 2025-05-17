@@ -6,8 +6,11 @@ import {
   handleSuccessMessage,
 } from "../Messages/Alert";
 import authApiClient from "../../services/authApiClient";
+import { useState } from "react";
 
 const OrderDetail = ({ order, setOrders }) => {
+  const [loading, setLoading] = useState(false);
+
   const handleCancelOrder = (id) => {
     // cancel warning
     handleConfirmationWarning("cancel").then(async (result) => {
@@ -31,6 +34,26 @@ const OrderDetail = ({ order, setOrders }) => {
         }
       }
     });
+  };
+
+  // handle pay now
+  const handlePayNow = async () => {
+    setLoading(true);
+    try {
+      const res = await authApiClient.post("/payment/initiate/", {
+        amount: order.advertisement.rental_amount,
+        orderId: order.id,
+        full_name: order.full_name,
+        address: order.address,
+        phone_number: order.phone_number,
+      });
+      if (res.data.payment_url) {
+        setLoading(false);
+        window.location.href = res.data.payment_url;
+      }
+    } catch (error) {
+      handleApiError(error);
+    }
   };
   return (
     <div key={order.id} className="bg-gray-100 flex justify-center mb-8">
@@ -162,10 +185,19 @@ const OrderDetail = ({ order, setOrders }) => {
         <div className="bg-gray-100 px-6 py-4">
           <div className="flex justify-end">
             <Button
-              disabled={order.status == "Booked" || order.status == "Cancelled"}
+              onClick={handlePayNow}
+              disabled={
+                order.status == "Booked" ||
+                order.status == "Cancelled" ||
+                loading
+              }
               className="bg-indigo-600 hover:bg-indigo-700 text-white w-48"
             >
-              {order.status == "Booked" ? "Paid" : "Pay Now"}
+              {order.status == "Booked"
+                ? "Paid"
+                : loading
+                ? "Processing..."
+                : "Pay Now"}
             </Button>
           </div>
         </div>

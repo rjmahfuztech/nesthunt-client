@@ -54,8 +54,10 @@ const socialLinks = [
 
 const Footer = () => {
   const [recentPost, setRecentPost] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     apiClient
       .get("/advertisements/")
       .then((res) => {
@@ -64,7 +66,8 @@ const Footer = () => {
         );
         setRecentPost(sorted.slice(0, 2)); // get the latest 2 advertisement post
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -114,7 +117,12 @@ const Footer = () => {
             <Typography type="h5" className="mb-6">
               Recent Posts
             </Typography>
-
+            {/* is loading  */}
+            {loading && (
+              <div className="ml-10">
+                <div className="loader"></div>
+              </div>
+            )}
             {recentPost.map((recent) => (
               <div key={recent.id} className="flex gap-4 mt-2">
                 <img

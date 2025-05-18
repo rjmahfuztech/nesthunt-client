@@ -97,7 +97,7 @@ const AdvertisementDetail = () => {
   ];
 
   return (
-    <div className="max-w-[1350px] mx-auto px-4">
+    <div className="max-w-[1350px] mx-auto px-4 mt-32">
       <div className="flex gap-2 justify-between items-center mt-10 -mb-5">
         <Button
           color="ghost"

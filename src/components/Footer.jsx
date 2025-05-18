@@ -1,119 +1,162 @@
 import { Typography, IconButton } from "@material-tailwind/react";
-import { Facebook, Instagram, X, Github, Dribbble } from "iconoir-react";
+import {
+  Facebook,
+  Instagram,
+  X,
+  Github,
+  Dribbble,
+  NavArrowUp,
+  Linkedin,
+  PhoneSolid,
+  MailSolid,
+  MapPin,
+  NavArrowRight,
+} from "iconoir-react";
+import { Link } from "react-router";
+import defaultImg from "../assets/images/defaultImage.jpeg";
+import { useEffect, useState } from "react";
+import apiClient from "../services/apiClient";
+import { format } from "date-fns";
 
 const LINKS = [
   {
-    title: "Product",
+    title: "Useful Links",
     items: [
-      { title: "Overview", href: "#" },
-      { title: "Features", href: "#" },
-      { title: "Solutions", href: "#" },
-      { title: "Tutorials", href: "#" },
-    ],
-  },
-  {
-    title: "Company",
-    items: [
-      { title: "About us", href: "#" },
-      { title: "Careers", href: "#" },
-      { title: "Press", href: "#" },
-      { title: "News", href: "#" },
-    ],
-  },
-  {
-    title: "Resource",
-    items: [
+      { title: "About Us", href: "#about" },
       { title: "Blog", href: "#" },
-      { title: "Newsletter", href: "#" },
-      { title: "Events", href: "#" },
-      { title: "Help center", href: "#" },
+      { title: "Rentals", to: "/rentals" },
+      { title: "Dashboard", to: "/dashboard" },
+      { title: "Contact Us", href: "#contact" },
+    ],
+  },
+  {
+    title: "Rent With Us",
+    items: [
+      { title: "Advertise a House", to: "/dashboard/advertisement/add" },
+      { title: "Rent a House", to: "/rentals" },
+      { title: "Book Now", to: "/dashboard/rent-requests" },
+      { title: "Book Your Room", to: "/rentals" },
+      { title: "Privacy Policy", href: "#" },
     ],
   },
 ];
 
 const YEAR = new Date().getFullYear();
 
+const socialLinks = [
+  { Icon: Facebook, href: "https://www.facebook.com/" },
+  { Icon: Instagram, href: "https://www.instagram.com/" },
+  { Icon: Dribbble, href: "https://dribbble.com/" },
+  { Icon: Github, href: "https://github.com/" },
+  { Icon: X, href: "https://x.com/" },
+  { Icon: Linkedin, href: "https://www.linkedin.com/" },
+];
+
 const Footer = () => {
+  const [recentPost, setRecentPost] = useState([]);
+
+  useEffect(() => {
+    apiClient
+      .get("/advertisements/")
+      .then((res) => {
+        const sorted = res.data.sort(
+          (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        );
+        setRecentPost(sorted.slice(0, 2)); // get the latest 2 advertisement post
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
-    <footer className="relative w-full bg-stone-100 py-10">
+    <footer className="relative w-full bg-[#252525] py-20 text-white">
       <div className="mx-auto w-full max-w-7xl px-8">
-        <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
-          <Typography type="h6" className="mb-4">
-            Material Tailwind
-          </Typography>
-          <div className="grid grid-cols-3 justify-between gap-x-6 gap-y-4">
-            {LINKS.map(({ title, items }) => (
-              <ul key={title}>
-                <Typography className="mb-2 font-semibold opacity-50">
-                  {title}
-                </Typography>
-                {items.map(({ title, href }) => (
-                  <li key={title}>
-                    <Typography
-                      as="a"
-                      href={href}
-                      className="py-1 hover:text-primary"
-                    >
-                      {title}
-                    </Typography>
-                  </li>
-                ))}
-              </ul>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 justify-between gap-8">
+          <div>
+            <Typography type="h5" className="mb-6">
+              Contact us
+            </Typography>
+            <div className="flex items-center gap-2 font-semibold">
+              <PhoneSolid className="w-4 h-4" /> <span>(+088) 121999999</span>
+            </div>
+            <div className="flex items-center gap-2 font-semibold mt-4">
+              <MailSolid className="w-4 h-4" />{" "}
+              <span>support@nesthunt.com</span>
+            </div>
+            <div className="flex items-center gap-2 font-semibold mt-4">
+              <MapPin className="w-4 h-4" />{" "}
+              <span className="text-sm  text-zinc-400">
+                8121 Sierra Lane Tampa, Florida 33604
+              </span>
+            </div>
+          </div>
+          {LINKS.map(({ title, items }) => (
+            <ul key={title}>
+              <Typography type="h5" className="mb-6">
+                {title}
+              </Typography>
+              {items.map((navLink) => (
+                <li key={navLink.title} className="inline">
+                  <Typography
+                    as={navLink?.to ? Link : "a"}
+                    to={navLink?.to}
+                    href={navLink?.href}
+                    className="py-1 text-sm text-zinc-400 hover:text-zinc-200 transition-colors duration-300 flex items-center gap-1"
+                  >
+                    <NavArrowRight strokeWidth={4} className="w-3 h-3" />{" "}
+                    {navLink.title}
+                  </Typography>
+                </li>
+              ))}
+            </ul>
+          ))}
+          {/* Recent Post  */}
+          <div>
+            <Typography type="h5" className="mb-6">
+              Recent Posts
+            </Typography>
+
+            {recentPost.map((recent) => (
+              <div key={recent.id} className="flex gap-4 mt-2">
+                <img
+                  className="w-16 h-16 rounded-lg object-cover"
+                  src={recent.images[0]?.image || defaultImg}
+                  alt="House Image"
+                />
+                <div>
+                  <h3 className="text-sm font-semibold">{recent.title}</h3>
+                  <h3 className="text-xs text-zinc-400 mt-1">
+                    {format(new Date(recent.created_at), "MMMM d, yyyy")}
+                  </h3>
+                </div>
+              </div>
             ))}
           </div>
         </div>
-        <div className="mt-10 flex w-full flex-col items-center justify-center gap-4 border-t border-surface py-4 md:flex-row md:justify-between">
+        <div className="mt-20 bg-[#303030] px-8 py-5 rounded-md flex w-full flex-col items-center justify-center gap-4 md:flex-row md:justify-between">
           <Typography type="small" className="text-center">
-            &copy; {YEAR}{" "}
-            <a href="https://material-tailwind.com/">Material Tailwind</a>. All
+            &copy; {YEAR} <span className="text-green-500">NestHunt</span>. All
             Rights Reserved.
           </Typography>
-          <div className="flex gap-1 sm:justify-center">
-            <IconButton
-              as="a"
-              href="#"
-              color="secondary"
-              variant="ghost"
-              size="sm"
-            >
-              <Facebook className="h-4 w-4" />
-            </IconButton>
-            <IconButton
-              as="a"
-              href="#"
-              color="secondary"
-              variant="ghost"
-              size="sm"
-            >
-              <Instagram className="h-4 w-4" />
-            </IconButton>
-            <IconButton
-              as="a"
-              href="#"
-              color="secondary"
-              variant="ghost"
-              size="sm"
-            >
-              <X className="h-4 w-4" />
-            </IconButton>
-            <IconButton
-              as="a"
-              href="#"
-              color="secondary"
-              variant="ghost"
-              size="sm"
-            >
-              <Github className="h-4 w-4" />
-            </IconButton>
-            <IconButton
-              as="a"
-              href="#"
-              color="secondary"
-              variant="ghost"
-              size="sm"
-            >
-              <Dribbble className="h-4 w-4" />
-            </IconButton>
+          <NavArrowUp
+            onClick={() => window.scrollTo(0, 0)}
+            strokeWidth={3}
+            className="w-14 h-14 cursor-pointer text-blue-500 opacity-70 hover:opacity-90 transition-opacity duration-300"
+          />
+          {/* Social links  */}
+          <div className="flex gap-4 sm:justify-center">
+            {/* eslint-disable-next-line no-unused-vars */}
+            {socialLinks.map(({ Icon, href }, index) => (
+              <IconButton
+                key={index}
+                as="a"
+                href={href}
+                variant="ghost"
+                size="sm"
+                className="text-white border-2 border-white hover:border-slate-300 hover:bg-green-700 rounded-full"
+              >
+                <Icon strokeWidth={2} className="h-4 w-4" />
+              </IconButton>
+            ))}
           </div>
         </div>
       </div>

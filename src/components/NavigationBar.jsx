@@ -9,7 +9,7 @@ import {
   Menu,
 } from "@material-tailwind/react";
 import { LogOut, MenuScale, UserCircle, Xmark } from "iconoir-react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import useAuthContext from "../hooks/useAuthContext";
 import defaultProfile from "../assets/images/profile/profileDefault.jpeg";
 
@@ -46,6 +46,7 @@ const NavigationBar = () => {
   const [openNav, setOpenNav] = React.useState(false);
   const { user, handleLogOut } = useAuthContext();
   const [isScroll, setIsScroll] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScrollNavbar = () => {
@@ -56,10 +57,14 @@ const NavigationBar = () => {
     return () => window.removeEventListener("scroll", handleScrollNavbar);
   }, []);
 
+  const isHomePage = location.pathname === "/";
+
   return (
     <Navbar
       className={`${
-        isScroll ? "bg-white text-black py-3" : "bg-transparent text-white py-6"
+        isScroll
+          ? "bg-white text-black py-3"
+          : `bg-transparent ${isHomePage && "text-white"} py-6`
       } border-none rounded-none w-full z-50 fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out`}
     >
       <div className="max-w-screen-2xl px-4 mx-auto">
@@ -77,7 +82,7 @@ const NavigationBar = () => {
             <div className="hidden lg:ml-auto lg:block">
               <div className="flex gap-4">
                 {/* Navbar list  */}
-                <ul className="mt-4 flex flex-col gap-x-7 gap-y-1.5 lg:mt-0 lg:flex-row lg:items-center">
+                <ul className="mt-4 flex flex-col gap-x-2 xl:gap-x-7 gap-y-1.5 lg:mt-0 lg:flex-row lg:items-center">
                   <li>
                     <Typography
                       as={Link}

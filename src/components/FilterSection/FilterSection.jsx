@@ -32,7 +32,7 @@ const FilterSection = ({ register, handleSubmit, onSubmit, control }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Card className="max-w-[26rem] mx-auto p-4 overflow-hidden shadow-lg">
+      <Card className="max-w-[26rem] mx-auto md:mx-0 p-6 md:p-10 overflow-hidden shadow-lg">
         {/* searchQuery  */}
         <div className="mb-4 mt-2 space-y-1.5">
           <Typography

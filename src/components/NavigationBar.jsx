@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   IconButton,
@@ -15,7 +15,7 @@ import defaultProfile from "../assets/images/profile/profileDefault.jpeg";
 
 const NavList = () => {
   const navLinks = [
-    { title: "Home", to: "/" },
+    // { title: "Home", to: "/" },
     { title: "Service", href: "#service" },
     { title: "Rentals", to: "/rentals" },
     { title: "Add Advertise", to: "/dashboard/advertisement/add" },
@@ -24,7 +24,7 @@ const NavList = () => {
     { title: "Contact", href: "#contact" },
   ];
   return (
-    <ul className="mt-4 flex flex-col gap-x-3 gap-y-1.5 lg:mt-0 lg:flex-row lg:items-center">
+    <>
       {navLinks.map((nav, index) => (
         <li key={index}>
           <Typography
@@ -32,36 +32,65 @@ const NavList = () => {
             to={nav?.to}
             href={nav?.href}
             type="small"
-            className="flex items-center gap-x-2 p-1 hover:text-primary"
+            className="flex items-center gap-x-2 font-semibold p-1"
           >
             {nav.title}
           </Typography>
         </li>
       ))}
-    </ul>
+    </>
   );
 };
 
 const NavigationBar = () => {
   const [openNav, setOpenNav] = React.useState(false);
   const { user, handleLogOut } = useAuthContext();
+  const [isScroll, setIsScroll] = useState(false);
+
+  useEffect(() => {
+    const handleScrollNavbar = () => {
+      setIsScroll(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScrollNavbar);
+    return () => window.removeEventListener("scroll", handleScrollNavbar);
+  }, []);
 
   return (
-    <Navbar className="py-4 rounded-none w-full ">
-      <div className="max-w-screen-2xl mx-auto">
+    <Navbar
+      className={`${
+        isScroll ? "bg-white text-black py-3" : "bg-transparent text-white py-6"
+      } border-none rounded-none w-full z-50 fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out`}
+    >
+      <div className="max-w-screen-2xl px-4 mx-auto">
         <Dialog size="xs">
-          <div className="flex items-center text-gray-500">
+          <div className="flex items-center">
             <Typography
               as={Link}
               to="/"
               type="small"
-              className="ml-2 mr-2 block py-1 text-lg md:text-xl text-black font-semibold"
+              className="ml-2 mr-2 block py-1 text-xl md:text-2xl font-semibold"
+              onClick={() => window.scrollTo(0, 0)}
             >
               NestHunt
             </Typography>
             <div className="hidden lg:ml-auto lg:block">
               <div className="flex gap-4">
-                <NavList />
+                {/* Navbar list  */}
+                <ul className="mt-4 flex flex-col gap-x-7 gap-y-1.5 lg:mt-0 lg:flex-row lg:items-center">
+                  <li>
+                    <Typography
+                      as={Link}
+                      to="/"
+                      type="small"
+                      onClick={() => window.scrollTo(0, 0)}
+                      className="flex items-center gap-x-2 font-semibold p-1"
+                    >
+                      Home
+                    </Typography>
+                  </li>
+                  <NavList />
+                </ul>
                 {user ? (
                   <Menu>
                     <Menu.Trigger
@@ -95,13 +124,18 @@ const NavigationBar = () => {
                       <Button
                         size="sm"
                         variant="outline"
-                        className="hidden lg:inline-block"
+                        color="success"
+                        className="hidden lg:inline-block px-5"
                       >
                         Login
                       </Button>
                     </Link>
                     <Link to="/sign-up">
-                      <Button size="sm" className="hidden lg:inline-block ">
+                      <Button
+                        size="sm"
+                        color="success"
+                        className="hidden lg:inline-block px-5"
+                      >
                         Sign Up
                       </Button>
                     </Link>
@@ -112,7 +146,7 @@ const NavigationBar = () => {
             <Dialog.Trigger
               as={Button}
               size="sm"
-              variant="ghost"
+              variant={isScroll ? "ghost" : "solid"}
               color="secondary"
               onClick={() => setOpenNav(!openNav)}
               className="ml-auto grid lg:hidden"
@@ -166,16 +200,41 @@ const NavigationBar = () => {
                 </Menu>
               )}
               <hr className="!my-1 -mx-1 border-surface" />
-              <NavList />
+              {/* Navbar list  */}
+              <ul className="mt-4 flex flex-col gap-x-7 gap-y-1.5 lg:mt-0 lg:flex-row lg:items-center">
+                <li>
+                  <Typography
+                    as={Link}
+                    to="/"
+                    type="small"
+                    onClick={() => window.scrollTo(0, 0)}
+                    className="flex items-center gap-x-2 font-semibold p-1"
+                  >
+                    <Dialog.DismissTrigger>Home</Dialog.DismissTrigger>
+                  </Typography>
+                </li>
+                <Dialog.DismissTrigger>
+                  <NavList />
+                </Dialog.DismissTrigger>
+              </ul>
               {!user && (
                 <>
                   <Link to="/login">
-                    <Button size="sm" variant="outline" className="mt-4 w-full">
+                    <Button
+                      size="sm"
+                      color="success"
+                      variant="outline"
+                      className="mt-4 w-full"
+                    >
                       Login
                     </Button>
                   </Link>
                   <Link to="/sign-up">
-                    <Button size="sm" className="mt-2 lg:mt-4 w-full">
+                    <Button
+                      size="sm"
+                      color="success"
+                      className="mt-2 lg:mt-4 w-full"
+                    >
                       Sign Up
                     </Button>
                   </Link>

@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import authApiClient from "../../services/authApiClient";
-import { IconButton, Tooltip, Typography } from "@material-tailwind/react";
-import { Trash } from "iconoir-react";
+import {
+  IconButton,
+  Tooltip,
+  Typography,
+  Dialog,
+  Button,
+} from "@material-tailwind/react";
+import { Trash, Xmark } from "iconoir-react";
 import {
   handleApiError,
   handleConfirmationWarning,
@@ -69,11 +75,36 @@ const AdvertisementImages = ({ advertiseId }) => {
         {images.map((image) => (
           <div className="bg-slate-200 rounded-md p-2 md:py-4" key={image.id}>
             <div className="flex gap-4 justify-around items-center">
-              <img
-                src={image.image}
-                className="w-16 h-16 object-cover rounded-md"
-                alt="House Image"
-              />
+              <div>
+                <Dialog size="md">
+                  <Dialog.Trigger as={Button} className="p-0 border-none">
+                    <img
+                      src={image.image}
+                      className="w-16 h-16 object-cover rounded-md hover:shadow-lg"
+                      alt="House Image"
+                    />
+                  </Dialog.Trigger>
+                  <Dialog.Overlay>
+                    <Dialog.Content>
+                      <img
+                        src={image.image}
+                        className="w-full object-cover rounded-md"
+                        alt="House Image"
+                      />
+                      <Dialog.DismissTrigger
+                        as={IconButton}
+                        size="sm"
+                        variant="ghost"
+                        isCircular
+                        color="secondary"
+                        className="absolute right-2 top-2"
+                      >
+                        <Xmark className="h-7 w-7" />
+                      </Dialog.DismissTrigger>
+                    </Dialog.Content>
+                  </Dialog.Overlay>
+                </Dialog>
+              </div>
               <Tooltip>
                 <Tooltip.Trigger
                   as={IconButton}

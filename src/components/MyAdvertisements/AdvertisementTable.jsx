@@ -194,7 +194,7 @@ const AdvertisementTable = ({
                       <h2 className="text-lg font-semibold mt-2">
                         Description:
                       </h2>
-                      <h3 className="text-black ml-2">
+                      <h3 className="text-black ml-2 max-w-[70rem]">
                         {advertisement.description}
                       </h3>
                       <div className="flex gap-2 md:gap-4 flex-wrap items-center mt-4">

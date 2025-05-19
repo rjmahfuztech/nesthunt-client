@@ -6,6 +6,7 @@ const useFetchCategory = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
+    setLoading(true);
     apiClient
       .get("/categories/")
       .then((res) => setCategories(res.data))

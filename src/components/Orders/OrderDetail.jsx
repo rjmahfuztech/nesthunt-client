@@ -1,4 +1,4 @@
-import { Button } from "@material-tailwind/react";
+import { Button, Spinner } from "@material-tailwind/react";
 import { format } from "date-fns";
 import {
   handleApiError,
@@ -57,7 +57,7 @@ const OrderDetail = ({ order, setOrders }) => {
   };
   return (
     <div key={order.id} className="bg-gray-100 flex justify-center mb-8">
-      <div className="bg-white rounded-2xl shadow-lg overflow-hidden w-full max-w-xl">
+      <div className="bg-white rounded-2xl shadow-lg overflow-hidden w-full max-w-5xl">
         <div className="bg-indigo-600 px-6 py-4">
           <div className="flex items-center flex-wrap justify-between gap-2">
             <div>
@@ -114,69 +114,74 @@ const OrderDetail = ({ order, setOrders }) => {
               </p>
             </div>
           </div>
-
-          <div className="bg-gray-100 rounded-xl p-4 mt-8">
-            <h3 className="text-base font-medium text-slate-900 mb-6">
-              Customer Information
-            </h3>
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div className="col-span-2">
-                <p className="text-slate-500 text-sm font-medium">
-                  Customer Name
-                </p>
-                <p className="text-slate-900 text-sm font-medium mt-2">
-                  {order.full_name}
-                </p>
-              </div>
-              <div>
-                <p className="text-slate-500 text-sm font-medium">Address</p>
-                <p className="text-slate-900 text-sm font-medium mt-2">
-                  {order.address}
-                </p>
-              </div>
-              <div>
-                <p className="text-slate-500 text-sm font-medium">Phone</p>
-                <p className="text-slate-900 text-sm font-medium mt-2">
-                  {order.phone_number}
-                </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-gray-100 rounded-xl p-4 mt-8">
+              <h3 className="text-base font-medium text-slate-900 mb-6">
+                Customer Information
+              </h3>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div className="col-span-2">
+                  <p className="text-slate-500 text-sm font-medium">
+                    Customer Name
+                  </p>
+                  <p className="text-slate-900 text-sm font-medium mt-2">
+                    {order.full_name}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-slate-500 text-sm font-medium">Address</p>
+                  <p className="text-slate-900 text-sm font-medium mt-2">
+                    {order.address}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-slate-500 text-sm font-medium">Phone</p>
+                  <p className="text-slate-900 text-sm font-medium mt-2">
+                    {order.phone_number}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="bg-gray-100 rounded-xl p-4 mt-8">
-            <h3 className="text-base font-medium text-slate-900 mb-6">
-              House Information
-            </h3>
-            <div className="space-y-4">
-              <div className="flex justify-between">
-                <p className="text-sm text-slate-500 font-medium">Title:</p>
-                <p className="text-slate-900 text-sm font-semibold">
-                  {order.advertisement.title}
-                </p>
-              </div>
-              <div className="flex justify-between">
-                <p className="text-sm text-slate-500 font-medium">Location:</p>
-                <p className="text-slate-900 text-sm font-semibold">
-                  {order.advertisement.location}
-                </p>
-              </div>
-              <div className="flex justify-between">
-                <p className="text-sm text-slate-500 font-medium">Bedroom:</p>
-                <p className="text-slate-900 text-sm font-semibold">
-                  {order.advertisement.bedroom} Bedroom
-                </p>
-              </div>
-              <div className="flex justify-between">
-                <p className="text-sm text-slate-500 font-medium">Bathroom:</p>
-                <p className="text-slate-900 text-sm font-semibold">
-                  {order.advertisement.bathroom} Bathroom
-                </p>
-              </div>
-              <div className="flex justify-between">
-                <p className="text-sm text-slate-500 font-medium">Size:</p>
-                <p className="text-slate-900 text-sm font-semibold">
-                  {order.advertisement.apartment_size} Square fit
-                </p>
+            <div className="bg-gray-100 rounded-xl p-4 mt-8">
+              <h3 className="text-base font-medium text-slate-900 mb-6">
+                House Information
+              </h3>
+              <div className="space-y-4">
+                <div className="flex justify-between">
+                  <p className="text-sm text-slate-500 font-medium">Title:</p>
+                  <p className="text-slate-900 text-sm font-semibold">
+                    {order.advertisement.title}
+                  </p>
+                </div>
+                <div className="flex justify-between">
+                  <p className="text-sm text-slate-500 font-medium">
+                    Location:
+                  </p>
+                  <p className="text-slate-900 text-sm font-semibold">
+                    {order.advertisement.location}
+                  </p>
+                </div>
+                <div className="flex justify-between">
+                  <p className="text-sm text-slate-500 font-medium">Bedroom:</p>
+                  <p className="text-slate-900 text-sm font-semibold">
+                    {order.advertisement.bedroom} Bedroom
+                  </p>
+                </div>
+                <div className="flex justify-between">
+                  <p className="text-sm text-slate-500 font-medium">
+                    Bathroom:
+                  </p>
+                  <p className="text-slate-900 text-sm font-semibold">
+                    {order.advertisement.bathroom} Bathroom
+                  </p>
+                </div>
+                <div className="flex justify-between">
+                  <p className="text-sm text-slate-500 font-medium">Size:</p>
+                  <p className="text-slate-900 text-sm font-semibold">
+                    {order.advertisement.apartment_size} Square fit
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -193,11 +198,16 @@ const OrderDetail = ({ order, setOrders }) => {
               }
               className="bg-indigo-600 hover:bg-indigo-700 text-white w-48"
             >
-              {order.status == "Booked"
-                ? "Paid"
-                : loading
-                ? "Processing..."
-                : "Pay Now"}
+              {order.status == "Booked" ? (
+                "Paid"
+              ) : loading ? (
+                <span className="flex items-center gap-3">
+                  <Spinner size="sm" color="success" />
+                  Processing...
+                </span>
+              ) : (
+                "Pay Now"
+              )}
             </Button>
           </div>
         </div>

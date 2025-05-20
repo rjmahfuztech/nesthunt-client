@@ -28,21 +28,25 @@ const UserRentRequests = ({ advertiseId }) => {
       );
       if (res.status == 200) {
         setValue(status);
-        // success alert
-        await Toast.fire({
-          icon: "success",
-          html: `status <span class="text-black font-bold">${status}</span> successfully updated`,
-        });
         // update local state status
         setRequests((prevRequests) =>
           prevRequests.map((req) =>
             req.id === id
               ? { ...req, status: status }
-              : status == "Approved"
-              ? { ...req, status: "Rejected" }
-              : req
+              : {
+                  ...req,
+                  status:
+                    status === "Approved" && status !== "Rejected"
+                      ? "Rejected"
+                      : "Pending",
+                }
           )
         );
+        // success alert
+        await Toast.fire({
+          icon: "success",
+          html: `status <span class="text-black font-bold">${status}</span> successfully updated`,
+        });
       }
     } catch (error) {
       handleApiError(error);
@@ -120,7 +124,7 @@ const UserRentRequests = ({ advertiseId }) => {
                     </td>
                     <td className="p-3">
                       <Select
-                        // disabled={request.status == "Rejected" || "Approved"}
+                        disabled={request.status == "Rejected"}
                         value={value}
                         onValueChange={(val) => updateStatus(request.id, val)}
                         size="sm"

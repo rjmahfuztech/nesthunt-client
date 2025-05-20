@@ -23,12 +23,13 @@ const ReviewCard = ({
   return (
     <div>
       <Card className="w-full border-none shadow-none bg-[#F0F2F4] p-3 md:p-4 mt-6">
-        <Card.Header className="mx-0 flex gap-4 pb-4 pt-0">
+        <Card.Header className="mx-0 flex gap-2 pb-4 pt-0">
           <Avatar
             size="lg"
             shape="rounded"
             alt="Profile Pic"
-            src={defaultProfile}
+            className="object-contain border p-1"
+            src={review.user.profile_image || defaultProfile}
           />
           <div className="ml-2 flex w-full flex-col gap-0.5">
             <div className="flex items-center justify-between">

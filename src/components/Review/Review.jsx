@@ -14,6 +14,7 @@ const Review = ({ advertiseId }) => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
   const [editingId, setEditingId] = useState(null);
+  const [canReview, setCanReview] = useState(false);
 
   // Get all reviews
   const advertisementReviews = async () => {
@@ -30,9 +31,9 @@ const Review = ({ advertiseId }) => {
     }
   };
 
-  useEffect(() => {
-    advertisementReviews();
-  }, []);
+  // useEffect(() => {
+  //   advertisementReviews();
+  // }, []);
 
   // Add review
   const onSubmit = async (data) => {
@@ -102,6 +103,22 @@ const Review = ({ advertiseId }) => {
     });
   };
 
+  // checking review permission has or not
+  useEffect(() => {
+    const hasPermission = async () => {
+      try {
+        const res = await authApiClient.get(
+          `/orders/has_rented/${advertiseId}/`
+        );
+        setCanReview(res.data.has_rented);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    hasPermission();
+    advertisementReviews();
+  }, [advertiseId]);
+
   return (
     <div>
       <div className="flex gap-2 justify-between">
@@ -114,7 +131,8 @@ const Review = ({ advertiseId }) => {
         </h3>
       </div>
       <hr className="-mx-3 my-2 border-secondary" />
-      <ReviewForm onSubmit={onSubmit} />
+      {/* Review Form  */}
+      {canReview && <ReviewForm onSubmit={onSubmit} />}
       {reviews.length === 0 ? (
         <div className="my-6 text-center">
           <div className="flex justify-center">

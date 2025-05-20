@@ -90,29 +90,39 @@ const RentRequestCard = ({
         </div>
         <div className="mt-auto pt-4">
           <Dialog open={open} onOpenChange={setOpen} size="sm">
-            <Button
-              isFullWidth
-              className="mb-2 flex w-fit items-center gap-2"
-              onClick={() => (
-                setAdvertiseId(data.advertisement.id), setOpen(true)
+            <div className="relative group">
+              {data.status !== "Approved" && (
+                <span className="absolute left-0 -top-16 sm:-top-10 mt-2 hidden group-hover:block bg-gray-800 text-white text-sm px-2 py-1 rounded">
+                  You can only book when your request is approved.
+                </span>
               )}
-            >
-              Book Now
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-                className="h-4 w-4"
+              <Button
+                disabled={
+                  data.status === "Pending" || data.status === "Rejected"
+                }
+                isFullWidth
+                className="mb-2 flex w-fit items-center gap-2"
+                onClick={() => (
+                  setAdvertiseId(data.advertisement.id), setOpen(true)
+                )}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                />
-              </svg>
-            </Button>
+                Book Now
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  className="h-4 w-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                  />
+                </svg>
+              </Button>
+            </div>
             <Dialog.Overlay>
               <Dialog.Content>
                 <Dialog.DismissTrigger

@@ -20,6 +20,7 @@ import {
   handleWarningMessage,
 } from "../components/Messages/Alert";
 import useAuthContext from "../hooks/useAuthContext";
+import FadeIn from "../components/Animation/FadeIn";
 
 const AdvertisementDetail = () => {
   const { advertiseId } = useParams();
@@ -99,34 +100,44 @@ const AdvertisementDetail = () => {
   return (
     <div className="max-w-[1350px] mx-auto px-4 mt-32">
       <div className="flex gap-2 justify-between items-center mt-10 -mb-5">
-        <Button
-          color="ghost"
-          as={Link}
-          to="/rentals"
-          className="border-none shadow-none hover:shadow-none hover:-ml-2 font-semibold flex gap-2 items-center hover:text-gray-500"
-        >
-          <DotArrowLeft />
-          <span>Back to Rentals</span>
-        </Button>
-        <Button
-          onClick={handleAddToFavorite}
-          className="flex gap-2 items-center bg-green-600  hover:bg-green-700 border-none"
-        >
-          <span>Add Favorite </span> <HeartSolid className="text-red-500" />
-        </Button>
+        <FadeIn y={0} x={-50} duration={0.3} delay={0.1}>
+          <Button
+            color="ghost"
+            as={Link}
+            to="/rentals"
+            className="border-none shadow-none hover:shadow-none hover:-ml-2 font-semibold flex gap-2 items-center hover:text-gray-500"
+          >
+            <DotArrowLeft />
+            <span>Back to Rentals</span>
+          </Button>
+        </FadeIn>
+        <FadeIn y={0} x={50} duration={0.3} delay={0.1}>
+          <Button
+            onClick={handleAddToFavorite}
+            className="flex gap-2 items-center bg-green-600  hover:bg-green-700 border-none"
+          >
+            <span>Add Favorite </span> <HeartSolid className="text-red-500" />
+          </Button>
+        </FadeIn>
       </div>
       {/* Advertisement Image gallery  */}
-      <AdvertisementImageGallery images={advertisement.images} />
+      <FadeIn duration={0.3} delay={0.1}>
+        <AdvertisementImageGallery images={advertisement.images} />
+      </FadeIn>
       <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-8 my-10">
         {/* Advertisement Details  */}
-        <AdvertisementDetails
-          advertisement={advertisement}
-          category={category}
-          details={details}
-        />
+        <div className="col-span-2">
+          <AdvertisementDetails
+            advertisement={advertisement}
+            category={category}
+            details={details}
+          />
+        </div>
         {/* Advertisement Reviews  */}
         <div className="mt-10 lg:mt-0">
-          <Review advertiseId={advertiseId} />
+          <FadeIn y={0} x={50}>
+            <Review advertiseId={advertiseId} />
+          </FadeIn>
         </div>
       </div>
     </div>

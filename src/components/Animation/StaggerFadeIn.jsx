@@ -7,8 +7,9 @@ const StaggerFadeIn = ({
   y,
   scale = 0.9,
   delay = 0.3,
-  duration = 0.7,
+  duration = 1,
   index = 0,
+  amount = 0.3,
 }) => {
   const variants = {
     hidden: { opacity: 0, x, y, scale },
@@ -29,7 +30,7 @@ const StaggerFadeIn = ({
       custom={index}
       initial="hidden"
       whileInView="visible"
-      viewport={{ amount: 0.3, once: true }}
+      viewport={{ amount, once: true }}
       variants={variants}
     >
       {children}

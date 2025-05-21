@@ -2,6 +2,8 @@ import AdvertisementInfo from "../components/Home/HomeAdvertisement/Advertisemen
 import FilterSection from "../components/FilterSection/FilterSection";
 import useFetchAdvertisement from "../hooks/useFetchAdvertisement";
 import useAppContext from "../hooks/useAppContext";
+import FadeIn from "../components/Animation/FadeIn";
+import StaggerFadeIn from "../components/Animation/StaggerFadeIn";
 
 const Rentals = () => {
   // import from AppContext
@@ -20,9 +22,11 @@ const Rentals = () => {
     <div className="max-w-[1350px] mx-auto px-4 mt-20">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-0 sm:gap-4 md:gap-6">
         <div className="col-span-2 order-2 md:order-1">
-          <h2 className="text-3xl font-bold uppercase my-10 max-w-80 border-b-2 border-b-orange-400">
-            All Rentals
-          </h2>
+          <FadeIn x={-50} y={0} delay={0.3}>
+            <h2 className="text-3xl font-bold uppercase my-10 max-w-80 border-b-2 border-b-orange-400">
+              All Rentals
+            </h2>
+          </FadeIn>
           {/* Loading */}
           {loading ? (
             <div className="flex justify-center my-20 md:my-32">
@@ -34,28 +38,36 @@ const Rentals = () => {
             </h2>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-10 md:mb-20">
-              {advertisements.map((advertisement) => (
-                <AdvertisementInfo
+              {advertisements.map((advertisement, index) => (
+                <StaggerFadeIn
                   key={advertisement.id}
-                  advertisement={advertisement}
-                />
+                  index={index}
+                  y={50}
+                  duration={1.5}
+                  delay={0.1}
+                  scale={1}
+                >
+                  <AdvertisementInfo advertisement={advertisement} />
+                </StaggerFadeIn>
               ))}
             </div>
           )}
         </div>
         {/* Filter section  */}
         <div className="relative order-1 md:order-2">
-          <div className="mb-4 md:mb-20 sticky top-20">
-            <h2 className="text-3xl font-bold uppercase my-10 max-w-80 border-b-2 border-b-orange-400">
-              Search Here
-            </h2>
-            <FilterSection
-              register={register}
-              handleSubmit={handleSubmit}
-              onSubmit={onSubmit}
-              control={control}
-            />
-          </div>
+          <FadeIn x={50} y={0} delay={0.3}>
+            <div className="mb-4 md:mb-20 sticky top-20">
+              <h2 className="text-3xl font-bold uppercase my-10 max-w-80 border-b-2 border-b-orange-400">
+                Search Here
+              </h2>
+              <FilterSection
+                register={register}
+                handleSubmit={handleSubmit}
+                onSubmit={onSubmit}
+                control={control}
+              />
+            </div>
+          </FadeIn>
         </div>
       </div>
     </div>

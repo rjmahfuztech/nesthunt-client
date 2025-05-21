@@ -7,7 +7,7 @@ const FadeIn = ({
   y = 50,
   scale = 1,
   delay = 0,
-  duration = 1,
+  duration = 1.5,
 }) => {
   const initial = {
     opacity: 0,

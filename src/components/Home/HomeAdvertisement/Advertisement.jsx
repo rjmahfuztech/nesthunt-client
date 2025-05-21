@@ -33,13 +33,13 @@ const Advertisement = () => {
       id="advertisement"
       className="max-w-[1350px] mx-auto px-4 my-24 md:my-36"
     >
-      <FadeIn y={-30} delay={0.3}>
+      <FadeIn y={-30} delay={0.1}>
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-4 uppercase">
           Check out our house advertisements
         </h2>
         <hr className="bg-orange-400 h-1 border-none w-48 mx-auto mb-14 md:mb-20" />
       </FadeIn>
-      <FadeIn delay={0.6}>
+      <FadeIn delay={0.3}>
         <div className="mt-5">
           {loading && (
             <div className="flex h-80 md:h-96 items-center justify-center">

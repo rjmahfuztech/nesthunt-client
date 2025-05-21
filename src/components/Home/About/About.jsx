@@ -20,15 +20,15 @@ const About = () => {
             </h2>
             <hr className="bg-orange-400 h-1 border-none w-32 mx-auto mb-14 md:mb-20" />
           </FadeIn>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 md:gap-10 items-center">
             <FadeIn x={-50} y={0} delay={0.2}>
               <img
-                className="w-[24rem] h-[24rem] md:w-[30rem] md:h-[30rem] object-cover object-center rounded-xl"
+                className="w-[24rem] h-[24rem] md:w-[30rem] md:h-[30rem] mx-auto object-cover object-center rounded-xl"
                 src={aboutImg}
                 alt="About Image"
               />
             </FadeIn>
-            <div className="col-span-2">
+            <div className="col-span-2 mt-10 md:mt-0">
               <FadeIn x={50} y={0} delay={0.3}>
                 <h2 className="text-2xl md:text-4xl font-bold uppercase my-2">
                   Connecting You with Your Dream Home

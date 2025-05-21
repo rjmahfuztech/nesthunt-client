@@ -72,7 +72,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <FadeIn y={20} delay={0.1}>
+    <FadeIn y={20} duration={0.5} delay={0.1}>
       <footer className="relative w-full bg-[#252525] py-20 text-white">
         <div className="mx-auto w-full max-w-7xl px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 justify-between gap-8">

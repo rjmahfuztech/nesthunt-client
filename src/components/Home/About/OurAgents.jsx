@@ -34,9 +34,9 @@ const OurAgents = () => {
         <h2 className="text-3xl font-bold text-center mb-4 uppercase">
           Meet Our Real Estate Agents
         </h2>
-        <p className="text-gray-500 text-center mb-5">
-          Meet our team of experienced and professional real estate agents{" "}
-          <br /> ready to help you with your property needs.
+        <p className="text-gray-500 text-center mb-5 max-w-md mx-auto">
+          Meet our team of experienced and professional real estate agents ready
+          to help you with your property needs.
         </p>
         <hr className="bg-orange-400 h-1 border-none w-32 mx-auto mb-14 md:mb-20" />
       </FadeIn>

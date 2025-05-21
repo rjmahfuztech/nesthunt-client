@@ -1,10 +1,11 @@
 import RegisterForm from "../components/Authentication/RegisterForm";
 import { useForm } from "react-hook-form";
-import { Dialog, IconButton } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import { Xmark } from "iconoir-react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import useAuthContext from "../hooks/useAuthContext";
+import FadeIn from "../components/Animation/FadeIn";
 
 const Register = () => {
   const [open, setOpen] = useState(true);
@@ -16,8 +17,8 @@ const Register = () => {
   const [resendEmail, setResendEmail] = useState("");
   const [sending, setSending] = useState(false);
 
-  // Handle close modal
-  const handleClose = () => {
+  // Handle Open and Close Modal
+  const handleToggleModal = () => {
     setOpen(!open);
     navigate("/");
   };
@@ -72,36 +73,51 @@ const Register = () => {
   };
 
   return (
-    <Dialog open={open} handler={handleClose} size="sm">
-      <Dialog.Overlay className="bg-neutral-400">
-        <Dialog.Content className="p-0">
-          <Dialog.DismissTrigger
-            as={IconButton}
-            onClick={handleClose}
-            size="sm"
-            variant="ghost"
-            color="secondary"
-            className="absolute right-1 top-1"
-            isCircular
+    <div>
+      {/* Modal Overlay + Content */}
+      {open && (
+        <div
+          className="fixed px-4 inset-0 z-50 flex items-center justify-center bg-black/50"
+          onClick={handleToggleModal}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-xl relative"
           >
-            <Xmark className="h-6 w-6" />
-          </Dialog.DismissTrigger>
-          <RegisterForm
-            handleSubmit={handleSubmit}
-            register={register}
-            watch={watch}
-            errors={errors}
-            onSubmit={onSubmit}
-            errorMessage={errorMessage}
-            successMsg={successMsg}
-            loading={loading}
-            resendEmail={resendEmail}
-            handleResendEmail={handleResendEmail}
-            sending={sending}
-          />
-        </Dialog.Content>
-      </Dialog.Overlay>
-    </Dialog>
+            <FadeIn y={-50} duration={0.3} delay={0.1}>
+              <div className="bg-white rounded-lg shadow-lg p-3 md:p-6">
+                {/* Close Button */}
+                <Button
+                  variant="ghost"
+                  onClick={handleToggleModal}
+                  className="absolute top-3 right-3 border-none hover:bg-none"
+                >
+                  <Xmark className="h-6 w-6" />
+                </Button>
+
+                {/* Modal Content */}
+                <div>
+                  {/* Registration Form  */}
+                  <RegisterForm
+                    handleSubmit={handleSubmit}
+                    register={register}
+                    watch={watch}
+                    errors={errors}
+                    onSubmit={onSubmit}
+                    errorMessage={errorMessage}
+                    successMsg={successMsg}
+                    loading={loading}
+                    resendEmail={resendEmail}
+                    handleResendEmail={handleResendEmail}
+                    sending={sending}
+                  />
+                </div>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

@@ -11,7 +11,7 @@ const LoginForm = ({
   loading,
 }) => {
   return (
-    <Card className="border-none mt-10">
+    <Card className="border-none shadow-none mt-10">
       <Card.Header
         as={Card}
         color="primary"

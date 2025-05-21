@@ -4,7 +4,8 @@ import useAuthContext from "../hooks/useAuthContext";
 import { Xmark } from "iconoir-react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { Dialog, IconButton } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
+import FadeIn from "../components/Animation/FadeIn";
 
 const Login = () => {
   const { loginUser, errorMessage, setErrorMessage } = useAuthContext();
@@ -12,8 +13,8 @@ const Login = () => {
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
 
-  // Handle Close Modal
-  const handleClose = () => {
+  // Handle Open and Close Modal
+  const handleToggleModal = () => {
     setOpen(!open);
     navigate("/");
   };
@@ -46,34 +47,46 @@ const Login = () => {
   }
 
   return (
-    <Dialog open={open} handler={handleClose} size="sm">
-      <Dialog.Overlay className="bg-neutral-400">
-        <Dialog.Content className="p-0">
-          <Dialog.DismissTrigger
-            as={IconButton}
-            onClick={handleClose}
-            size="sm"
-            variant="ghost"
-            color="secondary"
-            className="absolute right-1 top-1"
-            isCircular
+    <div>
+      {/* Modal Overlay + Content */}
+      {open && (
+        <div
+          className="fixed px-4 inset-0 z-50 flex items-center justify-center bg-black/50"
+          onClick={handleToggleModal}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-xl relative"
           >
-            <Xmark className="h-6 w-6" />
-          </Dialog.DismissTrigger>
-          <div>
-            {/* Login Form  */}
-            <LoginForm
-              handleSubmit={handleSubmit}
-              onSubmit={onSubmit}
-              register={register}
-              errors={errors}
-              errorMessage={errorMessage}
-              loading={loading}
-            />
+            <FadeIn y={-50} duration={0.3} delay={0.1}>
+              <div className="bg-white rounded-lg shadow-lg p-3 md:p-6">
+                {/* Close Button */}
+                <Button
+                  variant="ghost"
+                  onClick={handleToggleModal}
+                  className="absolute top-3 right-3 border-none hover:bg-none"
+                >
+                  <Xmark className="h-6 w-6" />
+                </Button>
+
+                {/* Modal Content */}
+                <div>
+                  {/* Login Form  */}
+                  <LoginForm
+                    handleSubmit={handleSubmit}
+                    onSubmit={onSubmit}
+                    register={register}
+                    errors={errors}
+                    errorMessage={errorMessage}
+                    loading={loading}
+                  />
+                </div>
+              </div>
+            </FadeIn>
           </div>
-        </Dialog.Content>
-      </Dialog.Overlay>
-    </Dialog>
+        </div>
+      )}
+    </div>
   );
 };
 

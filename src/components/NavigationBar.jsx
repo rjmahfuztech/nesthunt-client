@@ -12,6 +12,7 @@ import { LogOut, MenuScale, UserCircle, Xmark } from "iconoir-react";
 import { Link, useLocation } from "react-router";
 import useAuthContext from "../hooks/useAuthContext";
 import defaultProfile from "../assets/images/profile/profileDefault.jpeg";
+import logo from "../assets/logo/small.jpeg";
 
 const NavList = () => {
   const navLinks = [
@@ -74,10 +75,14 @@ const NavigationBar = () => {
               as={Link}
               to="/"
               type="small"
-              className="ml-2 mr-2 block py-1 text-xl md:text-2xl font-semibold"
+              className="max-w-40"
               onClick={() => window.scrollTo(0, 0)}
             >
-              NestHunt
+              <img
+                className="w-2/3 md:w-full rounded-md"
+                src={logo}
+                alt="Logo"
+              />
             </Typography>
             <div className="hidden lg:ml-auto lg:block">
               <div className="flex gap-4">

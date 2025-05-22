@@ -29,7 +29,7 @@ import PaymentMessage from "../components/PaymentMessage";
 
 const AppRoutes = () => {
   return (
-    <>
+    <div className="overflow-x-hidden">
       {/* Public routes  */}
       <Routes>
         <Route element={<MainLayout />}>
@@ -116,7 +116,7 @@ const AppRoutes = () => {
           }
         />
       </Routes>
-    </>
+    </div>
   );
 };
 

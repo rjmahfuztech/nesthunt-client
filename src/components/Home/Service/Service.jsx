@@ -44,9 +44,9 @@ const Service = () => {
         </FadeIn>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-6">
           {services.map((service, index) => (
-            <StaggerFadeIn key={index} index={index} y={50}>
+            <FadeIn key={index} scale={0.8} delay={0.2 * index} y={50}>
               <ServiceCard service={service} />
-            </StaggerFadeIn>
+            </FadeIn>
           ))}
         </div>
       </div>

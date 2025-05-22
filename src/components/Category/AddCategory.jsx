@@ -35,17 +35,15 @@ const AddCategory = () => {
     reset();
   };
   return (
-    <Card className="max-w-[45rem] mx-auto">
-      <Card.Header className="mx-3 mt-3 text-center">
-        <Card.Header
-          as={Card}
-          color="primary"
-          className="grid min-h-24 max-h-36 place-items-center shadow-none"
-        >
-          <Typography as="span" type="h4" className="text-primary-foreground">
-            Add Category
-          </Typography>
-        </Card.Header>
+    <Card className="max-w-[45rem] mx-auto p-3 md:p-4 shadow-lg">
+      <Card.Header
+        as={Card}
+        color="primary"
+        className="grid min-h-24 max-h-36 place-items-center shadow-none"
+      >
+        <Typography as="span" type="h4" className="text-primary-foreground">
+          Add Category
+        </Typography>
       </Card.Header>
       <Card.Body>
         <form onSubmit={handleSubmit(handleAddCategory)}>

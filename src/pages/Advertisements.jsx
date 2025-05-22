@@ -74,7 +74,7 @@ const Advertisements = () => {
       </div>
     );
   return (
-    <div className="w-full bg-white p-2">
+    <div className="w-full bg-white p-4 md:p-6 rounded-lg">
       <div className="mb-8">
         <Typography type="h6">Advertisement list</Typography>
         <Typography className="mt-1">

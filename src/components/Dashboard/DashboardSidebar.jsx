@@ -82,7 +82,7 @@ const DashboardSidebar = () => {
 
   return (
     <>
-      <Card className="grid h-full border rounded-none bg-[#F8F8F8]">
+      <Card className="grid h-full border rounded-none bg-white">
         <div>
           <Card.Header className="mx-3 mb-0 mt-3 flex h-max items-center gap-2">
             <img

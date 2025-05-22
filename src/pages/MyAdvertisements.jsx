@@ -72,7 +72,7 @@ const MyAdvertisements = () => {
           setMyAdvertisements={setMyAdvertisements}
         />
       ) : (
-        <div className="w-full bg-white p-2">
+        <div className="w-full bg-white p-4 md:p-6 rounded-lg">
           <div className="mb-8 flex items-center justify-between gap-4 md:gap-8">
             <div>
               <Typography type="h6">My Advertisement list</Typography>

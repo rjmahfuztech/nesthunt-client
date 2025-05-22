@@ -33,7 +33,7 @@ const ChangePassword = () => {
     }
   };
   return (
-    <Card className="max-w-[45rem] mx-auto">
+    <Card className="max-w-[45rem] mx-auto p-3 md:p-4 shadow-lg">
       <Card.Header
         as={Card}
         color="primary"

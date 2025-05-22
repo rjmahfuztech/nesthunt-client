@@ -1,10 +1,9 @@
-import React from "react";
 import { Outlet } from "react-router";
 import DashboardSidebar from "../components/Dashboard/DashboardSidebar";
 import DashboardNavbar from "../components/Dashboard/DashboardNavbar";
 import { useEffect, useState } from "react";
 import { IconButton, Drawer } from "@material-tailwind/react";
-import { Menu, Xmark } from "iconoir-react";
+import { Xmark } from "iconoir-react";
 
 const DashboardLayout = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(true);
@@ -63,7 +62,7 @@ const DashboardLayout = () => {
           isDrawerOpen={isDrawerOpen}
           setIsDrawerOpen={setIsDrawerOpen}
         />
-        <div className="p-4">
+        <div className="p-4 md:p-8">
           <Outlet />
         </div>
       </div>

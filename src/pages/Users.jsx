@@ -68,7 +68,7 @@ const Users = () => {
     );
 
   return (
-    <div className="bg-white p-2 rounded-md">
+    <div className="bg-white p-4 md:p-6 rounded-lg">
       <div>
         <Typography type="h6">All User list</Typography>
         <Typography className="mt-1">
@@ -81,12 +81,15 @@ const Users = () => {
           No Users Found
         </h2>
       ) : (
-        <div className="mt-4 w-full overflow-hidden rounded-lg border border-surface mb-10">
+        <div className="mt-4 w-full overflow-x-auto rounded-lg border border-surface mb-10">
           <table className="w-full">
             <thead className="border-b border-surface bg-surface-light text-sm font-medium text-foreground dark:bg-surface-dark">
               <tr>
                 {TABLE_HEAD.map((head) => (
-                  <th key={head} className="px-2.5 py-2 text-start font-medium">
+                  <th
+                    key={head}
+                    className="px-2.5 py-2 min-w-32 text-start font-medium"
+                  >
                     {head}
                   </th>
                 ))}
@@ -99,7 +102,7 @@ const Users = () => {
                     key={user.id}
                     className="border-b border-surface last:border-0"
                   >
-                    <td className="p-3">
+                    <td className="p-3 min-w-72">
                       <div className="flex items-center gap-3">
                         <Avatar
                           src={user.profile_image || defaultProfile}
@@ -117,12 +120,12 @@ const Users = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="p-3">
+                    <td className="p-3 min-w-48">
                       <Typography type="small" className="opacity-70">
                         {user.address || "Address didn't set"}
                       </Typography>
                     </td>
-                    <td className="p-3">
+                    <td className="p-3 min-w-32">
                       <Typography type="small" className="opacity-70">
                         {user.phone_number || "Number didn't set"}
                       </Typography>

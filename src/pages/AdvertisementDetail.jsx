@@ -113,8 +113,9 @@ const AdvertisementDetail = () => {
         </FadeIn>
         <FadeIn y={0} x={50} duration={0.3} delay={0.1}>
           <Button
+            variant="ghost"
             onClick={handleAddToFavorite}
-            className="flex gap-2 items-center bg-green-600  hover:bg-green-700 border-none"
+            className="flex gap-2 items-center font-semibold"
           >
             <span>Add Favorite </span> <HeartSolid className="text-red-500" />
           </Button>

@@ -78,11 +78,7 @@ const NavigationBar = () => {
               className="max-w-40"
               onClick={() => window.scrollTo(0, 0)}
             >
-              <img
-                className="w-2/3 md:w-full rounded-md"
-                src={logo}
-                alt="Logo"
-              />
+              <img className="w-28 rounded-md" src={logo} alt="Logo" />
             </Typography>
             <div className="hidden lg:ml-auto lg:block">
               <div className="flex gap-4">

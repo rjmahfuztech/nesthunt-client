@@ -17,13 +17,13 @@ const AdvertisementImageGallery = ({ images }) => {
     images.length > 0 ? images : [{ id: 0, image: defaultImage }];
 
   return (
-    <div className="bg-black rounded-xl md:rounded-2xl my-10">
+    <div className="rounded-xl md:rounded-2xl my-10">
       <Swiper
         spaceBetween={1}
         navigation={true}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="w-full max-h-[15rem] md:max-h-[40rem] xl:max-h-[45rem] rounded-xl md:rounded-2xl"
+        className="w-full max-h-[15rem] md:max-h-[32rem] xl:max-h-[40rem] rounded-xl md:rounded-2xl"
       >
         {advertiseImages.map((image) => (
           <SwiperSlide
@@ -31,7 +31,7 @@ const AdvertisementImageGallery = ({ images }) => {
             className="text-center flex justify-center items-center"
           >
             <img
-              className="w-full object-cover object-center"
+              className="w-full object-contain object-center"
               src={image.image}
             />
           </SwiperSlide>
@@ -45,10 +45,10 @@ const AdvertisementImageGallery = ({ images }) => {
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper w-full h-[4rem] md:h-[7rem] box-border !p-2 rounded-xl md:rounded-2xl"
+        className="mySwiper w-full h-[4rem] md:h-[9rem] box-border !p-2 rounded-xl md:rounded-2xl"
       >
         {advertiseImages.map((image) => (
-          <SwiperSlide className="text-center  flex justify-center items-center opacity-40">
+          <SwiperSlide className="text-center flex justify-center items-center opacity-70">
             <img
               key={image.id}
               className="block w-full h-full object-cover rounded-md md:rounded-xl"

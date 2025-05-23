@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Button } from "@material-tailwind/react";
 import FadeIn from "../components/Animation/FadeIn";
+import bgImage from "../assets/images/heroHouse.jpeg";
 
 const Login = () => {
   const { loginUser, errorMessage, setErrorMessage } = useAuthContext();
@@ -47,11 +48,19 @@ const Login = () => {
   }
 
   return (
-    <div>
+    <>
+      <div className="absolute inset-0">
+        <img
+          src={bgImage}
+          alt="background image"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black opacity-50 md:opacity-80"></div>
+      </div>
       {/* Modal Overlay + Content */}
       {open && (
         <div
-          className="fixed px-4 inset-0 z-50 flex items-center justify-center bg-black/50"
+          className="fixed px-4 inset-0 z-50 flex items-center justify-center"
           onClick={handleToggleModal}
         >
           <div
@@ -86,7 +95,7 @@ const Login = () => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

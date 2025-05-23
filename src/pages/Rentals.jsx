@@ -19,7 +19,7 @@ const Rentals = () => {
   });
 
   return (
-    <div className="max-w-[1350px] mx-auto px-4 mt-20">
+    <div className="max-w-[1350px] mx-auto px-4 mt-28">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-0 sm:gap-4 md:gap-6">
         <div className="col-span-2 order-2 md:order-1">
           <FadeIn x={-50} y={0} delay={0.3}>
@@ -54,9 +54,9 @@ const Rentals = () => {
           )}
         </div>
         {/* Filter section  */}
-        <div className="relative order-1 md:order-2">
+        <div className="order-1 md:order-2 relative">
           <FadeIn x={50} y={0} delay={0.3}>
-            <div className="mb-4 md:mb-20 sticky top-20">
+            <div className="mb-4 md:mb-20 md:sticky top-20">
               <h2 className="text-3xl font-bold uppercase my-10 max-w-80 border-b-2 border-b-orange-400">
                 Search Here
               </h2>

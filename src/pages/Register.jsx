@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import useAuthContext from "../hooks/useAuthContext";
 import FadeIn from "../components/Animation/FadeIn";
+import bgImage from "../assets/images/heroHouse.jpeg";
 
 const Register = () => {
   const [open, setOpen] = useState(true);
@@ -73,11 +74,19 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <>
+      <div className="absolute inset-0">
+        <img
+          src={bgImage}
+          alt="background image"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black opacity-50 md:opacity-80"></div>
+      </div>
       {/* Modal Overlay + Content */}
       {open && (
         <div
-          className="fixed px-4 inset-0 z-50 flex items-center justify-center bg-black/50"
+          className="fixed px-4 inset-0 z-50 flex items-center justify-center"
           onClick={handleToggleModal}
         >
           <div
@@ -117,7 +126,7 @@ const Register = () => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

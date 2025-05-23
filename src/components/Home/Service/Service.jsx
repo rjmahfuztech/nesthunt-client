@@ -30,7 +30,7 @@ const Service = () => {
   return (
     <div
       id="service"
-      className="bg-no-repeat bg-bottom pt-36 pb-28 bg-[#F9F9F9]"
+      className="bg-no-repeat bg-bottom pt-24 md:pt-36 pb-10 md:pb-28 bg-[#F9F9F9]"
       style={{ backgroundImage: `url(${serviceBackgroundImg})` }}
     >
       <div className="max-w-[1350px] mx-auto px-4 pb-10">

@@ -65,7 +65,7 @@ const NavigationBar = () => {
       className={`${
         isScroll
           ? "bg-white text-black py-3"
-          : `bg-transparent ${isHomePage && "text-white"} py-6`
+          : `bg-gray-400 bg-opacity-5  ${isHomePage && "text-white"} py-6`
       } border-none rounded-none w-full z-50 fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out`}
     >
       <div className="max-w-screen-2xl px-4 mx-auto">

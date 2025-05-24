@@ -58,7 +58,7 @@ const OrderDetail = ({ order, setOrders }) => {
   return (
     <div key={order.id} className="bg-gray-100 flex justify-center mb-8">
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden w-full max-w-5xl">
-        <div className="bg-indigo-600 px-6 py-4">
+        <div className="bg-gray-800 px-6 py-4">
           <div className="flex items-center flex-wrap justify-between gap-2">
             <div>
               <h2 className="text-lg font-semibold text-white">
@@ -76,7 +76,7 @@ const OrderDetail = ({ order, setOrders }) => {
                     : order.status == "Booked"
                     ? "bg-success"
                     : "bg-error"
-                } text-white text-sm font-medium px-2.5 py-1 rounded-full`}
+                } text-white text-sm font-medium px-4 py-1 rounded-full`}
               >
                 {order.status}
               </span>
@@ -141,6 +141,17 @@ const OrderDetail = ({ order, setOrders }) => {
                   </p>
                 </div>
               </div>
+              {order.payment_date && (
+                <div className="mt-4 flex gap-2 ">
+                  <p className="text-slate-500 text-sm font-medium">
+                    Payment Date:
+                  </p>
+                  <p className="text-slate-900 text-sm font-semibold">
+                    {order.payment_date &&
+                      format(new Date(order.payment_date), "yyyy/MM/dd")}
+                  </p>
+                </div>
+              )}
             </div>
 
             <div className="bg-gray-100 rounded-xl p-4 mt-8">
@@ -196,7 +207,7 @@ const OrderDetail = ({ order, setOrders }) => {
                 order.status == "Cancelled" ||
                 loading
               }
-              className="bg-indigo-600 hover:bg-indigo-700 text-white w-48"
+              className="w-48"
             >
               {order.status == "Booked" ? (
                 "Paid"

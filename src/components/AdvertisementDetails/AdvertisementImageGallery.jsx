@@ -31,7 +31,7 @@ const AdvertisementImageGallery = ({ images }) => {
             className="text-center flex justify-center items-center"
           >
             <img
-              className="w-full object-contain object-center"
+              className="w-full h-[15rem] sm:h-full object-cover object-center"
               src={image.image}
             />
           </SwiperSlide>

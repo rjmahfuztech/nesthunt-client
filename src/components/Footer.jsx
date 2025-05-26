@@ -62,7 +62,7 @@ const Footer = () => {
     apiClient
       .get("/advertisements/")
       .then((res) => {
-        const sorted = res.data.sort(
+        const sorted = res.data.results.sort(
           (a, b) => new Date(b.created_at) - new Date(a.created_at)
         );
         setRecentPost(sorted.slice(0, 2)); // get the latest 2 advertisement post

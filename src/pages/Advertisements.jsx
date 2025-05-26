@@ -35,7 +35,7 @@ const Advertisements = () => {
     setLoading(true);
     authApiClient
       .get("/advertisements/")
-      .then((res) => setAdvertisements(res.data))
+      .then((res) => setAdvertisements(res.data.results))
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
   }, []);

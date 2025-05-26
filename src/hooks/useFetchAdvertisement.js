@@ -8,17 +8,22 @@ const useFetchAdvertisement = ({
   bedroom,
   minAmount,
   maxAmount,
+  currentPage,
 }) => {
   const [advertisements, setAdvertisements] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     const fetchAdvertisements = async () => {
       setLoading(true);
-      const url = `/advertisements/?category_id=${category}&search=${searchQuery}&bedroom=${bedroom}&bathroom=${bathroom}&rental_amount__gt=${minAmount}&rental_amount__lt=${maxAmount}`;
+      const url = `/advertisements/?page=${currentPage}&category_id=${category}&search=${searchQuery}&bedroom=${bedroom}&bathroom=${bathroom}&rental_amount__gt=${minAmount}&rental_amount__lt=${maxAmount}`;
       try {
         const response = await apiClient.get(url);
-        setAdvertisements(response.data);
+        const data = await response.data;
+        setAdvertisements(data.results);
+        if (data.results.length === 8)
+          setTotalPages(Math.ceil(data.count / data.results.length));
       } catch (error) {
         console.log(error);
       } finally {
@@ -27,9 +32,17 @@ const useFetchAdvertisement = ({
     };
 
     fetchAdvertisements();
-  }, [category, searchQuery, bathroom, bedroom, minAmount, maxAmount]);
+  }, [
+    currentPage,
+    category,
+    searchQuery,
+    bathroom,
+    bedroom,
+    minAmount,
+    maxAmount,
+  ]);
 
-  return { advertisements, loading };
+  return { advertisements, loading, totalPages };
 };
 
 export default useFetchAdvertisement;

@@ -22,7 +22,7 @@ const Contact = () => {
           </h2>
           <hr className="bg-orange-400 h-1 border-none w-32 mx-auto mb-14 md:mb-20" />
         </FadeIn>
-        <div className="px-4 flex flex-col md:flex-row gap-10 md:gap-20 justify-center items-center">
+        <div className="px-4 flex flex-col md:flex-row gap-10 md:gap-20 justify-center items-center overflow-x-hidden">
           <FadeIn x={-50} y={0} delay={0.2}>
             <img
               className="sm:w-[20rem] lg:w-[28rem] rounded-xl"

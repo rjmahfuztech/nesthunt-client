@@ -28,7 +28,7 @@ const About = () => {
                 alt="About Image"
               />
             </FadeIn>
-            <div className="col-span-2 mt-10 md:mt-0">
+            <div className="col-span-2 mt-10 md:mt-0 overflow-x-hidden">
               <FadeIn x={50} y={0} delay={0.3}>
                 <h2 className="text-2xl md:text-4xl font-bold uppercase my-2">
                   Connecting You with Your Dream Home

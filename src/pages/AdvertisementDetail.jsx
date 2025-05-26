@@ -98,7 +98,7 @@ const AdvertisementDetail = () => {
   ];
 
   return (
-    <div className="max-w-[1350px] mx-auto px-4 mt-32">
+    <div className="max-w-[1350px] mx-auto px-4 mt-32 overflow-x-hidden">
       <div className="flex gap-2 justify-between items-center mt-10 -mb-5">
         <FadeIn y={0} x={-50} duration={0.3} delay={0.1}>
           <Button

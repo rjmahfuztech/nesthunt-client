@@ -49,7 +49,7 @@ const Rentals = () => {
                   index={index}
                   y={50}
                   duration={1.5}
-                  delay={0.1}
+                  delay={0.05}
                   scale={1}
                 >
                   <AdvertisementInfo advertisement={advertisement} />
@@ -59,10 +59,13 @@ const Rentals = () => {
           )}
           {/* Pagination  */}
           <div className="flex justify-center">
-            <div className="flex items-center gap-3 absolute bottom-10">
+            <div className="flex items-center gap-1 md:gap-3 absolute bottom-10">
               <Button
                 disabled={currentPage == 1}
-                onClick={() => setCurrentPage(currentPage - 1)}
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  setCurrentPage(currentPage - 1);
+                }}
                 variant="ghost"
               >
                 <NavArrowLeft className="mr-1.5 h-4 w-4 stroke-2" />
@@ -73,6 +76,7 @@ const Rentals = () => {
                   key={i}
                   onClick={() => {
                     setCurrentPage(i + 1);
+                    window.scrollTo(0, 0);
                   }}
                   variant={currentPage == i + 1 ? "solid" : "ghost"}
                 >
@@ -81,7 +85,10 @@ const Rentals = () => {
               ))}
               <Button
                 disabled={currentPage == totalPages}
-                onClick={() => setCurrentPage(currentPage + 1)}
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  setCurrentPage(currentPage + 1);
+                }}
                 variant="ghost"
               >
                 Next
@@ -93,17 +100,19 @@ const Rentals = () => {
         {/* Filter section  */}
         <div className="order-1 md:order-2 relative overflow-visible">
           <div className="mb-4 md:mb-20 sticky top-20">
-            <FadeIn x={50} y={0} delay={0.3}>
-              <h2 className="text-3xl font-bold uppercase my-10 max-w-80 border-b-2 border-b-orange-400">
-                Search Here
-              </h2>
-              <FilterSection
-                register={register}
-                handleSubmit={handleSubmit}
-                onSubmit={onSubmit}
-                control={control}
-              />
-            </FadeIn>
+            <div className="overflow-x-hidden">
+              <FadeIn x={50} y={0} delay={0.3}>
+                <h2 className="text-3xl font-bold uppercase my-10 max-w-80 border-b-2 border-b-orange-400">
+                  Search Here
+                </h2>
+                <FilterSection
+                  register={register}
+                  handleSubmit={handleSubmit}
+                  onSubmit={onSubmit}
+                  control={control}
+                />
+              </FadeIn>
+            </div>
           </div>
         </div>
       </div>

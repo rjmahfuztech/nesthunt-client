@@ -1,4 +1,10 @@
-import { Button, Input, Typography, Card } from "@material-tailwind/react";
+import {
+  Button,
+  Input,
+  Typography,
+  Card,
+  Spinner,
+} from "@material-tailwind/react";
 import { CheckCircle, XmarkCircle } from "iconoir-react";
 import { Link } from "react-router";
 
@@ -27,7 +33,7 @@ const RegisterForm = ({
         </Typography>
         {/* Show error if registration not success  */}
         {errorMessage && (
-          <p className="my-2 text-sm font-semibold text-red-500 bg-red-200 rounded-lg p-3 flex gap-2 items-center">
+          <p className="my-2 text-sm font-semibold text-red-500 bg-red-200 rounded-lg p-3 flex flex-wrap sm:gap-2 items-center mx-2">
             <span className="flex gap-2 items-center">
               <XmarkCircle /> Failed!
             </span>
@@ -191,7 +197,14 @@ const RegisterForm = ({
             )}
           </div>
           <Button disabled={loading} isFullWidth>
-            {loading ? "Signing up..." : "Sign Up"}
+            {loading ? (
+              <span className="flex items-center gap-3">
+                <Spinner size="sm" color="success" />
+                Signing up...
+              </span>
+            ) : (
+              "Sign Up"
+            )}
           </Button>
         </form>
       </Card.Body>

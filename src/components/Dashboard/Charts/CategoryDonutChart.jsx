@@ -9,6 +9,7 @@ const CategoryDonutChart = () => {
   const options = {
     chart: {
       type: "donut",
+      width: "100%",
     },
     // labels: ["Family", "Bachelor", "Sublet", "Others"],
     labels: categories.map((category) => category.name),
@@ -19,12 +20,48 @@ const CategoryDonutChart = () => {
     dataLabels: {
       enabled: true,
     },
+    plotOptions: {
+      pie: {
+        donut: {
+          size: "65%", // smaller donut for smaller screen
+        },
+      },
+    },
     responsive: [
+      {
+        breakpoint: 768,
+        options: {
+          chart: {
+            width: "100%",
+          },
+          legend: {
+            position: "bottom",
+            fontSize: "10px",
+          },
+          plotOptions: {
+            pie: {
+              donut: {
+                size: "55%",
+              },
+            },
+          },
+        },
+      },
       {
         breakpoint: 480,
         options: {
-          chart: { width: 300 },
-          legend: { position: "bottom" },
+          chart: {
+            width: 280,
+          },
+          legend: {
+            position: "bottom",
+            fontSize: "10px",
+          },
+          dataLabels: {
+            style: {
+              fontSize: "9px",
+            },
+          },
         },
       },
     ],
@@ -44,7 +81,8 @@ const CategoryDonutChart = () => {
           options={options}
           series={series}
           type="donut"
-          height={350}
+          // height={350}
+          width="100%"
         />
       )}
     </div>

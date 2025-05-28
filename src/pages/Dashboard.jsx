@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Statistics from "../components/Dashboard/Statistics";
 import {
   Calendar,
@@ -12,39 +12,39 @@ import BarChart from "../components/Dashboard/Charts/BarChart";
 import CategoryDonutChart from "../components/Dashboard/Charts/CategoryDonutChart";
 
 const Dashboard = () => {
-  const [statTotal, setStatTotal] = useState({});
+  const [statistics, setStatistics] = useState({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     authApiClient
       .get("/admin/dashboard/")
-      .then((res) => setStatTotal(res.data))
+      .then((res) => setStatistics(res.data))
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
   }, []);
 
   const statInfo = [
-    { icon: Group, title: "Total Users", count: statTotal.total_users },
+    { icon: Group, title: "Total Users", count: statistics.total_users },
     {
       icon: Megaphone,
       title: "Total Advertisements",
-      count: statTotal.total_advertisement,
+      count: statistics.total_advertisement,
     },
     {
       icon: Clock,
       title: "Total Pending Advertisements",
-      count: statTotal.total_pending_advertisement,
+      count: statistics.total_pending_advertisement,
     },
     {
       icon: Calendar,
       title: "Current Month Advertisements",
-      count: statTotal.current_month_advertisement,
+      count: statistics.current_month_advertisement,
     },
     {
       icon: CalendarMinus,
       title: "Last Month Advertisements",
-      count: statTotal.last_month_advertisement,
+      count: statistics.last_month_advertisement,
     },
   ];
 
@@ -65,7 +65,7 @@ const Dashboard = () => {
       <div className="mt-10">
         <div className="grid grid-cols-1 md:grid-cols-3 md:gap-4">
           <div className="col-span-2">
-            <BarChart />
+            <BarChart advertisements={statistics.advertisements} />
           </div>
           <div className="ok">
             <CategoryDonutChart />

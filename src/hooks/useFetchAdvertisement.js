@@ -22,7 +22,7 @@ const useFetchAdvertisement = ({
         const response = await apiClient.get(url);
         const data = await response.data;
         setAdvertisements(data.results);
-        if (data.results.length === 8)
+        if (data.results.length === 10)
           setTotalPages(Math.ceil(data.count / data.results.length));
       } catch (error) {
         console.log(error);

@@ -68,12 +68,12 @@ const CategoryDonutChart = () => {
   };
 
   return (
-    <div className="bg-white p-4 md:p-8 mt-4 md:mt-0 shadow rounded-xl w-full">
+    <div className="bg-white p-4 lg:p-8 mt-4 md:mt-0 shadow h-full rounded-xl w-full">
       <h2 className="text-lg font-semibold mb-4 text-center">
         Listing Categories
       </h2>
       {loading ? (
-        <div className="flex justify-center items-center h-[350px]">
+        <div className="flex justify-center items-center h-[365px]">
           <div className="loader"></div>
         </div>
       ) : (
@@ -81,7 +81,7 @@ const CategoryDonutChart = () => {
           options={options}
           series={series}
           type="donut"
-          // height={350}
+          height={365}
           width="100%"
         />
       )}

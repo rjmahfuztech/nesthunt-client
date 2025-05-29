@@ -14,11 +14,14 @@ import {
   handleConfirmationWarning,
   handleSuccessMessage,
 } from "../components/Messages/Alert";
+import Pagination from "../components/Pagination";
 
 const Advertisements = () => {
   const [advertisements, setAdvertisements] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openRow, setOpenRow] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   // Table head
   const TABLE_HEAD = [
@@ -32,13 +35,24 @@ const Advertisements = () => {
 
   // Load advertisements
   useEffect(() => {
-    setLoading(true);
-    authApiClient
-      .get("/advertisements/")
-      .then((res) => setAdvertisements(res.data.results))
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  }, []);
+    const fetchAdvertisements = async () => {
+      setLoading(true);
+      try {
+        const response = await authApiClient.get(
+          `/advertisements/?page=${currentPage}`
+        );
+        const data = await response.data;
+        setAdvertisements(data.results);
+        if (data.results.length === 10)
+          setTotalPages(Math.ceil(data.count / data.results.length));
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAdvertisements();
+  }, [currentPage]);
 
   // Delete advertisement
   const deleteAdvertisement = (id) => {
@@ -174,6 +188,14 @@ const Advertisements = () => {
           </table>
         </div>
       )}
+      {/* Pagination */}
+      <div className="flex justify-end mt-8">
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={totalPages}
+        />
+      </div>
     </div>
   );
 };

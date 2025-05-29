@@ -7,6 +7,7 @@ import StaggerFadeIn from "../components/Animation/StaggerFadeIn";
 import { Button, IconButton } from "@material-tailwind/react";
 import { NavArrowRight, NavArrowLeft } from "iconoir-react";
 import { useState } from "react";
+import Pagination from "../components/Pagination";
 
 const Rentals = () => {
   // import from AppContext
@@ -59,41 +60,12 @@ const Rentals = () => {
           )}
           {/* Pagination  */}
           <div className="flex justify-center">
-            <div className="flex items-center gap-1 md:gap-3 absolute bottom-10">
-              <Button
-                disabled={currentPage == 1}
-                onClick={() => {
-                  window.scrollTo(0, 0);
-                  setCurrentPage(currentPage - 1);
-                }}
-                variant="ghost"
-              >
-                <NavArrowLeft className="mr-1.5 h-4 w-4 stroke-2" />
-                Previous
-              </Button>
-              {Array.from({ length: totalPages }, (_, i) => (
-                <IconButton
-                  key={i}
-                  onClick={() => {
-                    setCurrentPage(i + 1);
-                    window.scrollTo(0, 0);
-                  }}
-                  variant={currentPage == i + 1 ? "solid" : "ghost"}
-                >
-                  {i + 1}
-                </IconButton>
-              ))}
-              <Button
-                disabled={currentPage == totalPages}
-                onClick={() => {
-                  window.scrollTo(0, 0);
-                  setCurrentPage(currentPage + 1);
-                }}
-                variant="ghost"
-              >
-                Next
-                <NavArrowRight className="ml-1.5 h-4 w-4 stroke-2" />
-              </Button>
+            <div className="absolute bottom-10">
+              <Pagination
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                totalPages={totalPages}
+              />
             </div>
           </div>
         </div>

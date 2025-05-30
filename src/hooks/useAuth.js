@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
 import { handleApiError } from "../components/Messages/Alert";
 import authApiClient from "../services/authApiClient";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const useAuth = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -77,6 +78,27 @@ const useAuth = () => {
       handleApiError(error);
     }
   };
+
+  // Google Login
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      const accessToken = tokenResponse.access_token;
+      setErrorMessage("");
+      try {
+        const response = await apiClient.post("/auth/google/", {
+          access_token: accessToken,
+        });
+        localStorage.setItem("authTokens", JSON.stringify(response.data));
+        setAuthTokens(response.data);
+        window.location.href = "/dashboard";
+      } catch (error) {
+        handleApiError(error);
+      }
+    },
+    onError: () => {
+      handleApiError("Google Login failed.");
+    },
+  });
 
   // Login User
   const loginUser = async (userData) => {
@@ -186,6 +208,7 @@ const useAuth = () => {
     resetPassword,
     resetPasswordConfirm,
     resendActivationEmail,
+    handleGoogleLogin,
   };
 };
 

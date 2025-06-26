@@ -1,12 +1,74 @@
-# React + Vite
+# 🏠 NestHunt – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**NestHunt** is a full-stack house rental platform where users can list their own properties or rent other's homes. This is the **frontend** built with React.js and Tailwind CSS. It communicates with a Django REST API backend and includes separate dashboards for both users and admins.
 
-Currently, two official plugins are available:
+🔗 **Live Site:** [nesthunt.vercel.app](https://nesthunt.vercel.app)  
+🔗 **Backend Repo:** [NestHunt Backend (Django)](https://github.com/rjmahfuztech/nesthunt)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Secure JWT-based login, registration, and Google OAuth
+- List houses, browse property details, filter and search
+- Add to favorites, send rent requests
+- Stripe integration for rental payments
+- User dashboard for profile, ads, and booking management
+- Admin dashboard for listing approval, analytics, and user control
+- Responsive UI with Tailwind CSS
+
+---
+
+## 🚀 Tech Stack
+
+**Frontend:**
+
+- React.js (with Vite)
+- Tailwind CSS
+- Material Tailwind
+- React Router DOM
+- Axios
+- Stripe.js
+
+**Other Tools:**
+
+- Vercel (Frontend Deployment)
+- Google OAuth (via backend)
+- ApexCharts
+- Framer Motion (For Animation)
+
+---
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/rjmahfuztech/nesthunt-client.git
+cd nesthunt-client
+npm install
+npm run dev
+```
+
+### 📸 **Screenshots Section**
+
+```markdown
+## 📸 Screenshots
+
+**Homepage**  
+![Homepage](./src/assets/images/readme/img1.jpeg)
+
+**Rentals**
+![Rentals](./src/assets/images/readme/img2.jpeg)
+
+**Dashboard statistics**  
+![Dashboard statistics](./src/assets/images/readme/img3.jpeg)
+
+**Dashboard House List**
+![House List](./src/assets/images/readme/img4.jpeg)
+```
+
+## 🙋‍♂️ Author
+
+**Mahfuz Islam**  
+🌐 [Portfolio Website](https://mahfuzislam.vercel.app)  
+🔗 [LinkedIn](https://linkedin.com/in/mahfuz-islam)  
+🐙 [GitHub](https://github.com/rjmahfuztech)

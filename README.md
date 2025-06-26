@@ -54,16 +54,16 @@ npm run dev
 ## 📸 Screenshots
 
 **Homepage**  
-![Homepage](./src/assets/images/readme/img1.jpeg)
+![Homepage](https://raw.githubusercontent.com/rjmahfuztech/nesthunt-client/refs/heads/development/src/assets/images/readme/img1.jpeg)
 
 **Rentals**
-![Rentals](./src/assets/images/readme/img2.jpeg)
+![Rentals](https://raw.githubusercontent.com/rjmahfuztech/nesthunt-client/refs/heads/development/src/assets/images/readme/img2.jpeg)
 
 **Dashboard statistics**  
-![Dashboard statistics](./src/assets/images/readme/img3.jpeg)
+![Dashboard statistics](https://raw.githubusercontent.com/rjmahfuztech/nesthunt-client/refs/heads/development/src/assets/images/readme/img3.jpeg)
 
 **Dashboard House List**
-![House List](./src/assets/images/readme/img4.jpeg)
+![House List](https://raw.githubusercontent.com/rjmahfuztech/nesthunt-client/refs/heads/development/src/assets/images/readme/img4.jpeg)
 ```
 
 ## 🙋‍♂️ Author

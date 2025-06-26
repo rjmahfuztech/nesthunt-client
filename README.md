@@ -48,23 +48,26 @@ npm install
 npm run dev
 ```
 
-### 📸 **Screenshots Section**
-
-```markdown
 ## 📸 Screenshots
 
-**Homepage**  
-![Homepage](https://raw.githubusercontent.com/rjmahfuztech/nesthunt-client/development/src/assets/images/readme/img1.jpeg)
-
-**Rentals**
-![Rentals](https://raw.githubusercontent.com/rjmahfuztech/nesthunt-client/development/src/assets/images/readme/img2.jpeg)
-
-**Dashboard statistics**  
-![Dashboard statistics](https://raw.githubusercontent.com/rjmahfuztech/nesthunt-client/development/src/assets/images/readme/img3.jpeg)
-
-**Dashboard House List**
-![House List](https://raw.githubusercontent.com/rjmahfuztech/nesthunt-client/development/src/assets/images/readme/img4.jpeg)
-```
+<table>
+  <tr>
+    <td>
+      <img src="./src/assets/images/readme/img1.jpeg" alt="Homepage" width="100%"/>
+    </td>
+    <td>
+      <img src="./src/assets/images/readme/img2.jpeg" alt="Rentals" width="100%"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="./src/assets/images/readme/img3.jpeg" alt="Dashboard Statistics" width="100%"/>
+    </td>
+    <td>
+      <img src="./src/assets/images/readme/img4.jpeg" alt="Dashboard House List" width="100%"/>
+    </td>
+  </tr>
+</table>
 
 ## 🙋‍♂️ Author
 

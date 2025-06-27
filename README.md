@@ -69,6 +69,12 @@ npm run dev
   </tr>
 </table>
 
+---
+
+## License
+
+This project is licensed under the MIT License.
+
 ## 🙋‍♂️ Author
 
 **Mahfuz Islam**

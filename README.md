@@ -71,7 +71,10 @@ npm run dev
 
 ## 🙋‍♂️ Author
 
-**Mahfuz Islam**  
+**Mahfuz Islam**
+
+For any questions or issues, feel free to contact me at rjmahfuz.islam@gmail.com or visit:
+
 🌐 [Portfolio Website](https://mahfuzislam.vercel.app)  
 🔗 [LinkedIn](https://linkedin.com/in/mahfuz-islam)  
 🐙 [GitHub](https://github.com/rjmahfuztech)

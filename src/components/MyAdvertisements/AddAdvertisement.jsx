@@ -42,7 +42,10 @@ const AddAdvertisement = () => {
   return (
     <>
       {advertiseId ? (
-        <AddAdvertisementImages advertiseId={advertiseId} />
+        <AddAdvertisementImages
+          setAdvertiseId={setAdvertiseId}
+          advertiseId={advertiseId}
+        />
       ) : (
         <AdvertisementForm
           categories={categories}

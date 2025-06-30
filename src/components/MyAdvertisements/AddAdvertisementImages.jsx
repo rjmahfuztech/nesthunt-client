@@ -3,7 +3,7 @@ import { useState } from "react";
 import authApiClient from "../../services/authApiClient";
 import { handleApiError, handleSuccessMessage } from "../Messages/Alert";
 
-const AddAdvertisementImages = ({ advertiseId }) => {
+const AddAdvertisementImages = ({ advertiseId, setAdvertiseId }) => {
   const [imagePreview, setImagePreview] = useState([]);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -44,6 +44,10 @@ const AddAdvertisementImages = ({ advertiseId }) => {
           "Images Added",
           "Your Images successfully added for this house advertisement."
         );
+        if (typeof setAdvertiseId === "function")
+          setTimeout(() => {
+            setAdvertiseId(null);
+          }, 2000);
       }
     } catch (error) {
       handleApiError(error);

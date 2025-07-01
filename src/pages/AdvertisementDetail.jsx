@@ -21,6 +21,7 @@ import {
 } from "../components/Messages/Alert";
 import useAuthContext from "../hooks/useAuthContext";
 import FadeIn from "../components/Animation/FadeIn";
+import SuggestedAdvertisement from "../components/AdvertisementDetails/SuggestedAdvertisement";
 
 const AdvertisementDetail = () => {
   const { advertiseId } = useParams();
@@ -37,7 +38,7 @@ const AdvertisementDetail = () => {
       .then((res) => setAdvertisement(res.data))
       .catch((err) => console.log("Advertisement details error:", err))
       .finally(() => setLoading(false));
-  }, []);
+  }, [advertiseId]);
 
   // Fetch Category
   useEffect(() => {
@@ -132,6 +133,11 @@ const AdvertisementDetail = () => {
             advertisement={advertisement}
             category={category}
             details={details}
+          />
+          {/* Related house advertisement */}
+          <SuggestedAdvertisement
+            advertiseId={advertiseId}
+            categoryId={advertisement.category}
           />
         </div>
         {/* Advertisement Reviews  */}

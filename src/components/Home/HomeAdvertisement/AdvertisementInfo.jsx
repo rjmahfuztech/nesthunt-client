@@ -31,7 +31,11 @@ const AdvertisementInfo = ({ advertisement }) => {
         </Card.Header>
         <Card.Body>
           <div className="mb-2 flex items-center justify-between">
-            <Typography type="h6">{advertisement.title}</Typography>
+            <Typography type="h6">
+              {advertisement.title.length > 25
+                ? `${advertisement.title.slice(0, 25)}...`
+                : advertisement.title}
+            </Typography>
             <Typography className="flex items-center gap-1.5 ">
               <StarSolid className="h-[18px] w-[18px] text-warning" />
               5.0

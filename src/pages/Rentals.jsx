@@ -48,6 +48,7 @@ const Rentals = () => {
                 <StaggerFadeIn
                   key={advertisement.id}
                   index={index}
+                  amount={0.1}
                   y={50}
                   duration={1.5}
                   delay={0.05}

@@ -16,27 +16,23 @@ import logo from "../assets/logo/small.jpeg";
 
 const NavList = () => {
   const navLinks = [
-    // { title: "Home", to: "/" },
-    { title: "Service", href: "#service" },
+    { title: "Service", to: "/#service" },
     { title: "Rentals", to: "/rentals" },
     { title: "Add Advertise", to: "/dashboard/advertisement/add" },
     { title: "Dashboard", to: "/dashboard" },
-    { title: "About Us", href: "#about" },
-    { title: "Contact", href: "#contact" },
+    { title: "About Us", to: "/#about" },
+    { title: "Contact", to: "/#contact" },
   ];
   return (
     <>
       {navLinks.map((nav, index) => (
         <li key={index}>
-          <Typography
-            as={nav?.to ? Link : "a"}
-            to={nav?.to}
-            href={nav?.href}
-            type="small"
-            className="flex items-center gap-x-2 font-semibold p-1"
+          <Link
+            className="flex text-sm items-center gap-x-2 font-semibold p-1"
+            to={nav.to}
           >
             {nav.title}
-          </Typography>
+          </Link>
         </li>
       ))}
     </>
@@ -49,6 +45,7 @@ const NavigationBar = () => {
   const [isScroll, setIsScroll] = useState(false);
   const location = useLocation();
 
+  // maintaining navbar background color depending on scroll
   useEffect(() => {
     const handleScrollNavbar = () => {
       setIsScroll(window.scrollY > 10);
@@ -58,7 +55,20 @@ const NavigationBar = () => {
     return () => window.removeEventListener("scroll", handleScrollNavbar);
   }, []);
 
+  // checking the path
   const isHomePage = location.pathname === "/";
+
+  // smoothly scroll to sections
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.querySelector(location.hash);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ block: "start" });
+        }, 0);
+      }
+    }
+  }, [location]);
 
   return (
     <Navbar

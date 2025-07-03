@@ -89,7 +89,7 @@ const AdvertisementDetails = ({ advertisement, category, details }) => {
       {/* Description  */}
       <FadeIn y={0} x={-50} delay={0.5}>
         <div className="mt-4 min-h-24 bg-[#F0F2F4] p-4 rounded-lg">
-          <h2 className="text-lg md:text-2xl font-semibold">Details:</h2>
+          <h2 className="text-lg md:text-2xl font-semibold">Description:</h2>
           <p className="text gray-500 mt-2">{category?.description}</p>
         </div>
       </FadeIn>

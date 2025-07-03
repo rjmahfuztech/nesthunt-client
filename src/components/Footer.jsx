@@ -12,7 +12,7 @@ import {
   MapPin,
   NavArrowRight,
 } from "iconoir-react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import defaultImg from "../assets/images/defaultImage.jpeg";
 import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
@@ -23,21 +23,21 @@ const LINKS = [
   {
     title: "Useful Links",
     items: [
-      { title: "About Us", href: "#about" },
-      { title: "Blog", href: "#" },
+      { title: "About Us", to: "/#about" },
+      { title: "Blog", to: "/#blog" },
       { title: "Rentals", to: "/rentals" },
       { title: "Dashboard", to: "/dashboard" },
-      { title: "Contact Us", href: "#contact" },
+      { title: "Contact Us", to: "/#contact" },
     ],
   },
   {
     title: "Rent With Us",
     items: [
       { title: "Advertise a House", to: "/dashboard/advertisement/add" },
-      { title: "Rent a House", to: "/rentals" },
+      { title: "My Advertisements", to: "/dashboard/my-advertisements" },
       { title: "Book Now", to: "/dashboard/rent-requests" },
-      { title: "Book Your Room", to: "/rentals" },
-      { title: "Privacy Policy", href: "#" },
+      { title: "Favorite", to: "/dashboard/favorites" },
+      { title: "Orders", to: "/dashboard/orders" },
     ],
   },
 ];
@@ -56,6 +56,7 @@ const socialLinks = [
 const Footer = () => {
   const [recentPost, setRecentPost] = useState([]);
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     setLoading(true);
@@ -71,6 +72,18 @@ const Footer = () => {
       .finally(() => setLoading(false));
   }, []);
 
+  // smoothly scroll to sections
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.querySelector(location.hash);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ block: "start" });
+        }, 0);
+      }
+    }
+  }, [location]);
+
   return (
     <footer className="relative w-full bg-[#252525] py-20 text-white">
       <FadeIn y={20} duration={1} delay={0.1}>
@@ -81,7 +94,8 @@ const Footer = () => {
                 Contact us
               </Typography>
               <div className="flex items-center gap-2 font-semibold">
-                <PhoneSolid className="w-4 h-4" /> <span>(+088) 121999999</span>
+                <PhoneSolid className="w-4 h-4" />{" "}
+                <span>(+880) 1712376559</span>
               </div>
               <div className="flex items-center gap-2 font-semibold mt-4">
                 <MailSolid className="w-4 h-4" />{" "}
@@ -90,7 +104,7 @@ const Footer = () => {
               <div className="flex items-center gap-2 font-semibold mt-4">
                 <MapPin className="w-4 h-4" />{" "}
                 <span className="text-sm  text-zinc-400">
-                  8121 Sierra Lane Tampa, Florida 33604
+                  House 32, Road 11, Uttara, Dhaka 1230
                 </span>
               </div>
             </div>
@@ -101,15 +115,13 @@ const Footer = () => {
                 </Typography>
                 {items.map((navLink) => (
                   <li key={navLink.title} className="inline">
-                    <Typography
-                      as={navLink?.to ? Link : "a"}
-                      to={navLink?.to}
-                      href={navLink?.href}
+                    <Link
+                      to={navLink.to}
                       className="py-1 text-sm text-zinc-400 hover:text-zinc-200 transition-colors duration-300 flex items-center gap-1"
                     >
                       <NavArrowRight strokeWidth={4} className="w-3 h-3" />{" "}
                       {navLink.title}
-                    </Typography>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -159,6 +171,7 @@ const Footer = () => {
                 <IconButton
                   key={index}
                   as="a"
+                  target="_blank"
                   href={href}
                   variant="ghost"
                   size="sm"

@@ -10,6 +10,7 @@ import {
 import authApiClient from "../services/authApiClient";
 import BarChart from "../components/Dashboard/Charts/BarChart";
 import CategoryDonutChart from "../components/Dashboard/Charts/CategoryDonutChart";
+import RecentAdvertisements from "../components/Dashboard/RecentAdvertisements";
 
 const Dashboard = () => {
   const [statistics, setStatistics] = useState({});
@@ -71,6 +72,9 @@ const Dashboard = () => {
             <CategoryDonutChart />
           </div>
         </div>
+      </div>
+      <div className="my-10">
+        <RecentAdvertisements advertisements={statistics.advertisements} />
       </div>
     </div>
   );

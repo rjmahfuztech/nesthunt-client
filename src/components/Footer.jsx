@@ -24,7 +24,6 @@ const LINKS = [
     title: "Useful Links",
     items: [
       { title: "About Us", to: "/#about" },
-      { title: "Blog", to: "/#blog" },
       { title: "Rentals", to: "/rentals" },
       { title: "Dashboard", to: "/dashboard" },
       { title: "Contact Us", to: "/#contact" },

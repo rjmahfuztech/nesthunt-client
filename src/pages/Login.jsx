@@ -12,6 +12,8 @@ const Login = () => {
   const { loginUser, errorMessage, setErrorMessage } = useAuthContext();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(true);
+  const [showTestLoginModal, setShowTestLoginModal] = useState(true); // default to show
+
   const navigate = useNavigate();
 
   // Handle Open and Close Modal
@@ -23,6 +25,7 @@ const Login = () => {
   const {
     handleSubmit,
     register,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -46,6 +49,18 @@ const Login = () => {
       setErrorMessage("");
     }, 8000);
   }
+
+  // Quick Login Credentials
+  const handleQuickLogin = (role) => {
+    const testCredentials = {
+      admin: { email: "admin@mahfuz.com", pass: "1234" },
+      user: { email: "test@gmail.com", pass: "testUser12" },
+    };
+
+    const credential = testCredentials[role];
+    setValue("email", credential.email);
+    setValue("password", credential.pass);
+  };
 
   return (
     <>
@@ -79,7 +94,43 @@ const Login = () => {
                 </Button>
 
                 {/* Modal Content */}
-                <div>
+                <div className="relative">
+                  {/* Admin and User Credentials modal */}
+                  {showTestLoginModal && (
+                    <div className="absolute -translate-y-[70%] lg:-translate-y-0 left-0 lg:-translate-x-[115%] z-40 bg-white/90 shadow-xl rounded-lg p-4 w-52">
+                      {/* Close Button */}
+                      <button
+                        variant="ghost"
+                        onClick={() => setShowTestLoginModal(false)}
+                        className="absolute top-2 right-2 text-black hover:text-black"
+                      >
+                        <Xmark className="h-6 w-6" />
+                      </button>
+
+                      {/* Content */}
+                      <h4 className="text-sm font-bold mb-3 text-black">
+                        Quick Test Login:
+                      </h4>
+                      <div className="flex flex-col gap-2">
+                        <Button
+                          onClick={() => handleQuickLogin("admin")}
+                          variant="outline"
+                          size="sm"
+                          color="primary"
+                        >
+                          Login as Admin
+                        </Button>
+                        <Button
+                          onClick={() => handleQuickLogin("user")}
+                          size="sm"
+                          color="info"
+                        >
+                          Login as User
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Login Form  */}
                   <LoginForm
                     handleSubmit={handleSubmit}

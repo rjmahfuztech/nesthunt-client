@@ -30,6 +30,10 @@ const Users = () => {
 
   // Delete user
   const deleteUser = (id) => {
+    // admin and testUser can not delete
+    if (id === 1) return handleApiError("You can not delete Admin");
+    if (id === 2) return handleApiError("You can not delete this TestUser");
+
     // delete warning
     handleConfirmationWarning("delete").then(async (result) => {
       if (result.isConfirmed) {

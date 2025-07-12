@@ -53,7 +53,7 @@ const Login = () => {
   // Quick Login Credentials
   const handleQuickLogin = (role) => {
     const testCredentials = {
-      admin: { email: "admin@mahfuz.com", pass: "1234" },
+      admin: { email: "admin@mahfuz.com", pass: "Mahfuz@Islam1" },
       user: { email: "test@gmail.com", pass: "testUser12" },
     };
 
